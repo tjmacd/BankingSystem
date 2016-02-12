@@ -1,0 +1,3 @@
+00001 Account 1            A 00001.00 N
+00002 Account Full         A 99999.99 N
+00003 Student Account 1    A 00001.00 S
