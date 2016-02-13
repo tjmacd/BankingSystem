@@ -1,3 +1,6 @@
 00001 Account 1            A 00001.00 N
 00002 Account Full         A 99999.99 N
 00003 Student Account 1    A 00001.00 S
+00004 Empty Account        A 00000.00 N
+00006 Disabled Account     D 99999.99 N
+00000 END OF FILE            00000000  
