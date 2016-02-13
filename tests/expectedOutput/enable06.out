@@ -1,0 +1,27 @@
+Please select session type (standard or admin):
+Logged in as admin
+Please enter account holder's name:
+Enter the account number:
+Account 00006 enabled
+Please enter account holder's name:
+Enter the account number:
+Enter the amount to withdraw:
+$5.00 withdrawn from account 00006
+Please enter account holder's name:
+Enter the account number to transfer from:
+Enter the account number to transfer to:
+Enter the amount to transfer:
+$0.01 transfered to account 00001
+Please enter account holder's name:
+Enter the account number:
+Enter the payee company:
+Enter the amount to pay:
+$0.01 payed to EC
+Please enter account holder's name:
+Enter the account number:
+Enter the amount to deposit:
+$0.01 deposited to account 00006
+Please enter account holder's name:
+Enter the account number:
+00006 has been changed to a student account
+Logged out
