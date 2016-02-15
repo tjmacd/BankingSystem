@@ -1,0 +1,8 @@
+Welcome to the banking system enter session type
+enter session type
+login accepted
+What is your name?
+What is your account number?
+How much would you like to withdraw?
+Incorrect number format
+you have loggedout
