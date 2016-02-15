@@ -3,6 +3,9 @@ Logged in as admin
 Please enter account holder's name:
 Enter the initial balance:
 Account successfully created for New Account with account number 00005
+Logged out
+Please select session type (standard or admin):
+Logged in as admin
 Please enter account holder's name:
 Enter the account number:
 No transactions are allowed on this account in this session

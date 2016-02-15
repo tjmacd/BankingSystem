@@ -3,6 +3,9 @@ admin
 create
 New Account
 0.01
+logout
+login
+admin
 withdrawal
 New Account
 00005
