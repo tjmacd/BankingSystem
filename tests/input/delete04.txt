@@ -1,0 +1,12 @@
+login
+admin
+delete
+Account 1
+00001
+deposit
+logout
+login
+admin
+delete
+Account 1
+logout
