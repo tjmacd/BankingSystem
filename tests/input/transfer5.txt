@@ -1,0 +1,7 @@
+login
+admin
+transfer
+mark
+99999
+00002
+logout

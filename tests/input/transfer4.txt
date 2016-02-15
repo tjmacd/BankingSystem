@@ -1,0 +1,6 @@
+login
+admin
+transfer
+mark
+10001
+logout

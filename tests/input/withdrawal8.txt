@@ -1,0 +1,7 @@
+login
+admin
+withdrawal
+mark
+00001
+0.01
+logout

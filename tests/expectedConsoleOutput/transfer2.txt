@@ -1,0 +1,9 @@
+Welcome to the banking system enter session type
+enter session type
+login accepted
+What is your name?
+What is your account number?
+To which account would you like to transfer?
+How much would you like to transfer?
+Not in the correct format of ####.##
+you have loggedout
