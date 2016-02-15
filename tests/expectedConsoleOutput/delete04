@@ -2,5 +2,10 @@ Please select session type (standard or admin):
 Logged in as admin
 Please enter account holder's name:
 Enter account number:
-Account is deleted, cannot process transaction
+Account is deleted
+Logged out
+Please select session type (standard or admin):
+Logged in as admin
+Please enter account holder's name:
+Account not found or has been deleted
 Logged out

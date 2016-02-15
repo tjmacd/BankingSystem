@@ -2,10 +2,11 @@ Please select session type (standard or admin):
 Logged in as admin
 Please enter account holder's name:
 Enter account number:
-Account has been successfully deleted
+Payment plan has been changed from Non-student to student
 Logged out
 Please select session type (standard or admin):
 Logged in as admin
 Please enter account holder's name:
-Account not found or has been deleted
+Enter account number:
+Payment plan has been changed from Student to Non-student
 Logged out
