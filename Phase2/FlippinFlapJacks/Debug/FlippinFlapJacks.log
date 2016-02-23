@@ -1,0 +1,24 @@
+﻿Build started 2/22/2016 8:31:52 PM.
+     1>Project "c:\Users\100490143\documents\visual studio 2010\Projects\FlippinFlapJacks\FlippinFlapJacks\FlippinFlapJacks.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\FlippinFlapJacks.unsuccessfulbuild".
+       ClCompile:
+         All outputs are up-to-date.
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Debug\FlippinFlapJacks.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt AccountHelper.cpp FlippinFlapJacks.cpp TransactionsHelper.cpp
+         TransactionsHelper.cpp
+     1>c:\users\100490143\documents\visual studio 2010\projects\flippinflapjacks\flippinflapjacks\accounthelper.h(13): error C2146: syntax error : missing ';' before identifier 'getAccount'
+     1>c:\users\100490143\documents\visual studio 2010\projects\flippinflapjacks\flippinflapjacks\accounthelper.h(13): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\100490143\documents\visual studio 2010\projects\flippinflapjacks\flippinflapjacks\accounthelper.h(13): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\100490143\documents\visual studio 2010\projects\flippinflapjacks\flippinflapjacks\accounthelper.h(13): warning C4183: 'getAccount': missing return type; assumed to be a member function returning 'int'
+         AccountHelper.cpp
+     1>c:\users\100490143\documents\visual studio 2010\projects\flippinflapjacks\flippinflapjacks\accounthelper.cpp(18): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\100490143\documents\visual studio 2010\projects\flippinflapjacks\flippinflapjacks\accounthelper.cpp(35): warning C4018: '<' : signed/unsigned mismatch
+         Generating Code...
+     1>c:\users\100490143\documents\visual studio 2010\projects\flippinflapjacks\flippinflapjacks\accounthelper.cpp(52): error C4716: 'AccountHelper::validateWithdrawAmount' : must return a value
+         Skipping... (no relevant changes detected)
+         FlippinFlapJacks.cpp
+     1>Done Building Project "c:\Users\100490143\documents\visual studio 2010\Projects\FlippinFlapJacks\FlippinFlapJacks\FlippinFlapJacks.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.09
