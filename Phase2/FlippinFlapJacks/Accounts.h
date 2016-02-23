@@ -8,4 +8,5 @@ public:
 	std::string name;
 	bool active;
 	float balance;
+        bool student;
 };

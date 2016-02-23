@@ -222,8 +222,34 @@ void TransactionsHelper::processDisable() {
 }
 
 void TransactionsHelper::processChangePlan() {
-    // TODO - implement TransactionsHelper::processChangePlan
-    throw "Not yet implemented";
+    if(isLoggedIn) {
+        if(isAdmin) {
+            cout << "Enter Account holder's name: ";
+            cin >> accountHolderName;
+            
+            cout << "Enter the account number: ";
+            cin >> accountHolderNumber;
+
+            if(!ah.validateAccount(accountHolderNumber, accountHolderName)) {
+                    cout << "Account number is not valid for that account "
+                            "holder";
+                    return;
+            }
+            Accounts account = AccountHelper.getAccount(accountHolderNumber);
+            
+            char type = AccountHelper::changePlan(accountHolderNumber);
+            if(type == "S")
+                cout << "Account number " << accountHolderNumber << " changed "
+                        "to student" << endl;
+            else
+                cout << "Account number " << accountHolderNumber << " changed "
+                        "to non-student" << endl;
+
+            logTransaction("08", accountHolderName, accountHolderNumber, 0, "");
+        } else {
+            cout << "Permission denied. Only admin can use this command" 
+                    << endl;
+        } 
 }
 
 void TransactionsHelper::processEnable() {
@@ -236,20 +262,23 @@ void TransactionsHelper::processEnable() {
             cin >> accountHolderNumber;
 
             if(!ah.validateAccount(accountHolderNumber, accountHolderName)) {
-                    cout << "Account number is not valid for that account holder";
+                    cout << "Account number is not valid for that account "
+                            "holder";
                     return;
             }
             Accounts account = AccountHelper.getAccount(accountHolderNumber);
             
             if(!account.active){
                 AccountHelper.enableAccount(accountHolderNumber);
-                cout << "Account number " << accountHolderNumber << " enabled" << endl;
+                cout << "Account number " << accountHolderNumber << " enabled" 
+                        << endl;
             } else {
                 cout << "Account is already enabled" << endl;
             }
 
             logTransaction("09", accountHolderName, accountHolderNumber, 0, "");
         } else {
-            cout << "Permission denied. Only admin can use this command" << endl;
+            cout << "Permission denied. Only admin can use this command" 
+                    << endl;
         } 
 }
