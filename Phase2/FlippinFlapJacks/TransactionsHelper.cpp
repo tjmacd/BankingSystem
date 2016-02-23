@@ -89,6 +89,45 @@ void TransactionsHelper::processWithdrawal() {
     }
 }
 
+void TransactionsHelper::processTransfer() {
+    float amount;
+    int fromAccountNum;
+    int toAccountNum;
+
+    if(isLoggedIn) {
+            if(isAdmin) {
+                    cout << "Enter Account holder's name: ";
+                    cin >> accountHolderName;
+            }
+            
+            cout << "Enter Account number to transfer from: ";
+            cin >> fromAccountNum;
+            
+            if(!ah.validateAccount(fromAccountNum, accountHolderName))
+            {
+                cout << "Account number is not valid for the account holder" 
+                        << endl;
+                return;
+            }
+            
+            cout << "Enter account number to transfer to: " << endl;
+            cin >> toAccountNum;
+            if(!ah.validateAccountNumber(toAccountNum)){
+                cout << "Account number is not valid" << endl;
+            }
+
+            cout << "Enter the amount to transfer: " << endl;
+            cin >> amount;
+            
+            FileStreamHelper::logTransaction("02", accountHolderName, 
+                    fromAccountNum, amount, "");
+            FileStreamHelper::logTransaction("02", accountHolderName, 
+                    toAccountNum, amount, "");
+    } else {
+            cout << "Not logged in! Please login!" << endl;
+    }
+}
+
 void TransactionsHelper::processPaybill() {
     if(isLoggedIn) {
         string company;
@@ -115,7 +154,8 @@ void TransactionsHelper::processPaybill() {
                     cout << "Enter the amount to pay: " << endl;
             cin >> amount;
 
-            FileStreamHelper::logTransaction("03", accountHolderName, account.num, amount, company);
+            FileStreamHelper::logTransaction("03", accountHolderName, 
+                    account.num, amount, company);
             }
             else
             {

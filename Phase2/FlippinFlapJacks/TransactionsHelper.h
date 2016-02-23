@@ -20,6 +20,8 @@ public:
 	void processLogout();
 
 	void processWithdrawal();
+        
+        void processTransfer();
 
 	void processPaybill();
 
