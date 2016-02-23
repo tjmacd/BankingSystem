@@ -1,3 +1,5 @@
+#ifndef FLIPPINFLAPJACKS_TRANSACTIONS_HELPER_H
+#define FLIPPINFLAPJACKS_TRANSACTIONS_HELPER_H
 #include <vector>
 #include "AccountHelper.h"
 
@@ -37,3 +39,5 @@ public:
         
         void processEnable();
 };
+
+#endif // FLIPPINFLAPJACKS_TRANSACTIONS_HELPER_H

@@ -1,3 +1,5 @@
+#ifndef FLIPPINFLAPJACKS_ACCOUNTS_H
+#define FLIPPINFLAPJACKS_ACCOUNTS_H
 #include <iostream>
 #include <string>
 
@@ -10,3 +12,5 @@ public:
 	float balance;
         bool student;
 };
+
+#endif // FLIPPINFLAPJACKS_ACCOUNTS_H

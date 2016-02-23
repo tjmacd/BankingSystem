@@ -1,3 +1,5 @@
+#ifndef FLIPPINFLAPJACKS_FILESTREAMHELPER_H
+#define FLIPPINFLAPJACKS_FILESTREAMHELPER_H
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -17,3 +19,5 @@ public:
 	void parseAccount(std::string line);
 	std::string trim(std::string& str);
 };
+
+#endif // FLIPPINFLAPJACKS_FILESTREAMHELPER_H
