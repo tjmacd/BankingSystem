@@ -32,4 +32,6 @@ public:
 	void processDisable();
 
 	void processChangePlan();
+        
+        void processEnable();
 };

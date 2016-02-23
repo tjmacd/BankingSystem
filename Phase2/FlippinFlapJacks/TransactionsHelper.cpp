@@ -168,16 +168,88 @@ void TransactionsHelper::processCreate() {
 }
 
 void TransactionsHelper::processDelete() {
-    // TODO - implement TransactionsHelper::processDelete
-    throw "Not yet implemented";
+    if(isLoggedIn) {
+        if(isAdmin){
+            cout << "Enter Account holder's name: ";
+            cin >> accountHolderName;
+            
+            cout << "Enter the account number: ";
+            cin >> accountHolderNumber;
+
+            if(!ah.validateAccount(accountHolderNumber, accountHolderName)) {
+                    cout << "Account number is not valid for that account holder";
+                    return;
+            }
+
+            logTransaction("06", accountHolderName, accountHolderNumber, 0, "");
+        } else {
+            cout << "Permission denied. Only admin can use this command" << endl;
+        } 
+    } else {
+            cout << "Not logged in! Please login!" << endl;
+    }
 }
 
 void TransactionsHelper::processDisable() {
-    // TODO - implement TransactionsHelper::processDisable
-    throw "Not yet implemented";
+    if(isLoggedIn) {
+        if(isAdmin) {
+            cout << "Enter Account holder's name: ";
+            cin >> accountHolderName;
+            
+            cout << "Enter the account number: ";
+            cin >> accountHolderNumber;
+
+            if(!ah.validateAccount(accountHolderNumber, accountHolderName)) {
+                    cout << "Account number is not valid for that account holder";
+                    return;
+            }
+            Accounts account = AccountHelper.getAccount(accountHolderNumber);
+            
+            if(account.active){
+                AccountHelper.disableAccount(accountHolderNumber);
+                cout << "Account number " << accountHolderNumber << " disabled" << endl;
+            } else {
+                cout << "Account is already disabled" << endl;
+            }
+
+            logTransaction("07", accountHolderName, accountHolderNumber, 0, "");
+        } else {
+            cout << "Permission denied. Only admin can use this command" << endl;
+        } 
+    } else {
+            cout << "Not logged in! Please login!" << endl;
+    }
 }
 
 void TransactionsHelper::processChangePlan() {
     // TODO - implement TransactionsHelper::processChangePlan
     throw "Not yet implemented";
+}
+
+void TransactionsHelper::processEnable() {
+    if(isLoggedIn) {
+        if(isAdmin) {
+            cout << "Enter Account holder's name: ";
+            cin >> accountHolderName;
+            
+            cout << "Enter the account number: ";
+            cin >> accountHolderNumber;
+
+            if(!ah.validateAccount(accountHolderNumber, accountHolderName)) {
+                    cout << "Account number is not valid for that account holder";
+                    return;
+            }
+            Accounts account = AccountHelper.getAccount(accountHolderNumber);
+            
+            if(!account.active){
+                AccountHelper.enableAccount(accountHolderNumber);
+                cout << "Account number " << accountHolderNumber << " enabled" << endl;
+            } else {
+                cout << "Account is already enabled" << endl;
+            }
+
+            logTransaction("09", accountHolderName, accountHolderNumber, 0, "");
+        } else {
+            cout << "Permission denied. Only admin can use this command" << endl;
+        } 
 }
