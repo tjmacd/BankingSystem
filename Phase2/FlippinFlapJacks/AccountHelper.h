@@ -9,6 +9,6 @@ private:
 public:
 	AccountHelper();
 	bool validateAccount(int num, std::string name);
-	bool validateWithdrawAmount(float balance);
-	Accounts getAccount(int id);
+	bool validateWithdrawAmount(int id, float balance, bool isAdmin);
+	struct Accounts getAccount(int id);
 };

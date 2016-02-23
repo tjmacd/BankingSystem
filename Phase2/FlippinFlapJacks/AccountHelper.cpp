@@ -46,7 +46,15 @@ Accounts AccountHelper::getAccount(int id) {
 	return a;
 }
 
-bool AccountHelper::validateWithdrawAmount(float amount)
+bool AccountHelper::validateWithdrawAmount(int id, float amount, bool isAdmin)
 {
-
+	if(isAdmin)	{
+		
+	} else {
+		if(amount > 500)
+		{
+			cout << "You can only withdraw amount less than $500.00 on standard account" << endl;
+		}
+	}
+	return false;
 }
