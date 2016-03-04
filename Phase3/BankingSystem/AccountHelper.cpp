@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "AccountHelper.h"
 
 FileStreamHelper *file_stream_helper;
@@ -93,7 +93,7 @@ bool AccountHelper::disableAccount(int id)
 			else {
 				return false;
 			}
-		} 
+		}
 	}
 }
 
@@ -111,7 +111,7 @@ bool AccountHelper::enableAccount(int id)
 				file_stream_helper->accounts[i].is_active = true;
 				return true;
 			}
-		} 
+		}
 	}
 }
 
@@ -128,6 +128,6 @@ char AccountHelper::changePlan(int id)
 				file_stream_helper->accounts[i].is_student = true;
 
 			return (file_stream_helper->accounts[i].is_student ? 'S' : 'N');
-		} 
+		}
 	}
 }

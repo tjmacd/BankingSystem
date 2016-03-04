@@ -19,10 +19,10 @@ public:
 
 	FileStreamHelper(std::string accounts, std::string output);
 	~FileStreamHelper(void);
-	void FileStreamHelper::parseAccount(std::string line);
-	std::vector<Accounts> FileStreamHelper::readBankAccountFile();
-	std::string FileStreamHelper::trim(std::string& str);
-	std::vector<std::string> FileStreamHelper::readInputFile();
+	void parseAccount(std::string line);
+	std::vector<Accounts> readBankAccountFile();
+	std::string trim(std::string& str);
+	std::vector<std::string> readInputFile();
 	void logTransaction(std::string code, std::string account_holder_name, int account_num, float amount, std::string misc);
 };
 #endif // BANKINGSYSTEM_FILESTREAMHELPER_H

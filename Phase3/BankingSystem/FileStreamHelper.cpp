@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "FileStreamHelper.h"
 #include <iostream>
 
@@ -34,7 +34,7 @@ std::vector<Accounts> FileStreamHelper::readBankAccountFile()
 {
 	// Initialize ifstream variable
 	std::ifstream bank_acc_file_stream;
-	
+
 	// Initialize string variable to hold each line
 	std::string line;
 
@@ -90,11 +90,11 @@ std::string FileStreamHelper::trim(std::string& str) {
     return str.substr(first, (last-first+1));
 }
 
-void FileStreamHelper::logTransaction(std::string code, 
+void FileStreamHelper::logTransaction(std::string code,
 	std::string account_holder_name, int account_num, float amount, std::string misc) {
 	if(outputs_file != "") {
 		FILE *transactionFile = fopen(outputs_file.c_str(), "a");
-		fprintf(transactionFile, "%s %-20s %05d %08.2f %-2s\n", code.c_str(), 
+		fprintf(transactionFile, "%s %-20s %05d %08.2f %-2s\n", code.c_str(),
 			account_holder_name.c_str(), account_num, amount, misc.c_str());
 		fclose(transactionFile);
 	}

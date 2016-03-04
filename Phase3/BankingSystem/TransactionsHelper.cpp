@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "TransactionsHelper.h"
 
 // External Linkage
@@ -69,9 +69,9 @@ void TransactionsHelper::processWithdrawal() {
 			std::cin >> toWithdraw;
 
 			account_helper->validateWithdrawAmount(account_holder_number, toWithdraw, is_admin);
-			
 
-			file_stream_help->logTransaction("01", account_holder_name, account_holder_number, 
+
+			file_stream_help->logTransaction("01", account_holder_name, account_holder_number,
 				toWithdraw, "");
 		}
 		else
@@ -111,7 +111,7 @@ void TransactionsHelper::processPaybill() {
 			std::cout << "Enter amount to pay: ";
 			std::cin >> amount;
 
-			file_stream_help->logTransaction("03", account_holder_name, account_holder_number, 
+			file_stream_help->logTransaction("03", account_holder_name, account_holder_number,
 				amount, company);
 		}
 		else {
@@ -152,7 +152,7 @@ void TransactionsHelper::processTransfer() {
 			std::cout << "Enter the amount to transfer: ";
 			std::cin >> amount;
 
-			file_stream_help->logTransaction("02", account_holder_name, account_holder_number, 
+			file_stream_help->logTransaction("02", account_holder_name, account_holder_number,
 				amount, "");
 		}
 		else {
@@ -181,7 +181,7 @@ void TransactionsHelper::processDeposit() {
 			std::cout << "Enter the amount to deposit: ";
 			std::cin >> amount;
 
-			file_stream_help->logTransaction("04", account_holder_name, account_holder_number, 
+			file_stream_help->logTransaction("04", account_holder_name, account_holder_number,
 				amount, "");
 		}
 		else {
@@ -208,7 +208,7 @@ void TransactionsHelper::processCreate() {
 
 			file_stream_help->logTransaction("05", account_holder_name, 0, balance, "");
 		} else {
-			std::cout << "Permission Denied! Only admin can use this command" 
+			std::cout << "Permission Denied! Only admin can use this command"
 				<< std::endl;
 		}
 	} else {
@@ -234,7 +234,7 @@ void TransactionsHelper::processDelete() {
 
 			file_stream_help->logTransaction("06", account_holder_name, account_holder_number, 0, "");
 		} else {
-			std::cout << "Permission Denied! Only admin can use this command" 
+			std::cout << "Permission Denied! Only admin can use this command"
 				<< std::endl;
 		}
 	} else {
@@ -257,7 +257,7 @@ void TransactionsHelper::processDisable() {
 				if(account_helper->disableAccount(account_holder_number)) {
 					std::cout << "Account has been disabled!" << std::endl;
 
-					file_stream_help->logTransaction("07", account_holder_name, 
+					file_stream_help->logTransaction("07", account_holder_name,
 						account_holder_number, 0, "");
 				} else {
 					std::cout << "Account is already disabled!" << std::endl;
@@ -288,8 +288,8 @@ void TransactionsHelper::processEnable() {
 			{
 				if(account_helper->enableAccount(account_holder_number)) {
 					std::cout << "Account has been enabled!" << std::endl;
-	
-					file_stream_help->logTransaction("09", account_holder_name, 
+
+					file_stream_help->logTransaction("09", account_holder_name,
 						account_holder_number, 0, "");
 				} else {
 					std::cout << "Account is already active!" << std::endl;
@@ -319,7 +319,7 @@ void TransactionsHelper::processChangePlan() {
 			if(account_helper->validateAccount(account_holder_number, account_holder_name))
 			{
 				char newplan = account_helper->changePlan(account_holder_number);
-				std::cout << "Plan has been changed to " << 
+				std::cout << "Plan has been changed to " <<
 					(newplan == 'S' ? "Student" : "Non-Student") << std::endl;
 
 				file_stream_help->logTransaction("08", account_holder_name, account_holder_number, 0, "");

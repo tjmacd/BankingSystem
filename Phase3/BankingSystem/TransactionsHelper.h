@@ -17,16 +17,16 @@ private:
 public:
 	TransactionsHelper(std::string accounts, std::string output);
 	~TransactionsHelper(void);
-	void TransactionsHelper::processLogin();
-	void TransactionsHelper::processLogout();
-	void TransactionsHelper::processWithdrawal();
-	void TransactionsHelper::processPaybill();
-	void TransactionsHelper::processDeposit();
-	void TransactionsHelper::processCreate();
-	void TransactionsHelper::processDelete();
-	void TransactionsHelper::processDisable();
-	void TransactionsHelper::processChangePlan();
-	void TransactionsHelper::processTransfer();
-	void TransactionsHelper::processEnable();
+	void processLogin();
+	void processLogout();
+	void processWithdrawal();
+	void processPaybill();
+	void processDeposit();
+	void processCreate();
+	void processDelete();
+	void processDisable();
+	void processChangePlan();
+	void processTransfer();
+	void processEnable();
 };
 #endif // BANKINGSYSTEM_TRANSACTIONS_HELPER_H
