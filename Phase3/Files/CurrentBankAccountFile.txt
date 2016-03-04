@@ -1,4 +1,0 @@
-00001 Priyank Patel        A 100.0000 S
-00002 John                 A 100.0000 N
-00011 Mike                 A 100.0000 S
-00000 END OF FILE	   A 00000000 S
