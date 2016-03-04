@@ -43,8 +43,16 @@ trans_enum hascode(std::string const& job) {
 
 int main(int argc, char* argv[])
 {
+	TransactionsHelper *trans_helper;
+
 	// TransactionsHelper class init
-	TransactionsHelper *trans_helper = new TransactionsHelper(argv[1], argv[2]);
+	if(argc == 3) 
+		trans_helper = new TransactionsHelper(argv[1], argv[2]);
+	else {
+		std::cout << "Invalid Arguments Specified" << std::endl;
+		return 0;
+	}
+
 	std::string transactions;
 
 		do {
