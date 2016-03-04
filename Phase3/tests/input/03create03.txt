@@ -1,0 +1,6 @@
+login
+admin
+create
+New Account
+100000.00
+logout

@@ -1,0 +1,24 @@
+Please select session type (standard or admin):
+Logged in as admin
+Please enter account holder's name:
+Enter the account number:
+Enter the amount to deposit:
+$10.00 deposited to account 00004
+Logged out
+Please select session type (standard or admin):
+Logged in as admin
+Please enter account holder's name:
+Enter the account number:
+Enter the amount to withdraw:
+Insufficient funds for transaction
+Please enter account holder's name:
+Enter the account number to transfer from:
+Enter the account number to transfer to:
+Enter the amount to transfer:
+Insufficient funds for transaction
+Please enter account holder's name:
+Enter the account number:
+Enter the payee company:
+Enter the amount to pay:
+Insufficient funds for transaction
+Logged out

@@ -1,0 +1,8 @@
+login
+admin
+paybill
+Account Full
+00002
+EC
+2000.01
+logout

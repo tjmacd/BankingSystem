@@ -1,0 +1,24 @@
+login
+admin
+deposit
+Empty Account
+00004
+10.00
+logout
+login
+admin
+withdrawal
+Empty Account
+00004
+0.01
+transfer
+Empty Account
+00004
+00001
+0.01
+paybill
+Empty Account
+00004
+EC
+0.01
+logout

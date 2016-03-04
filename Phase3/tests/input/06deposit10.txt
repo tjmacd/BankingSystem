@@ -1,0 +1,6 @@
+login
+admin
+deposit
+Account 1
+00002
+logout
