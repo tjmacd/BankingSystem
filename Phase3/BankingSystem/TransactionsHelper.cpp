@@ -204,6 +204,9 @@ void TransactionsHelper::processCreate() {
 			std::cout << "Enter the initial balance: ";
 			std::cin >> balance;
 
+			if(std::cin.fail())
+                return;
+
 			std::cout << "Account creation pending" << std::endl;
 
 			file_stream_help->logTransaction("05", account_holder_name, 0, balance, "");

@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
 	TransactionsHelper *trans_helper;
 
 	// TransactionsHelper class init
-	if(argc == 3) 
+	if(argc == 3)
 		trans_helper = new TransactionsHelper(argv[1], argv[2]);
 	else {
 		std::cout << "Invalid Arguments Specified" << std::endl;
@@ -55,9 +55,9 @@ int main(int argc, char* argv[])
 
 	std::string transactions;
 
-		do {
-			std::cin >> transactions;
-			
+		while(std::cin >> transactions) {
+
+
 			switch(hascode(trim(transactions))) {
 			case tLogin:
 				trans_helper->processLogin();
@@ -105,13 +105,14 @@ int main(int argc, char* argv[])
 
 			default:
 				std::cout << "Invalid Transaction Command!" << std::endl;
+				break;
 			}
 
-			std::cin.ignore();
-		} while(!std::cin.eof());
+
+			//std::cin.ignore();
+		};
 
 	//delete trans_helper;
 
-	system("pause");
 	return 0;
 }
