@@ -12,21 +12,21 @@
  * @return int 0
  * @desc Main run method of the program
  */
-int _tmain(int argc, _TCHAR* argv[]) {
+int main(int argc, char* argv[]) {
 	TransactionsHelper th;
 
 	//fsh.readBankAccountFile();
 	std::cout << "login - start a Front End session" << std::endl;
 	std::cout << "withdrawal - withdraw money from a bank account" << std::endl;
-	std::cout << "transfer - transfer money from one bank account to another" 
+	std::cout << "transfer - transfer money from one bank account to another"
 		<< std::endl;
 	std::cout << "paybill - pay a bill from a bank account" << std::endl;
 	std::cout << "deposit - deposit money into a bank account" << std::endl;
 	std::cout << "create - create a new bank account" << std::endl;
 	std::cout << "delete - delete a bank account" << std::endl;
-	std::cout << "disable - disable all transactions in a bank account" 
+	std::cout << "disable - disable all transactions in a bank account"
 		<< std::endl;
-	std::cout << "changeplan - change the transaction plan of a bank account" 
+	std::cout << "changeplan - change the transaction plan of a bank account"
 		<< std::endl;
 	std::cout << "logout - end a Front End session" << std::endl;
 	std::cout << "\n" << std::endl;
@@ -50,13 +50,13 @@ int _tmain(int argc, _TCHAR* argv[]) {
 			th.processTransfer();
 		} else if(command == "deposit") {
 			th.processDeposit();
-		} else if(command == "create") { 
+		} else if(command == "create") {
 			th.processCreate();
-		} else if(command == "changeplan") { 
+		} else if(command == "changeplan") {
 			th.processChangePlan();
-		} else if(command == "enable") { 
+		} else if(command == "enable") {
 			th.processEnable();
-		} else if(command == "disable") { 
+		} else if(command == "disable") {
 			th.processDisable();
 		} else if(command == "transfer") {
 			th.processTransfer();
