@@ -4,7 +4,7 @@
 
 FileStreamHelper::FileStreamHelper(std::string accounts, std::string output) : accounts_file(""), outputs_file("")
 {
-	if(DEBUG) std::cout << "[DEBUG]: FileStreamHelper Constructed" << std::endl;
+	//if(DEBUG) std::cout << "[DEBUG]: FileStreamHelper Constructed" << std::endl;
 	if(accounts != "") accounts_file = accounts;
 	if(output != "") outputs_file = output;
 }
@@ -81,7 +81,7 @@ FileStreamHelper::~FileStreamHelper(void)
 {
 	accounts_file.clear();
 	outputs_file.clear();
-	std::cout << "[DEBUG]: FileStreamHelper Deconstructed" << std::endl;
+	//std::cout << "[DEBUG]: FileStreamHelper Deconstructed" << std::endl;
 }
 
 std::string FileStreamHelper::trim(std::string& str) {

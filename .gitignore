@@ -1,3 +1,5 @@
 /Phase2/FlippinFlapJacks/FlippinFlapJacks/build/
 Debug/*
 *~
+consoleOutput/
+transactionFiles/
