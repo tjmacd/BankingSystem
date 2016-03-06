@@ -1,3 +1,6 @@
+## Remove old test files
+rm tests/consoleOutput/* tests/transactionFiles/*
+
 ## Run tests
 cd tests/input
 for file in *
