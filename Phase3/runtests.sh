@@ -36,12 +36,12 @@ do
 		# Write differences to file
 		if [ "$consoleDiff" != "" ]; then
 			echo $cOut / $eCOut >> testlog.txt
-			diff -y $cOut $eCOut >> testlog.txt
+			diff -y -N $cOut $eCOut >> testlog.txt
 			echo "\n" >> testlog.txt
 		fi
 		if [ "$transDiff" != "" ]; then
 			echo $tFile / $eTFile >> testlog.txt
-			diff -y $tFile $eTFile >> testlog.txt
+			diff -y -N $tFile $eTFile >> testlog.txt
 			echo "\n" >> testlog.txt
 		fi
 	fi
