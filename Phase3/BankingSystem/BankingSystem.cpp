@@ -54,67 +54,46 @@ int main(int argc, char* argv[])
 		std::cout << "Usage: BankingSystem <accounts file> <transaction file>" << std::endl;
 		return 0;
 	}
-
 	std::string transactions;
-
 		while(std::cin >> transactions) {
-
-
 			switch(hascode(trim(transactions))) {
 			case tLogin:
 				trans_helper->processLogin();
 				break;
-
 			case tLogout:
 				trans_helper->processLogout();
 				break;
-
 			case tWithdrawal:
 				trans_helper->processWithdrawal();
 				break;
-
 			case tPaybill:
 				trans_helper->processPaybill();
 				break;
-
 			case tTransfer:
 				trans_helper->processTransfer();
 				break;
-
 			case tDeposit:
 				trans_helper->processDeposit();
 				break;
-
 			case tCreate:
 				trans_helper->processCreate();
 				break;
-
 			case tChangeplan:
 				trans_helper->processChangePlan();
 				break;
-
 			case tEnable:
 				trans_helper->processEnable();
 				break;
-
 			case tDisable:
 				trans_helper->processDisable();
 				break;
-
 			case tDelete:
 				trans_helper->processDelete();
 				break;
-
 			default:
 				std::cout << "Unknown transaction command!" << std::endl;
 				break;
 			}
-
-
-			//std::cin.ignore();
 		};
-
-	//delete trans_helper;
-
 	return 0;
 }

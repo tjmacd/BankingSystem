@@ -1,1 +1,10 @@
+logout
+withdrawal
+paybill
 transfer
+deposit
+create
+changeplan
+enable
+disable
+delete

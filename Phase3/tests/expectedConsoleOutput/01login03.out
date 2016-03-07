@@ -1,7 +1,4 @@
-Welcome to the banking system enter session type
-enter session type
-You cant login into another account while another account is logged into
-You have logged out
-Welcome to the banking system enter session type
-enter session type
-login accepted
+Please select session type (standard or admin):
+Logged in as admin
+Already logged in!
+Logged out

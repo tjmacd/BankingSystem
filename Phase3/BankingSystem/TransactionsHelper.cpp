@@ -98,7 +98,7 @@ void TransactionsHelper::processLogin() {
 		file_stream_help->logTransaction("10", account_holder_name, 0, 0,
                                             (is_admin ? "A" : "S"));
 	} else {
-		std::cout << "Already Logged In!" << std::endl;
+		std::cout << "Already logged in!" << std::endl;
 	}
 }
 

@@ -1,4 +1,3 @@
-Welcome to the banking system enter session type
-enter session type
-login accepted
-you have logged out
+Please select session type (standard or admin):
+Logged in as admin
+Logged out
