@@ -14,6 +14,8 @@ private:
 	std::string account_holder_name;
 	int account_holder_number;
 	void setStatus(bool enabled);
+	void getName();
+	bool getNumber();
 
 public:
 	TransactionsHelper(std::string accounts, std::string output);

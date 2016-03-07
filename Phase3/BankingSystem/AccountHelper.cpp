@@ -31,19 +31,23 @@ bool AccountHelper::validateAccount(int account_num, std::string accountName) {
 bool AccountHelper::validateWithdrawAmount(int id, float amount, bool is_admin)
 {
 	if(is_admin) {
-		if(getAccount(id).balance < amount)
+		if(getAccount(id).balance < amount) {
 			std::cout << "Not enough balance!" << std::endl;
+			return false;
+        }
 	} else {
 		if(amount > 500)
 		{
 			std::cout << "You can only withdraw amount less than $500.00 on " <<
 				"standard account" << std::endl;
+            return false;
 		} else {
 			if(getAccount(id).balance < amount)
 				std::cout << "Not enough balance!" << std::endl;
+            return false;
 		}
 	}
-	return false;
+	return true;
 }
 
 Accounts AccountHelper::getAccount(int id) {
@@ -63,7 +67,7 @@ Accounts AccountHelper::getAccount(int id) {
 	return a;
 }
 
-bool AccountHelper::validateaccount_number(int id)
+bool AccountHelper::validateAccountNumber(int id)
 {
 	file_stream_helper->readBankAccountFile();
 	for(int i = 0; i < file_stream_helper->accounts.size(); i++)

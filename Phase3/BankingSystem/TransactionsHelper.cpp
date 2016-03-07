@@ -13,6 +13,26 @@ TransactionsHelper::TransactionsHelper(std::string accounts, std::string output)
 	is_logged_in = false;
 }
 
+void TransactionsHelper::getName(){
+    std::cout << "Enter Account holder's name:" << std::endl;
+    std::cin.ignore();
+    std::getline(std::cin, account_holder_name);
+}
+
+bool TransactionsHelper::getNumber(){
+    std::cout << "Enter account number:" << std::endl;
+	std::cin >> account_holder_number;
+
+	if(!account_helper->validateAccount(account_holder_number, account_holder_name))
+	{
+		std::cout << "Account number is not valid for that account holder" << std::endl;
+		account_holder_number = 0;
+		return false;
+	} else {
+        return true;
+	}
+}
+
 void TransactionsHelper::processLogin() {
 	std::string session_type;
 
@@ -25,10 +45,8 @@ void TransactionsHelper::processLogin() {
 			std::cout << "Logged in as Admin" << std::endl;
 		} else {
 			is_admin = false;
-			std::cout << "Logged in as Standard" << std::endl;
-
-			std::cout << "Enter Account Holder's Name: " << std::endl;
-			std::cin >> account_holder_name;
+			getName();
+			std::cout << "Logged in as " << account_holder_name << std::endl;
 		}
 
 		is_logged_in = true;
@@ -54,29 +72,18 @@ void TransactionsHelper::processWithdrawal() {
 
 	if(is_logged_in) {
 		if(is_admin) {
-			std::cout << "Enter Account holder's name: " << std::endl;
-			std::cin.ignore();
-			std::getline(std::cin, account_holder_name);
+			getName();
 		}
 
-		std::cout << "Enter Account holder's number: " << std::endl;
-		std::cin >> account_holder_number;
-
-		if(account_helper->validateAccount(account_holder_number, account_holder_name))
-		{
+		if(getNumber()) {
 			std::cin.ignore();
-			std::cout << "Account Found! Please enter amount to withdraw: " << std::endl;
+			std::cout << "Please enter amount to withdraw:" << std::endl;
 			std::cin >> toWithdraw;
-
-			account_helper->validateWithdrawAmount(account_holder_number, toWithdraw, is_admin);
-
-
-			file_stream_help->logTransaction("01", account_holder_name, account_holder_number,
+			if(account_helper->validateWithdrawAmount(account_holder_number, toWithdraw, is_admin)) {
+                std::cout << toWithdraw << " withdrawn from account" << std::endl;
+                file_stream_help->logTransaction("01", account_holder_name, account_holder_number,
 				toWithdraw, "");
-		}
-		else
-		{
-			std::cout << "Account not found!" << std::endl;
+			}
 		}
 	} else {
 		std::cout << "Not logged in! Please login!" << std::endl;
@@ -89,17 +96,10 @@ void TransactionsHelper::processPaybill() {
 
 	if(is_logged_in) {
 		if(is_admin) {
-			std::cout << "Enter Account holder's name: " << std::endl;
-			std::cin.ignore();
-			std::getline(std::cin, account_holder_name);
+			getName();
 		}
-
-		std::cout << "Enter Account holder's number: " << std::endl;
-		std::cin >> account_holder_number;
-
-		if(account_helper->validateAccount(account_holder_number, account_holder_name))
-		{
-			std::cout << "Enter the payee company: " << std::endl;
+		if(getNumber())	{
+			std::cout << "Enter the payee company:" << std::endl;
 			std::cin.ignore();
 			std::cin >> company;
 
@@ -107,16 +107,11 @@ void TransactionsHelper::processPaybill() {
 				std::cout << "Company name is not recognized" << std::endl;
 				return;
 			}
-
-			std::cout << "Enter amount to pay: " << std::endl;
+			std::cout << "Enter amount to pay:" << std::endl;
 			std::cin >> amount;
-
+			std::cout << "$" << amount << " paid to " << company << std::endl;
 			file_stream_help->logTransaction("03", account_holder_name, account_holder_number,
 				amount, company);
-		}
-		else {
-			std::cout << "Account not found!" << std::endl;
-			return;
 		}
 	} else {
 		std::cout << "Not logged in! Please login!" << std::endl;
@@ -125,25 +120,18 @@ void TransactionsHelper::processPaybill() {
 
 void TransactionsHelper::processTransfer() {
 	float amount;
-	int fromaccount_num;
-	int toaccount_num;
+	int from_account_num;
+	int to_account_num;
 
 	if(is_logged_in) {
 		if(is_admin) {
-			std::cout << "Enter Account holder's name: " << std::endl;
-			std::cin.ignore();
-			std::getline(std::cin, account_holder_name);
+			getName();
 		}
-
-		std::cout << "Enter Account holder's number: " << std::endl;
-		std::cin >> account_holder_number;
-
-		if(account_helper->validateAccount(account_holder_number, account_holder_name))
-		{
+		if(getNumber())	{
 			std::cout << "Enter account number to transfer to: " << std::endl;
-			std::cin >> toaccount_num;
+			std::cin >> to_account_num;
 
-			if(!account_helper->validateaccount_number(toaccount_num))
+			if(!account_helper->validateAccountNumber(to_account_num))
 			{
 				std::cout << "Invalid Account Number!" << std::endl;
 				return;
@@ -155,9 +143,6 @@ void TransactionsHelper::processTransfer() {
 			file_stream_help->logTransaction("02", account_holder_name, account_holder_number,
 				amount, "");
 		}
-		else {
-			std::cout << "Account not found!" << std::endl;
-		}
 	} else {
 		std::cout << "Not logged in! Please login!" << std::endl;
 	}
@@ -168,24 +153,14 @@ void TransactionsHelper::processDeposit() {
 
 	if(is_logged_in) {
 		if(is_admin) {
-			std::cout << "Enter Account holder's name: " << std::endl;
-			std::cin.ignore();
-			std::getline(std::cin, account_holder_name);
+			getName();
 		}
-
-		std::cout << "Enter Account holder's number: " << std::endl;
-		std::cin >> account_holder_number;
-
-		if(account_helper->validateAccount(account_holder_number, account_holder_name))
-		{
+		if(getNumber())	{
 			std::cout << "Enter the amount to deposit: " << std::endl;
 			std::cin >> amount;
-
+            std::cout << "$" << amount << " deposited to account" << std::endl;
 			file_stream_help->logTransaction("04", account_holder_name, account_holder_number,
 				amount, "");
-		}
-		else {
-			std::cout << "Account not found!" << std::endl;
 		}
 	} else {
 		std::cout << "Not logged in! Please login!" << std::endl;
@@ -197,9 +172,7 @@ void TransactionsHelper::processCreate() {
 
 	if(is_logged_in) {
 		if(is_admin) {
-			std::cout << "Enter Account holder's name: " << std::endl;
-			std::cin.ignore();
-			std::getline(std::cin, account_holder_name);
+			getName();
 
 			std::cout << "Enter the initial balance: " << std::endl;
 			std::cin >> balance;
@@ -222,20 +195,14 @@ void TransactionsHelper::processCreate() {
 void TransactionsHelper::processDelete() {
 	if(is_logged_in) {
 		if(is_admin) {
-			std::cout << "Enter Account holder's name: " << std::endl;
-			std::cin.ignore();
-			std::getline(std::cin, account_holder_name);
+			getName();
 
 			std::cout << "Enter Account holder's number: " << std::endl;
 			std::cin >> account_holder_number;
 
-			if(!account_helper->validateAccount(account_holder_number, account_holder_name))
-			{
-				std::cout << "Account number is not valid for that account holder" << std::endl;
-				return;
-			}
-
-			file_stream_help->logTransaction("06", account_holder_name, account_holder_number, 0, "");
+			if(getNumber()){
+                file_stream_help->logTransaction("06", account_holder_name, account_holder_number, 0, "");
+            }
 		} else {
 			std::cout << "Permission Denied! Only admin can use this command"
 				<< std::endl;
@@ -248,25 +215,17 @@ void TransactionsHelper::processDelete() {
 void TransactionsHelper::setStatus(bool enabled) {
 	if(is_logged_in) {
 		if(is_admin) {
-			std::cout << "Enter Account holder's name: " << std::endl;
-			std::cin.ignore();
-			std::getline(std::cin, account_holder_name);
-
-			std::cout << "Enter Account holder's number: " << std::endl;
-			std::cin >> account_holder_number;
-
-			std::string state;
-			std::string code;
-			if(enabled) {
-				state = "enabled";
-                code = "09";
-			} else {
-				state = "disabled";
-				code = "07";
-			}
-			if(account_helper->validateAccount(account_holder_number,
-                account_holder_name))
-			{
+			getName();
+			if(getNumber())	{
+                std::string state;
+                std::string code;
+                if(enabled) {
+                    state = "enabled";
+                    code = "09";
+                } else {
+                    state = "disabled";
+                    code = "07";
+                }
 				if(account_helper->changeStatus(account_holder_number, enabled)) {
 					std::cout << "Account has been " << state << std::endl;
 
@@ -275,9 +234,6 @@ void TransactionsHelper::setStatus(bool enabled) {
 				} else {
 					std::cout << "Account is already " << state << "!" << std::endl;
 				}
-			}
-			else {
-				std::cout << "Account not found!" << std::endl;
 			}
 		} else {
 			std::cout << "Permission Denied! Only admin can use this command"
@@ -300,23 +256,12 @@ void TransactionsHelper::processEnable() {
 void TransactionsHelper::processChangePlan() {
 	if(is_logged_in) {
 		if(is_admin) {
-			std::cout << "Enter Account holder's name: " << std::endl;
-			std::cin.ignore();
-			std::getline(std::cin, account_holder_name);
-
-			std::cout << "Enter Account holder's number: " << std::endl;
-			std::cin >> account_holder_number;
-
-			if(account_helper->validateAccount(account_holder_number, account_holder_name))
-			{
+			getName();
+			if(getNumber()) {
 				char newplan = account_helper->changePlan(account_holder_number);
 				std::cout << "Plan has been changed to " <<
 					(newplan == 'S' ? "Student" : "Non-Student") << std::endl;
-
 				file_stream_help->logTransaction("08", account_holder_name, account_holder_number, 0, "");
-			}
-			else {
-				std::cout << "Account not found!" << std::endl;
 			}
 		} else {
 			std::cout << "Permission Denied! Only admin can use this command" << std::endl;

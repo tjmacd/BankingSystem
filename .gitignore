@@ -3,3 +3,7 @@ Debug/*
 *~
 consoleOutput/
 transactionFiles/
+*.cbp
+.objs/
+*.depend
+*.layout
