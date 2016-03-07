@@ -3,7 +3,8 @@
 #include <iostream>
 #include <string>
 
-struct Accounts {
+// Stores all the information for an account
+struct Account {
 
 public:
 	int number;

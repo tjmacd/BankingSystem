@@ -2,22 +2,20 @@
 #include "FileStreamHelper.h"
 #include <iostream>
 
-FileStreamHelper::FileStreamHelper(std::string accounts, std::string output) : accounts_file(""), outputs_file("")
-{
-	//if(DEBUG) std::cout << "[DEBUG]: FileStreamHelper Constructed" << std::endl;
+FileStreamHelper::FileStreamHelper(std::string accounts, std::string output) :
+accounts_file(""), outputs_file("") {
+	if(DEBUG) std::cout << "[DEBUG]: FileStreamHelper Constructed" << std::endl;
 	if(accounts != "") accounts_file = accounts;
 	if(output != "") outputs_file = output;
 }
 
-void FileStreamHelper::parseAccount(std::string line)
-{
+void FileStreamHelper::parseAccount(std::string line) {
 	// Initialize smatch variable to hold match results for string object
 	std::smatch match;
 
 	// Match sequence against each line to extract data
-	if(regex_match(line, match, accounts_regex))
-	{
-		struct Accounts account;
+	if(regex_match(line, match, accounts_regex)) {
+		struct Account account;
 		account.number = stoi(match[1]);
 		std::string temp = match[2];
 		account.name = trim(temp);
@@ -30,8 +28,7 @@ void FileStreamHelper::parseAccount(std::string line)
 	}
 }
 
-std::vector<Accounts> FileStreamHelper::readBankAccountFile()
-{
+std::vector<Account> FileStreamHelper::readBankAccountFile() {
 	// Initialize ifstream variable
 	std::ifstream bank_acc_file_stream;
 
@@ -52,11 +49,10 @@ std::vector<Accounts> FileStreamHelper::readBankAccountFile()
 	return accounts;
 }
 
-FileStreamHelper::~FileStreamHelper(void)
-{
+FileStreamHelper::~FileStreamHelper(void) {
 	accounts_file.clear();
 	outputs_file.clear();
-	//std::cout << "[DEBUG]: FileStreamHelper Deconstructed" << std::endl;
+	if(DEBUG) std::cout << "[DEBUG]: FileStreamHelper Deconstructed" << std::endl;
 }
 
 std::string FileStreamHelper::trim(std::string& str) {
@@ -66,7 +62,8 @@ std::string FileStreamHelper::trim(std::string& str) {
 }
 
 void FileStreamHelper::logTransaction(std::string code,
-	std::string account_holder_name, int account_num, float amount, std::string misc) {
+	std::string account_holder_name, int account_num, float amount,
+	std::string misc) {
 	if(outputs_file != "") {
 		FILE *transactionFile = fopen(outputs_file.c_str(), "a");
 		fprintf(transactionFile, "%s %-20s %05d %08.2f %-2s\n", code.c_str(),

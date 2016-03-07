@@ -13,13 +13,13 @@ AccountHelper::~AccountHelper(void)
 {
 }
 
-bool AccountHelper::validateAccount(int account_num, std::string accountName) {
+bool AccountHelper::validateAccount(int account_num, std::string account_name) {
 	file_stream_helper->readBankAccountFile();
 	for(int i = 0; i < file_stream_helper->accounts.size(); i++)
 	{
 		if(file_stream_helper->accounts[i].number == account_num)
 		{
-			if(file_stream_helper->accounts[i].name == accountName)
+			if(file_stream_helper->accounts[i].name == account_name)
 			{
 				return true;
 			}
@@ -50,8 +50,8 @@ bool AccountHelper::validateWithdrawAmount(int id, float amount, bool is_admin)
 	return true;
 }
 
-Accounts AccountHelper::getAccount(int id) {
-	Accounts a;
+Account AccountHelper::getAccount(int id) {
+	Account a;
 	file_stream_helper->readBankAccountFile();
 	for(int i = 0; i < file_stream_helper->accounts.size(); i++)
 	{
@@ -83,14 +83,14 @@ bool AccountHelper::validateAccountNumber(int id)
 	return false;
 }
 
-bool AccountHelper::changeStatus(int id, bool newState){
+bool AccountHelper::changeStatus(int id, bool new_state){
     file_stream_helper->readBankAccountFile();
 	for(int i = 0; i < file_stream_helper->accounts.size(); i++)
 	{
 		if(file_stream_helper->accounts[i].number == id)
 		{
-			if(file_stream_helper->accounts[i].is_active != newState) {
-				file_stream_helper->accounts[i].is_active = newState;
+			if(file_stream_helper->accounts[i].is_active != new_state) {
+				file_stream_helper->accounts[i].is_active = new_state;
 				return true;
 			}
 			else {
