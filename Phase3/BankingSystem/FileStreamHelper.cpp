@@ -52,31 +52,6 @@ std::vector<Accounts> FileStreamHelper::readBankAccountFile()
 	return accounts;
 }
 
-/*std::vector<std::string> FileStreamHelper::readInputFile()
-{
-	// Initialize ifstream variable
-	std::ifstream input_file_stream;
-
-	// Open the file for reading
-	input_file_stream.open(inputs_file);
-
-	// Initialize string variable to hold each line
-	std::string line;
-
-	// Initialize temp string vector for list of inputs
-	std::vector<std::string> inputs;
-
-	// Check if steam is currently associated to a file
-	if(input_file_stream.is_open()) {
-		// Read each line and push into vector
-		while(std::getline(input_file_stream, line)) inputs.push_back(line);
-	} else {
-		std::cout << "[ERROR]: Input File not Found!" << std::endl;
-	}
-
-	return inputs;
-}*/
-
 FileStreamHelper::~FileStreamHelper(void)
 {
 	accounts_file.clear();

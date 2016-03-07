@@ -18,8 +18,7 @@ public:
 	bool validateWithdrawAmount(int id, float balance, bool is_admin);
 	struct Accounts getAccount(int id);
 	bool validateaccount_number(int id);
-	bool disableAccount(int id);
-	bool enableAccount(int id);
+	bool changeStatus(int id, bool newState);
 	char changePlan(int id);
 };
 #endif // BANKINGSYSTEM_ACCOUNTHELPER_H

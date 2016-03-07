@@ -245,7 +245,7 @@ void TransactionsHelper::processDelete() {
 	}
 }
 
-void TransactionsHelper::processDisable() {
+void TransactionsHelper::setStatus(bool enabled) {
 	if(is_logged_in) {
 		if(is_admin) {
 			std::cout << "Enter Account holder's name: " << std::endl;
@@ -255,58 +255,46 @@ void TransactionsHelper::processDisable() {
 			std::cout << "Enter Account holder's number: " << std::endl;
 			std::cin >> account_holder_number;
 
-			if(account_helper->validateAccount(account_holder_number, account_holder_name))
+			std::string state;
+			std::string code;
+			if(enabled) {
+				state = "enabled";
+                code = "09";
+			} else {
+				state = "disabled";
+				code = "07";
+			}
+			if(account_helper->validateAccount(account_holder_number,
+                account_holder_name))
 			{
-				if(account_helper->disableAccount(account_holder_number)) {
-					std::cout << "Account has been disabled!" << std::endl;
+				if(account_helper->changeStatus(account_holder_number, enabled)) {
+					std::cout << "Account has been " << state << std::endl;
 
-					file_stream_help->logTransaction("07", account_holder_name,
+					file_stream_help->logTransaction(code, account_holder_name,
 						account_holder_number, 0, "");
 				} else {
-					std::cout << "Account is already disabled!" << std::endl;
+					std::cout << "Account is already " << state << "!" << std::endl;
 				}
 			}
 			else {
 				std::cout << "Account not found!" << std::endl;
 			}
 		} else {
-			std::cout << "Permission Denied! Only admin can use this command" << std::endl;
+			std::cout << "Permission Denied! Only admin can use this command"
+			<< std::endl;
 		}
 	} else {
 		std::cout << "Not logged in! Please login!" << std::endl;
 	}
 }
 
+
+void TransactionsHelper::processDisable() {
+    setStatus(false);
+}
+
 void TransactionsHelper::processEnable() {
-	if(is_logged_in) {
-		if(is_admin) {
-			std::cout << "Enter Account holder's name: " << std::endl;
-			std::cin.ignore();
-			std::getline(std::cin, account_holder_name);
-
-			std::cout << "Enter Account holder's number: " << std::endl;
-			std::cin >> account_holder_number;
-
-			if(account_helper->validateAccount(account_holder_number, account_holder_name))
-			{
-				if(account_helper->enableAccount(account_holder_number)) {
-					std::cout << "Account has been enabled!" << std::endl;
-
-					file_stream_help->logTransaction("09", account_holder_name,
-						account_holder_number, 0, "");
-				} else {
-					std::cout << "Account is already active!" << std::endl;
-				}
-			}
-			else {
-				std::cout << "Account not found!" << std::endl;
-			}
-		} else {
-			std::cout << "Permission Denied! Only admin can use this command" << std::endl;
-		}
-	} else {
-		std::cout << "Not logged in! Please login!" << std::endl;
-	}
+    setStatus(true);
 }
 
 void TransactionsHelper::processChangePlan() {

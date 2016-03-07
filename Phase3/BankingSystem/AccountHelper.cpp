@@ -30,7 +30,7 @@ bool AccountHelper::validateAccount(int account_num, std::string accountName) {
 
 bool AccountHelper::validateWithdrawAmount(int id, float amount, bool is_admin)
 {
-	if(is_admin)	{
+	if(is_admin) {
 		if(getAccount(id).balance < amount)
 			std::cout << "Not enough balance!" << std::endl;
 	} else {
@@ -79,37 +79,18 @@ bool AccountHelper::validateaccount_number(int id)
 	return false;
 }
 
-bool AccountHelper::disableAccount(int id)
-{
-	file_stream_helper->readBankAccountFile();
+bool AccountHelper::changeStatus(int id, bool newState){
+    file_stream_helper->readBankAccountFile();
 	for(int i = 0; i < file_stream_helper->accounts.size(); i++)
 	{
 		if(file_stream_helper->accounts[i].number == id)
 		{
-			if(file_stream_helper->accounts[i].is_active) {
-				file_stream_helper->accounts[i].is_active = false;
+			if(file_stream_helper->accounts[i].is_active != newState) {
+				file_stream_helper->accounts[i].is_active = newState;
 				return true;
 			}
 			else {
 				return false;
-			}
-		}
-	}
-}
-
-bool AccountHelper::enableAccount(int id)
-{
-	file_stream_helper->readBankAccountFile();
-	for(int i = 0; i < file_stream_helper->accounts.size(); i++)
-	{
-		if(file_stream_helper->accounts[i].number == id)
-		{
-			if(file_stream_helper->accounts[i].is_active) {
-				return false;
-			}
-			else {
-				file_stream_helper->accounts[i].is_active = true;
-				return true;
 			}
 		}
 	}

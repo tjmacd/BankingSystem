@@ -13,6 +13,7 @@ private:
 	bool is_admin;
 	std::string account_holder_name;
 	int account_holder_number;
+	void setStatus(bool enabled);
 
 public:
 	TransactionsHelper(std::string accounts, std::string output);
