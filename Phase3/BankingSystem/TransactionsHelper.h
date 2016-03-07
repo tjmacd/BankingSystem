@@ -5,6 +5,8 @@
 #include <string>
 #include "FileStreamHelper.h"
 #include "AccountHelper.h"
+#include <regex>
+#include <iomanip>
 
 // Contains methods to process transactions
 class TransactionsHelper
@@ -30,6 +32,8 @@ private:
 	bool checkLoggedIn();
 	// Prints a message and returns false if user is not privileged
 	bool checkPrivileged();
+	// Outputs a message and returns false if amount is not valid
+	bool verifyInputAmount(std::string input, float &amount_output);
 
 public:
     // Constructs TransactionsHelper with accounts filename and transaction

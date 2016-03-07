@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "TransactionsHelper.h"
 
+
+const float MAX_AMOUNT = 99999.99;
 // External Linkage
 FileStreamHelper *file_stream_help;
 AccountHelper *account_helper;
@@ -11,16 +13,23 @@ TransactionsHelper::TransactionsHelper(std::string accounts,
 	file_stream_help = new FileStreamHelper(accounts, output);
 	account_helper = new AccountHelper(accounts);
 	is_logged_in = false;
+	std::cout << std::fixed << std:: setprecision(2);
 }
 
 void TransactionsHelper::getName(){
-    std::cout << "Enter Account holder's name:" << std::endl;
+    std::string input;
+    if(is_admin) {
+        std::cout << "Please enter account holder's name:" << std::endl;
+    } else {
+        std::cout << "Please enter your name:" << std::endl;
+    }
     std::cin.ignore();
-    std::getline(std::cin, account_holder_name);
+    std::getline(std::cin, input);
+    account_holder_name = input.substr(0,20);
 }
 
 bool TransactionsHelper::getNumber(){
-    std::cout << "Enter account number:" << std::endl;
+    std::cout << "Enter the account number:" << std::endl;
 	std::cin >> account_holder_number;
 
 	if(!account_helper->validateAccount(account_holder_number,
@@ -46,7 +55,7 @@ bool TransactionsHelper::checkLoggedIn() {
 
 bool TransactionsHelper::checkPrivileged() {
     if(!is_admin){
-        std::cout << "Permission denied! Only admin can use this command"
+        std::cout << "Permission denied. Only admin can use this command"
 				<< std::endl;
         return false;
     } else {
@@ -54,16 +63,31 @@ bool TransactionsHelper::checkPrivileged() {
     }
 }
 
+bool TransactionsHelper::verifyInputAmount(std::string input,
+                                            float& amount_output){
+    if(!std::regex_match(input, std::regex("[0-9]+\\.[0-9]{2}"))){
+        std::cout << "Invalid amount input" << std::endl;
+        return false;
+    }
+    amount_output = std::atof(input.c_str());
+    if(amount_output > MAX_AMOUNT){
+        std::cout << "Input amount is too high. It must be no greater than $"
+                    << MAX_AMOUNT << std::endl;
+        return false;
+    }
+    return true;
+}
+
 void TransactionsHelper::processLogin() {
 	std::string session_type;
 
 	if(!is_logged_in) {
-		std::cout << "Enter session type: (standard or admin) " << std::endl;
+		std::cout << "Please select session type (standard or admin):" << std::endl;
 		std::cin >> session_type;
 
 		if(session_type == "admin") {
 			is_admin = true;
-			std::cout << "Logged in as Admin" << std::endl;
+			std::cout << "Logged in as admin" << std::endl;
 		} else {
 			is_admin = false;
 			getName();
@@ -80,9 +104,9 @@ void TransactionsHelper::processLogin() {
 
 void TransactionsHelper::processLogout() {
 	if(checkLoggedIn()) {
-		std::cout << "Logging out..." << std::endl;
 		is_logged_in = false;
-
+		if(is_admin) account_holder_name = "";
+        std::cout << "Logged out" << std::endl;
 		file_stream_help->logTransaction("00", account_holder_name, 0, 0, "");
 	}
 }
@@ -128,8 +152,9 @@ void TransactionsHelper::processPaybill() {
 			std::cout << "Enter amount to pay:" << std::endl;
 			std::cin >> amount;
 			std::cout << "$" << amount << " paid to " << company << std::endl;
-			file_stream_help->logTransaction("03", account_holder_name, account_holder_number,
-				amount, company);
+			file_stream_help->logTransaction("03", account_holder_name,
+                                                account_holder_number, amount,
+                                                company);
 		}
 	}
 }
@@ -144,7 +169,7 @@ void TransactionsHelper::processTransfer() {
 			getName();
 		}
 		if(getNumber())	{
-			std::cout << "Enter account number to transfer to: " << std::endl;
+			std::cout << "Enter account number to transfer to:" << std::endl;
 			std::cin >> to_account_num;
 
 			if(!account_helper->validateAccountNumber(to_account_num))
@@ -153,7 +178,7 @@ void TransactionsHelper::processTransfer() {
 				return;
 			}
 
-			std::cout << "Enter the amount to transfer: " << std::endl;
+			std::cout << "Enter the amount to transfer:" << std::endl;
 			std::cin >> amount;
 
 			file_stream_help->logTransaction("02", account_holder_name, account_holder_number,
@@ -170,7 +195,7 @@ void TransactionsHelper::processDeposit() {
 			getName();
 		}
 		if(getNumber())	{
-			std::cout << "Enter the amount to deposit: " << std::endl;
+			std::cout << "Enter the amount to deposit:" << std::endl;
 			std::cin >> amount;
             std::cout << "$" << amount << " deposited to account" << std::endl;
 			file_stream_help->logTransaction("04", account_holder_name, account_holder_number,
@@ -181,20 +206,24 @@ void TransactionsHelper::processDeposit() {
 
 void TransactionsHelper::processCreate() {
 	float balance;
+	std::string input;
 
 	if(checkLoggedIn()) {
 		if(checkPrivileged()) {
 			getName();
 
-			std::cout << "Enter the initial balance: " << std::endl;
-			std::cin >> balance;
+			std::cout << "Enter the initial balance:" << std::endl;
+			std::cin >> input;
 
 			if(std::cin.fail())
                 return;
+            if(!verifyInputAmount(input, balance)){
+                return;
+            }
 
 			std::cout << "Account creation pending" << std::endl;
-
-			file_stream_help->logTransaction("05", account_holder_name, 0, balance, "");
+			file_stream_help->logTransaction("05", account_holder_name, 0,
+                                                balance, "");
 		}
 	}
 }

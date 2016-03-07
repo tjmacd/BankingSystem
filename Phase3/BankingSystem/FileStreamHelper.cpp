@@ -66,7 +66,13 @@ void FileStreamHelper::logTransaction(std::string code,
 	std::string misc) {
 	if(outputs_file != "") {
 		FILE *transactionFile = fopen(outputs_file.c_str(), "a");
-		fprintf(transactionFile, "%s %-20s %05d %08.2f %-2s\n", code.c_str(),
+		const char *format;
+		if(amount == 0.0){
+            format = "%s %-20s %05d %08.0f %-2s\n";
+		} else {
+            format = "%s %-20s %05d %08.2f %-2s\n";
+		}
+		fprintf(transactionFile, format, code.c_str(),
 			account_holder_name.c_str(), account_num, amount, misc.c_str());
 		fclose(transactionFile);
 	}
