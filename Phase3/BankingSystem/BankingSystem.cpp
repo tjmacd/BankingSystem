@@ -17,7 +17,8 @@ typedef enum {
 	tEnable,
 	tDisable,
 	tDeposit,
-	tDelete
+	tDelete,
+	unknown
 } trans_enum;
 
 std::string trim(std::string str) {
@@ -38,6 +39,7 @@ trans_enum hascode(std::string const& job) {
 	if(trim(job) == "enable") return tEnable;
 	if(trim(job) == "disable") return tDisable;
 	if(trim(job) == "delete") return tDelete;
+	return unknown;
 }
 
 
@@ -104,7 +106,7 @@ int main(int argc, char* argv[])
 				break;
 
 			default:
-				std::cout << "Invalid Transaction Command!" << std::endl;
+				std::cout << "Unknown transaction command!" << std::endl;
 				break;
 			}
 
