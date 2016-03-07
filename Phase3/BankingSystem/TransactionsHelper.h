@@ -26,6 +26,10 @@ private:
 	// Prompts for, reads in, and validates account number against the account
 	// holder
 	bool getNumber();
+	// Prints a message and returns false if no user is logged in
+	bool checkLoggedIn();
+	// Prints a message and returns false if user is not privileged
+	bool checkPrivileged();
 
 public:
     // Constructs TransactionsHelper with accounts filename and transaction

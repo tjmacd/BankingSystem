@@ -5,8 +5,8 @@
 FileStreamHelper *file_stream_help;
 AccountHelper *account_helper;
 
-TransactionsHelper::TransactionsHelper(std::string accounts, std::string output)
-{
+TransactionsHelper::TransactionsHelper(std::string accounts,
+                                        std::string output) {
 	// Construct FileStreamHelper class
 	file_stream_help = new FileStreamHelper(accounts, output);
 	account_helper = new AccountHelper(accounts);
@@ -23,14 +23,35 @@ bool TransactionsHelper::getNumber(){
     std::cout << "Enter account number:" << std::endl;
 	std::cin >> account_holder_number;
 
-	if(!account_helper->validateAccount(account_holder_number, account_holder_name))
+	if(!account_helper->validateAccount(account_holder_number,
+                                        account_holder_name))
 	{
-		std::cout << "Account number is not valid for that account holder" << std::endl;
+		std::cout << "Account number is not valid for that account holder"
+            << std::endl;
 		account_holder_number = 0;
 		return false;
 	} else {
         return true;
 	}
+}
+
+bool TransactionsHelper::checkLoggedIn() {
+    if(!is_logged_in){
+        std::cout << "Not logged in! Please login first!" << std::endl;
+        return false;
+    } else {
+        return true;
+    }
+}
+
+bool TransactionsHelper::checkPrivileged() {
+    if(!is_admin){
+        std::cout << "Permission denied! Only admin can use this command"
+				<< std::endl;
+        return false;
+    } else {
+        return true;
+    }
 }
 
 void TransactionsHelper::processLogin() {
@@ -50,27 +71,26 @@ void TransactionsHelper::processLogin() {
 		}
 
 		is_logged_in = true;
-		file_stream_help->logTransaction("10", account_holder_name, 0, 0, (is_admin ? "A" : "S"));
+		file_stream_help->logTransaction("10", account_holder_name, 0, 0,
+                                            (is_admin ? "A" : "S"));
 	} else {
 		std::cout << "Already Logged In!" << std::endl;
 	}
 }
 
 void TransactionsHelper::processLogout() {
-	if(is_logged_in) {
+	if(checkLoggedIn()) {
 		std::cout << "Logging out..." << std::endl;
 		is_logged_in = false;
 
 		file_stream_help->logTransaction("00", account_holder_name, 0, 0, "");
-	} else {
-		std::cout << "Not Logged in! Please login first!" << std::endl;
 	}
 }
 
 void TransactionsHelper::processWithdrawal() {
 	float toWithdraw;
 
-	if(is_logged_in) {
+	if(checkLoggedIn()) {
 		if(is_admin) {
 			getName();
 		}
@@ -85,8 +105,6 @@ void TransactionsHelper::processWithdrawal() {
 				toWithdraw, "");
 			}
 		}
-	} else {
-		std::cout << "Not logged in! Please login!" << std::endl;
 	}
 }
 
@@ -94,7 +112,7 @@ void TransactionsHelper::processPaybill() {
 	std::string company;
 	float amount;
 
-	if(is_logged_in) {
+	if(checkLoggedIn()) {
 		if(is_admin) {
 			getName();
 		}
@@ -113,8 +131,6 @@ void TransactionsHelper::processPaybill() {
 			file_stream_help->logTransaction("03", account_holder_name, account_holder_number,
 				amount, company);
 		}
-	} else {
-		std::cout << "Not logged in! Please login!" << std::endl;
 	}
 }
 
@@ -123,7 +139,7 @@ void TransactionsHelper::processTransfer() {
 	int from_account_num;
 	int to_account_num;
 
-	if(is_logged_in) {
+	if(checkLoggedIn()) {
 		if(is_admin) {
 			getName();
 		}
@@ -143,15 +159,13 @@ void TransactionsHelper::processTransfer() {
 			file_stream_help->logTransaction("02", account_holder_name, account_holder_number,
 				amount, "");
 		}
-	} else {
-		std::cout << "Not logged in! Please login!" << std::endl;
 	}
 }
 
 void TransactionsHelper::processDeposit() {
 	float amount;
 
-	if(is_logged_in) {
+	if(checkLoggedIn()) {
 		if(is_admin) {
 			getName();
 		}
@@ -162,16 +176,14 @@ void TransactionsHelper::processDeposit() {
 			file_stream_help->logTransaction("04", account_holder_name, account_holder_number,
 				amount, "");
 		}
-	} else {
-		std::cout << "Not logged in! Please login!" << std::endl;
 	}
 }
 
 void TransactionsHelper::processCreate() {
 	float balance;
 
-	if(is_logged_in) {
-		if(is_admin) {
+	if(checkLoggedIn()) {
+		if(checkPrivileged()) {
 			getName();
 
 			std::cout << "Enter the initial balance: " << std::endl;
@@ -183,18 +195,13 @@ void TransactionsHelper::processCreate() {
 			std::cout << "Account creation pending" << std::endl;
 
 			file_stream_help->logTransaction("05", account_holder_name, 0, balance, "");
-		} else {
-			std::cout << "Permission Denied! Only admin can use this command"
-				<< std::endl;
 		}
-	} else {
-		std::cout << "Not logged in! Please login!" << std::endl;
 	}
 }
 
 void TransactionsHelper::processDelete() {
-	if(is_logged_in) {
-		if(is_admin) {
+	if(checkLoggedIn()) {
+		if(checkPrivileged()) {
 			getName();
 
 			std::cout << "Enter Account holder's number: " << std::endl;
@@ -203,18 +210,13 @@ void TransactionsHelper::processDelete() {
 			if(getNumber()){
                 file_stream_help->logTransaction("06", account_holder_name, account_holder_number, 0, "");
             }
-		} else {
-			std::cout << "Permission Denied! Only admin can use this command"
-				<< std::endl;
 		}
-	} else {
-		std::cout << "Not logged in! Please login!" << std::endl;
 	}
 }
 
 void TransactionsHelper::setStatus(bool enabled) {
-	if(is_logged_in) {
-		if(is_admin) {
+	if(checkLoggedIn()) {
+		if(checkPrivileged()) {
 			getName();
 			if(getNumber())	{
                 std::string state;
@@ -235,12 +237,7 @@ void TransactionsHelper::setStatus(bool enabled) {
 					std::cout << "Account is already " << state << "!" << std::endl;
 				}
 			}
-		} else {
-			std::cout << "Permission Denied! Only admin can use this command"
-			<< std::endl;
 		}
-	} else {
-		std::cout << "Not logged in! Please login!" << std::endl;
 	}
 }
 
@@ -254,8 +251,8 @@ void TransactionsHelper::processEnable() {
 }
 
 void TransactionsHelper::processChangePlan() {
-	if(is_logged_in) {
-		if(is_admin) {
+	if(checkLoggedIn()) {
+		if(checkPrivileged()) {
 			getName();
 			if(getNumber()) {
 				char newplan = account_helper->changePlan(account_holder_number);
@@ -263,11 +260,7 @@ void TransactionsHelper::processChangePlan() {
 					(newplan == 'S' ? "Student" : "Non-Student") << std::endl;
 				file_stream_help->logTransaction("08", account_holder_name, account_holder_number, 0, "");
 			}
-		} else {
-			std::cout << "Permission Denied! Only admin can use this command" << std::endl;
 		}
-	} else {
-		std::cout << "Not logged in! Please login!" << std::endl;
 	}
 }
 
