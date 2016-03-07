@@ -1,5 +1,0 @@
-login
-admin
-deposit
-Non Existent Name
-logout

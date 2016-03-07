@@ -1,6 +1,0 @@
-login
-admin
-enable
-Disabled Account
-00006
-logout

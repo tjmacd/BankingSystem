@@ -1,6 +1,0 @@
-login
-admin
-create
-ABCDEFGHIJKLMNOPQRSTUVWXYZ
-0.01
-logout

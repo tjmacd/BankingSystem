@@ -1,8 +1,0 @@
-Welcome to the banking system enter session type
-enter session type
-login accepted
-What is your name?
-What is your account number?
-How much would you like to withdraw?
-Can only withdraw in denominations of 5, 10, 20, 50, 100
-you have loggedout

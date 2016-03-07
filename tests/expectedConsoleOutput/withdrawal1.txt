@@ -1,7 +1,0 @@
-Welcome to the banking system enter session type
-enter session type
-login accepted
-what is your name?
-what is your account number?
-inccorect name?
-you have logged out

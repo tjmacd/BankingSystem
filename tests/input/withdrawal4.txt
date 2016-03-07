@@ -1,7 +1,0 @@
-login
-admin
-withdrawal
-mark
-00001
--1.00
-logout

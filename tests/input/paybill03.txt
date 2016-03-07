@@ -1,8 +1,0 @@
-login
-standard
-Account Full
-paybill
-00002
-EC
-2000.00
-logout

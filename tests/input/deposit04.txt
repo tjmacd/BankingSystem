@@ -1,7 +1,0 @@
-login
-admin
-deposit
-Empty Account
-00004
-0.10
-logout

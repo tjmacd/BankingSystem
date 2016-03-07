@@ -1,7 +1,0 @@
-login
-admin
-deposit
-Empty Student
-00007
-0.05
-logout

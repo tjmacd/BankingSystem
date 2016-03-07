@@ -1,8 +1,0 @@
-login
-admin
-paybill
-Student Account 1
-00003
-EC
-0.96
-logout

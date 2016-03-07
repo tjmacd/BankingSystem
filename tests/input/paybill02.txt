@@ -1,7 +1,0 @@
-login
-standard
-Account 1
-paybill
-00001
-AA
-logout

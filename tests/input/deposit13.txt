@@ -1,7 +1,0 @@
-login
-standard
-Account Full
-deposit
-00002
-0.01
-logout

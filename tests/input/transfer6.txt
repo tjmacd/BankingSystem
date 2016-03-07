@@ -1,7 +1,0 @@
-login
-admin
-mark
-00001
-98798
-5.00
-logout

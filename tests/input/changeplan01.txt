@@ -1,5 +1,0 @@
-login
-standard
-changeplan
-Account 1
-logout

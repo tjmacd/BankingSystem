@@ -1,5 +1,0 @@
-login 
-admin
-disable
-Account 2
-logout

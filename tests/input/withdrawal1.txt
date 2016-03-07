@@ -1,5 +1,0 @@
-login 
-admin
-withdrawal
-marco
-logout

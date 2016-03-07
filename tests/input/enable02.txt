@@ -1,5 +1,0 @@
-login
-standard
-Disabled Account
-enable
-logout
