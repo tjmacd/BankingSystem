@@ -34,5 +34,8 @@ public:
 	// Toggles between student and non-student account. Returns 'S' if changed
 	// to student and 'N' if changed to non-student
 	char changePlan(int id);
+
+	float getFee(Account account);
+	bool deposit(int id, float amount);
 };
 #endif // BANKINGSYSTEM_ACCOUNTHELPER_H

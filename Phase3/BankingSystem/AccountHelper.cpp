@@ -165,8 +165,7 @@ bool AccountHelper::changeStatus(int id, bool new_state){
  * @params <int id> account number of the account
  * @return char of the account status
  */
-char AccountHelper::changePlan(int id)
-{
+char AccountHelper::changePlan(int id) {
 	for(int i = 0; i < accounts.size(); i++)
 	{
 		// Check if the account exists by its id
@@ -181,4 +180,28 @@ char AccountHelper::changePlan(int id)
 			return (accounts[i].is_student ? 'S' : 'N');
 		}
 	}
+}
+
+float AccountHelper::getFee(Account account) {
+    if(account.is_student){
+        return 0.05;
+    } else {
+        return 0.10;
+    }
+}
+
+bool AccountHelper::deposit(int id, float amount) {
+    Account account = getAccount(id);
+    float fee = getFee(account);
+    float newBalance = account.balance + amount - fee;
+    if(newBalance < 0){
+        std::cout << "Insufficient funds to cover fees" << std::endl;
+        return false;
+    }
+    if(newBalance > 99999.99){
+        std::cout << "Cannot deposit; Account is full" << std::endl;
+        return false;
+    }
+    account.balance = newBalance;
+    return true;
 }
