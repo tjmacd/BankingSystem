@@ -7,3 +7,5 @@ transactionFiles/
 .objs/
 *.depend
 *.layout
+BankingSystem/BankingSystem
+testlog.txt
