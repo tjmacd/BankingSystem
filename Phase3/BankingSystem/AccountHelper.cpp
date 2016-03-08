@@ -126,6 +126,16 @@ bool AccountHelper::validateAccountHolderName(std::string name) {
 	return false; // false if above fails
 }
 
+bool AccountHelper::isAccountActive(int id){
+    // Iterate through the list of accounts
+	for(int i = 0; i < accounts.size(); i++)
+	{
+		if(accounts[i].number == id) {
+			return accounts[i].is_active;
+		}
+	}
+}
+
 /*
  * @method changeStatus
  * @desc Change the status of the account
