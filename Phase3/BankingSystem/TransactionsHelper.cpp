@@ -129,7 +129,8 @@ void TransactionsHelper::processLogout() {
 }
 
 void TransactionsHelper::processWithdrawal() {
-	float toWithdraw;
+	std::string toWithdraw;
+  float amount;
 
 	if(checkLoggedIn()) {
 		if(is_admin) {
@@ -140,10 +141,10 @@ void TransactionsHelper::processWithdrawal() {
 			std::cin.ignore();
 			std::cout << "Enter the amount to withdraw:" << std::endl;
 			std::cin >> toWithdraw;
-			if(account_helper->validateWithdrawAmount(account_holder_number, toWithdraw, is_admin)) {
+      if(verifyInputAmount(toWithdraw, amount) && account_helper->validateWithdrawAmount(account_holder_number, amount, is_admin)) {
                 std::cout << "$" << toWithdraw << " withdrawn from account" << std::endl;
                 file_stream_help->logTransaction("01", account_holder_name, account_holder_number,
-				toWithdraw, "");
+				amount, "");
 			}
 		}
 	}
