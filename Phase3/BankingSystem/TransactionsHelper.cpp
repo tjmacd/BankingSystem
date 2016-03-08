@@ -87,6 +87,10 @@ bool TransactionsHelper::verifyInputAmount(std::string input,
         return false;
     }
     amount_output = std::atof(input.c_str());
+    if(amount_output <= 0){
+        std::cout << "Invalid amount input" << std::endl;
+        return false;
+    }
     if(amount_output > account_helper->MAX_AMOUNT){
         std::cout << "Input amount is too high. It must be no greater than $"
                     << account_helper->MAX_AMOUNT << std::endl;
@@ -110,7 +114,9 @@ void TransactionsHelper::processLogin() {
 			getName();
 			std::cout << "Logged in as " << account_holder_name << std::endl;
 		}
-
+        companies["EC"]=0;
+        companies["CQ"]=0;
+        companies["TV"]=0;
 		is_logged_in = true;
 		file_stream_help->logTransaction("10", account_holder_name, 0, 0,
                                             (is_admin ? "A" : "S"));
@@ -171,6 +177,9 @@ void TransactionsHelper::processPaybill() {
 	if(checkLoggedIn()) {
 		if(is_admin) {
 			getName();
+            if(!validateName()){
+                return;
+            }
 		}
 		if(getNumber())	{
       if(!account_helper->isAccountActive(account_holder_number)) {
@@ -182,7 +191,7 @@ void TransactionsHelper::processPaybill() {
 			std::cin.ignore();
 			std::cin >> company;
 
-			if(!(company == "EC" || company == "CQ" || company == "TV")) {
+			if(!(companies.count(company))) {
 				std::cout << "Company name is not recognized" << std::endl;
 				return;
 			}
@@ -191,10 +200,16 @@ void TransactionsHelper::processPaybill() {
 			if(!verifyInputAmount(amount_input, amount)){
                 return;
 			}
+			if(!is_admin && (companies[company] + amount > PAYBILL_LIMIT)){
+                std::cout << "Payment exceeds maximum amount of " << PAYBILL_LIMIT
+                    << "; Payment rejected" << std::endl;
+                return;
+			}
 			if(!account_helper->validateWithdrawAmount(account_holder_number,
                                                         amount, is_admin)){
                 return;
             }
+            companies[company] += amount;
 			std::cout << "$" << amount << " paid to " << company << std::endl;
 			file_stream_help->logTransaction("03", account_holder_name,
                                                 account_holder_number, amount,

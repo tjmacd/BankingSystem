@@ -3,4 +3,20 @@ admin
 deposit
 Disabled Account
 00006
+withdrawal
+Disabled Account
+00006
+paybill
+Disabled Account
+00006
+transfer
+Disabled Account
+00006
+transfer
+Account Full
+00002
+00006
+changeplan
+Disabled Account
+00006
 logout

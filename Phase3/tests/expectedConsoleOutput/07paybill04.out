@@ -4,5 +4,5 @@ Logged in as Account Full
 Enter the account number:
 Enter the payee company:
 Enter the amount to pay:
-Payment exceeds maximum amount for this session. Request rejected.
+Payment exceeds maximum amount of 2000.00; Payment rejected
 Logged out
