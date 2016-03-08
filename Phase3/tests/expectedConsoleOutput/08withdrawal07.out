@@ -1,8 +1,6 @@
-Welcome to the banking system enter session type
-enter session type
-login accepted
-What is your name?
-What is your account number?
-How much would you like to withdraw?
-Your balance has to be above $0.00 after you withdraw
-you have loggedout
+Please select session type (standard or admin):
+Logged in as admin
+Please enter account holder's name:
+Enter the account number:
+Account number is not valid for that account holder
+Unknown transaction command!

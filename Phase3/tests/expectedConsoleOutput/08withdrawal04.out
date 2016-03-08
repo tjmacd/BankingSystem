@@ -1,7 +1,7 @@
-Welcome to the banking system enter session type
-enter session type
-login accepted
-What is your name?
-What is your account number?
-You have to enter between $0.00 to $500.00
-you have loggedout
+Please select session type (standard or admin):
+Logged in as admin
+Please enter account holder's name:
+Enter the account number:
+Account number is not valid for that account holder
+Unknown transaction command!
+Logged out
