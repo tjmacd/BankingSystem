@@ -63,7 +63,7 @@ bool TransactionsHelper::getNumber(std::string prompt){
 
 bool TransactionsHelper::checkLoggedIn() {
     if(!is_logged_in){
-        std::cout << "Not logged in! Please login first!" << std::endl;
+        std::cout << "Must be logged in before logging out" << std::endl;
         return false;
     } else {
         return true;
