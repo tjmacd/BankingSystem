@@ -264,8 +264,8 @@ void TransactionsHelper::processTransfer() {
                 std::cout << "Invalid amount input" << std::endl;
                 return;
             }
+            if(!account_helper->transferAmount(account_holder_number, to_account_num, amount, is_admin)) return;
             std::cout << "$" << amount << " transfered to account " << to_account_num << std::endl;
-            account_helper->transferAmount(account_holder_number, to_account_num, amount, is_admin);
             file_stream_help->logTransaction("02", account_holder_name, account_holder_number,
 				amount, "");
             file_stream_help->logTransaction("02", account_holder_name, to_account_num,

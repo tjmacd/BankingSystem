@@ -63,7 +63,7 @@ bool AccountHelper::validateWithdrawAmount(int id, float amount, bool is_admin)
 
     // If account exists from the accounts pool,
     // get the balance and validate
-    if(getAccount(id).balance < toBewithdrawan) {
+    if(getAccount(id).balance - toBewithdrawan < 0) {
         std::cout << "Not enough balance!" << std::endl;
         return false;
     } else {
@@ -230,9 +230,9 @@ bool AccountHelper::transferAmount(int fromAccount, int toAccount, float amount,
 		std::cout << "Max transfer amount cannot exceed $1000" << std::endl;
 		return false;
 	}
-	
+
 	if(transfer_amount < 0 || from_account.balance < transfer_amount) {
-		std::cout << "Insufficient funds to cover fees" << std::endl;
+		std::cout << "Not enough balance!" << std::endl;
 		return false;
 	}
 

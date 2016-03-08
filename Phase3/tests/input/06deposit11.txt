@@ -10,11 +10,11 @@ admin
 withdrawal
 Empty Account
 00004
-0.01
+5.00
 transfer
 Empty Account
 00004
-00001
+00005
 0.01
 paybill
 Empty Account

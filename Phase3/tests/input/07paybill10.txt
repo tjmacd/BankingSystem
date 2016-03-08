@@ -1,7 +1,7 @@
 login
-admin
-paybill
+standard
 Student Account 1
+paybill
 00003
 EC
 0.96
