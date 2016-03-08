@@ -108,7 +108,9 @@ void TransactionsHelper::processLogin() {
 			getName();
 			std::cout << "Logged in as " << account_holder_name << std::endl;
 		}
-
+        companies["EC"]=0;
+        companies["CQ"]=0;
+        companies["TV"]=0;
 		is_logged_in = true;
 		file_stream_help->logTransaction("10", account_holder_name, 0, 0,
                                             (is_admin ? "A" : "S"));
@@ -170,7 +172,7 @@ void TransactionsHelper::processPaybill() {
 			std::cin.ignore();
 			std::cin >> company;
 
-			if(!(company == "EC" || company == "CQ" || company == "TV")) {
+			if(!(companies.count(company))) {
 				std::cout << "Company name is not recognized" << std::endl;
 				return;
 			}
@@ -179,7 +181,7 @@ void TransactionsHelper::processPaybill() {
 			if(!verifyInputAmount(amount_input, amount)){
                 return;
 			}
-			if(amount > PAYBILL_LIMIT){
+			if(companies[company] + amount > PAYBILL_LIMIT){
                 std::cout << "Payment exceeds maximum amount of " << PAYBILL_LIMIT
                     << "; Payment rejected" << std::endl;
                 return;
@@ -188,6 +190,7 @@ void TransactionsHelper::processPaybill() {
                                                         amount, is_admin)){
                 return;
             }
+            companies[company] += amount;
 			std::cout << "$" << amount << " paid to " << company << std::endl;
 			file_stream_help->logTransaction("03", account_holder_name,
                                                 account_holder_number, amount,

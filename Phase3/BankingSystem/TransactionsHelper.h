@@ -7,6 +7,7 @@
 #include "AccountHelper.h"
 #include <regex>
 #include <iomanip>
+#include <map>
 
 // Contains methods to process transactions
 class TransactionsHelper
@@ -23,6 +24,8 @@ private:
     // Set the limit to the withdrawal process
 	const float WITHDRAWAL_LIMIT = 500;
     const float PAYBILL_LIMIT = 2000;
+    std::map<std::string, float> companies;
+
 	// Sets the account status to enabled or disabled
 	void setStatus(bool enabled);
 	// Prompts user for account holder name and reads it in
