@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "TransactionsHelper.h"
 
-
-const float MAX_AMOUNT = 99999.99;
 // External Linkage
 FileStreamHelper *file_stream_help;
 AccountHelper *account_helper;
@@ -13,7 +11,7 @@ TransactionsHelper::TransactionsHelper(std::string accounts,
 	file_stream_help = new FileStreamHelper(accounts, output);
 	account_helper = new AccountHelper(accounts);
 	is_logged_in = false;
-	std::cout << std::fixed << std:: setprecision(2);
+	std::cout << std::fixed << std::setprecision(2);
 }
 
 void TransactionsHelper::getName(){
@@ -87,9 +85,9 @@ bool TransactionsHelper::verifyInputAmount(std::string input,
         return false;
     }
     amount_output = std::atof(input.c_str());
-    if(amount_output > MAX_AMOUNT){
+    if(amount_output > account_helper->MAX_AMOUNT){
         std::cout << "Input amount is too high. It must be no greater than $"
-                    << MAX_AMOUNT << std::endl;
+                    << account_helper->MAX_AMOUNT << std::endl;
         return false;
     }
     return true;
@@ -214,6 +212,9 @@ void TransactionsHelper::processDeposit() {
 	if(checkLoggedIn()) {
 		if(is_admin) {
 			getName();
+			if(!validateName()){
+                return;
+			}
 		}
 		if(getNumber()) {
             if(account_helper->isAccountActive(account_holder_number))	{
@@ -267,7 +268,7 @@ void TransactionsHelper::processDelete() {
                 return;
 			}
 			std::cout << "Enter Account holder's name: " << std::endl;
-			std::cin >> account_holder_number;
+			std::cin >> account_holder_name;
 
 			if(getNumber()){
         account_helper->deleteAccount(account_holder_number);

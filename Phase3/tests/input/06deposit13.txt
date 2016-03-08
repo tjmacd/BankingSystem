@@ -1,7 +1,7 @@
 login
-standard
-Account Full
+admin
 deposit
+Account Full
 00002
-0.01
+0.11
 logout

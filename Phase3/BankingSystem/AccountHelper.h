@@ -16,6 +16,8 @@ private:
 	std::vector<Account> accounts;
 
 public:
+    const float MAX_AMOUNT = 99999.99;
+
     // Takes the current accounts file name as a parameter
 	AccountHelper(std::string accounts_file);
 	~AccountHelper(void);
