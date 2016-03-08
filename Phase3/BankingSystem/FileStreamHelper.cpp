@@ -22,7 +22,6 @@ void FileStreamHelper::parseAccount(std::string line) {
 		account.is_active = (match[3] == 'A') ? true : false;
 		account.balance = stof(match[4]);
 		account.is_student = (match[5] == 'S') ? true : false;
-
 		// Push each account structure into accounts vector
 		accounts.push_back(account);
 	}

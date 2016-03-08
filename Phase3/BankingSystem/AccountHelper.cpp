@@ -89,15 +89,9 @@ Account AccountHelper::getAccount(int id) {
 		// Check if the account number matches the account id
 		if(accounts[i].number == id)
 		{
-			// Assign values for each of the children in the strucutre
-			a.name = accounts[i].name;
-			a.balance = accounts[i].balance;
-			a.is_active = accounts[i].is_active;
-			a.number = accounts[i].number;
+			return accounts[i];
 		}
 	}
-
-	return a; // return Accounts struct
 }
 
 /*
