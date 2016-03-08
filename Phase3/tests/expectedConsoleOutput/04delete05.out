@@ -1,11 +1,13 @@
 Please select session type (standard or admin):
 Logged in as admin
 Please enter account holder's name:
-Enter account number:
-Account has been successfully deleted
+Enter the account number:
+Account has been deleted
 Logged out
 Please select session type (standard or admin):
 Logged in as admin
 Please enter account holder's name:
-Account not found or has been deleted
+Enter the account number:
+Account number is not valid for that account holder
+Unknown transaction command!
 Logged out
