@@ -49,11 +49,11 @@ std::vector<Account> FileStreamHelper::readBankAccountFile() {
 }
 
 /*
- * @method FileStreamHelper
- * @desc FileStreamHelper deconstructor
- * @params none
- * @return none
- */
+* @method FileStreamHelper
+* @desc FileStreamHelper deconstructor
+* @params none
+* @return none
+*/
 FileStreamHelper::~FileStreamHelper(void) {
 	accounts_file.clear();
 	outputs_file.clear();
@@ -61,35 +61,35 @@ FileStreamHelper::~FileStreamHelper(void) {
 }
 
 /*
- * @method trim
- * @desc trim whitespace from start and end
- * @params <std::string& str> string containing whitespace
- * @return <std::string str> string without whitespace
- */
+* @method trim
+* @desc trim whitespace from start and end
+* @params <std::string& str> string containing whitespace
+* @return <std::string str> string without whitespace
+*/
 std::string FileStreamHelper::trim(std::string& str) {
-    size_t first = str.find_first_not_of(' ');
-    size_t last = str.find_last_not_of(' ');
-    return str.substr(first, (last-first+1));
+	size_t first = str.find_first_not_of(' ');
+	size_t last = str.find_last_not_of(' ');
+	return str.substr(first, (last-first+1));
 }
 
 /*
- * @method logTransaction
- * @desc Log the transaction into a file
- * @params <std::string code> transaction code
- 					 <std::string account_holder_name> account holder's name
-					 <int account_num> account holder's number
-					 <float amount> Amount during the transaction process
-					 <std::string misc> Misc information if needed
- * @return none
- */
+* @method logTransaction
+* @desc Log the transaction into a file
+* @params <std::string code> transaction code
+<std::string account_holder_name> account holder's name
+<int account_num> account holder's number
+<float amount> Amount during the transaction process
+<std::string misc> Misc information if needed
+* @return none
+*/
 void FileStreamHelper::logTransaction(std::string code,
 	std::string account_holder_name, int account_num, float amount,
 	std::string misc) {
-	if(outputs_file != "") {
-		FILE *transactionFile = fopen(outputs_file.c_str(), "a");
-		const char *format = "%s %-20s %05d %08.2f %-2s\n";
-		fprintf(transactionFile, format, code.c_str(),
-			account_holder_name.c_str(), account_num, amount, misc.c_str());
-		fclose(transactionFile);
-	}
+		if(outputs_file != "") {
+			FILE *transactionFile = fopen(outputs_file.c_str(), "a");
+			const char *format = "%s %-20s %05d %08.2f %-2s\n";
+			fprintf(transactionFile, format, code.c_str(),
+				account_holder_name.c_str(), account_num, amount, misc.c_str());
+			fclose(transactionFile);
+		}
 }

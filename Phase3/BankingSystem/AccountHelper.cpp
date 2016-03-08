@@ -5,11 +5,11 @@
 FileStreamHelper *file_stream_helper;
 
 /*
- * @method AccountHelper
- * @desc AccountHelper Constructor Method
- * @params <std::string accounts_file> name of the accounts file
- * @return none
- */
+* @method AccountHelper
+* @desc AccountHelper Constructor Method
+* @params <std::string accounts_file> name of the accounts file
+* @return none
+*/
 AccountHelper::AccountHelper(std::string accounts_file)
 {
 	// Construct FileStreamHelper with accounts file
@@ -20,66 +20,66 @@ AccountHelper::AccountHelper(std::string accounts_file)
 }
 
 /*
- * @method AccountHelper Deconstructor
- * @desc AccountHelper Constructor Method
- * @params none
- * @return none
- */
+* @method AccountHelper Deconstructor
+* @desc AccountHelper Constructor Method
+* @params none
+* @return none
+*/
 AccountHelper::~AccountHelper(void)
 {
 	delete file_stream_helper;
 }
 
 /*
- * @method validateAccount
- * @desc Validate if account exists in the accounts bank
- * @params <int account_num> account number, <std::string account_name> account name associated with number
- * @return <boolean true|false> if the account is valid
- */
+* @method validateAccount
+* @desc Validate if account exists in the accounts bank
+* @params <int account_num> account number, <std::string account_name> account name associated with number
+* @return <boolean true|false> if the account is valid
+*/
 bool AccountHelper::validateAccount(int account_num, std::string account_name) {
 	for(int i = 0; i < accounts.size(); i++)
 	{
 		// Check if the account number exists
 		if(accounts[i].number == account_num && accounts[i].name == account_name) {
-            return true; // boolean true if account found
+			return true; // boolean true if account found
 		}
 	}
 	return false; // boolean false if it all fails
 }
 
 /*
- * @method validateWithdrawAmount
- * @desc Validate the withdrawal amount
- * @params <int id>			 id of the account to be withdrawn from,
-				 <float amount>  amount to be withdrawn
-				 <bool is_admin> true if the account is admin
- * @return none
- */
+* @method validateWithdrawAmount
+* @desc Validate the withdrawal amount
+* @params <int id>			 id of the account to be withdrawn from,
+<float amount>  amount to be withdrawn
+<bool is_admin> true if the account is admin
+* @return none
+*/
 bool AccountHelper::validateWithdrawAmount(int id, float amount, bool is_admin)
 {
 	Account account = getAccount(id);
 	float fee = getFee(account, is_admin);
 	float toBewithdrawan = amount + fee;
 
-    // If account exists from the accounts pool,
-    // get the balance and validate
-    if(getAccount(id).balance - toBewithdrawan < 0) {
-        std::cout << "Not enough balance!" << std::endl;
-        return false;
-    } else {
-			account.balance = account.balance - toBewithdrawan;
-			return true;
-		}
+	// If account exists from the accounts pool,
+	// get the balance and validate
+	if(getAccount(id).balance - toBewithdrawan < 0) {
+		std::cout << "Not enough balance!" << std::endl;
+		return false;
+	} else {
+		account.balance = account.balance - toBewithdrawan;
+		return true;
+	}
 
 	return true; // boolean true if all the above criteria matches
 }
 
 /*
- * @method getAccount
- * @desc Get Account Information
- * @params <int id> id of the account
- * @return Account structure of resulting account during search
- */
+* @method getAccount
+* @desc Get Account Information
+* @params <int id> id of the account
+* @return Account structure of resulting account during search
+*/
 Account AccountHelper::getAccount(int id) {
 	// Intitialize Structure
 	Account a;
@@ -96,11 +96,11 @@ Account AccountHelper::getAccount(int id) {
 }
 
 /*
- * @method validateAccountNumber
- * @desc Validate the account number
- * @params <int id> account number of the account
- * @return <boolean true|false> if the account number is not valid
- */
+* @method validateAccountNumber
+* @desc Validate the account number
+* @params <int id> account number of the account
+* @return <boolean true|false> if the account number is not valid
+*/
 bool AccountHelper::validateAccountNumber(int id)
 {
 	// Iterate through the list of accounts
@@ -116,11 +116,11 @@ bool AccountHelper::validateAccountNumber(int id)
 }
 
 /*
- * @method validateAccountHolderName
- * @desc Validate if the account name exists
- * @params <std::string name> name of the account holder
- * @return <bool true|false> if the account validates
- */
+* @method validateAccountHolderName
+* @desc Validate if the account name exists
+* @params <std::string name> name of the account holder
+* @return <bool true|false> if the account validates
+*/
 bool AccountHelper::validateAccountHolderName(std::string name) {
 	// Iterate through the list of accounts
 	for(int i = 0; i < accounts.size(); i++)
@@ -134,7 +134,7 @@ bool AccountHelper::validateAccountHolderName(std::string name) {
 }
 
 bool AccountHelper::isAccountActive(int id){
-    // Iterate through the list of accounts
+	// Iterate through the list of accounts
 	for(int i = 0; i < accounts.size(); i++)
 	{
 		if(accounts[i].number == id) {
@@ -144,12 +144,12 @@ bool AccountHelper::isAccountActive(int id){
 }
 
 /*
- * @method changeStatus
- * @desc Change the status of the account
- * @params <int id>					id of the account
-					 <bool new_state> status of the account to be changed
- * @return <boolean true|false> if the account number is not valid
- */
+* @method changeStatus
+* @desc Change the status of the account
+* @params <int id>					id of the account
+<bool new_state> status of the account to be changed
+* @return <boolean true|false> if the account number is not valid
+*/
 bool AccountHelper::changeStatus(int id, bool new_state){
 	// Iterate through the list of account
 	for(int i = 0; i < accounts.size(); i++)
@@ -171,11 +171,11 @@ bool AccountHelper::changeStatus(int id, bool new_state){
 }
 
 /*
- * @method changePlan
- * @desc Change the plan of the account
- * @params <int id> account number of the account
- * @return char of the account status
- */
+* @method changePlan
+* @desc Change the plan of the account
+* @params <int id> account number of the account
+* @return char of the account status
+*/
 char AccountHelper::changePlan(int id) {
 	for(int i = 0; i < accounts.size(); i++)
 	{
@@ -193,65 +193,65 @@ char AccountHelper::changePlan(int id) {
 }
 
 /*
- * @method getFee
- * @desc Calculate fee required for transactions
- * @params <Account account> account object
- 					 <bool is_admin> boolean true if the session is admin
- * @return Account structure of resulting account during search
- */
+* @method getFee
+* @desc Calculate fee required for transactions
+* @params <Account account> account object
+<bool is_admin> boolean true if the session is admin
+* @return Account structure of resulting account during search
+*/
 float AccountHelper::getFee(Account account, bool is_admin) {
 	// Return 0 if session is admin, no fee required
 	if(is_admin) return 0;
 
 	// If the session is standard, add fee
-  if(!is_admin && account.is_student){
-      return 0.05;
-  } else {
-      return 0.10;
-  }
+	if(!is_admin && account.is_student){
+		return 0.05;
+	} else {
+		return 0.10;
+	}
 }
 
 /*
- * @method deposit
- * @desc Process deposit transaction
- * @params <int id> id of the account
- 					 <float amount> amount to be deposited
-					 <bool is_admin> boolean true if the session is admin
- * @return <bool true|false> if the deposit is processed
- */
+* @method deposit
+* @desc Process deposit transaction
+* @params <int id> id of the account
+<float amount> amount to be deposited
+<bool is_admin> boolean true if the session is admin
+* @return <bool true|false> if the deposit is processed
+*/
 bool AccountHelper::deposit(int id, float amount, bool is_admin) {
 	// Get Account object
-    Account account = getAccount(id);
+	Account account = getAccount(id);
 
-		// Get the fee of the transaction
-    float fee = getFee(account, is_admin);
+	// Get the fee of the transaction
+	float fee = getFee(account, is_admin);
 
-		// Calculate the new balance with the fee
-    float newBalance = account.balance + amount - fee;
+	// Calculate the new balance with the fee
+	float newBalance = account.balance + amount - fee;
 
-		// Check to make sure there is enough balance in the account
-    if(newBalance < 0){
-        std::cout << "Insufficient funds to cover fees" << std::endl;
-        return false;
-    }
+	// Check to make sure there is enough balance in the account
+	if(newBalance < 0){
+		std::cout << "Insufficient funds to cover fees" << std::endl;
+		return false;
+	}
 
-		// Validated against maximum deposit amount threshold
-    if(newBalance > MAX_AMOUNT){
-        std::cout << "Cannot deposit; Account is full" << std::endl;
-        return false;
-    }
+	// Validated against maximum deposit amount threshold
+	if(newBalance > MAX_AMOUNT){
+		std::cout << "Cannot deposit; Account is full" << std::endl;
+		return false;
+	}
 
-		// Update the balance
-    account.balance -= fee;
-    return true;
+	// Update the balance
+	account.balance -= fee;
+	return true;
 }
 
 /*
- * @method deleteAccount
- * @desc Delete account from accounts pool
- * @params <int id> id of the account
- * @return <bool true|false> if the account is deleted
- */
+* @method deleteAccount
+* @desc Delete account from accounts pool
+* @params <int id> id of the account
+* @return <bool true|false> if the account is deleted
+*/
 bool AccountHelper::deleteAccount(int id) {
 	// Iterate through each of the accounts
 	for(int i = 0; i < accounts.size(); i++) {
@@ -265,13 +265,13 @@ bool AccountHelper::deleteAccount(int id) {
 }
 
 /*
- * @method transferAmount
- * @desc Transfer amount from 2 accounts
- * @params <int fromAccount> id of the account to be transferrd from
- 					 <int toAccount> id of the account to be transferred to
-					 <bool is_admin> true if the session is admin
- * @return Transfer the amount if the valdation passes
- */
+* @method transferAmount
+* @desc Transfer amount from 2 accounts
+* @params <int fromAccount> id of the account to be transferrd from
+<int toAccount> id of the account to be transferred to
+<bool is_admin> true if the session is admin
+* @return Transfer the amount if the valdation passes
+*/
 bool AccountHelper::transferAmount(int fromAccount, int toAccount, float amount, bool is_admin) {
 	// Get account object to be transferred from
 	Account from_account = getAccount(fromAccount);

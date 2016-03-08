@@ -20,23 +20,23 @@ typedef enum {
 } trans_enum;
 
 /*
- * @method trim
- * @desc trim the whitespace from the inputs
- * @params <std::string str> string with whitespace
- * @return <std::string str> string with whitespace removed
- */
+* @method trim
+* @desc trim the whitespace from the inputs
+* @params <std::string str> string with whitespace
+* @return <std::string str> string with whitespace removed
+*/
 std::string trim(std::string str) {
-    size_t first = str.find_first_not_of(' ');
-    size_t last = str.find_last_not_of(' ');
-    return str.substr(first, (last-first+1));
+	size_t first = str.find_first_not_of(' ');
+	size_t last = str.find_last_not_of(' ');
+	return str.substr(first, (last-first+1));
 }
 
 /*
- * @method hascode
- * @desc check the transaction codes
- * @params <std::string cost& job> transaction code 
- * @return <enum transaction> if the transaction matches
- */
+* @method hascode
+* @desc check the transaction codes
+* @params <std::string cost& job> transaction code 
+* @return <enum transaction> if the transaction matches
+*/
 trans_enum hascode(std::string const& job) {
 	if(trim(job) == "login") return tLogin;
 	if(trim(job) == "logout") return tLogout;
@@ -67,45 +67,45 @@ int main(int argc, char* argv[])
 	std::string transactions;
 
 	// Switch through the input of transaction commands and execute its process
-		while(std::cin >> transactions) {
-			switch(hascode(trim(transactions))) {
-			case tLogin:
-				trans_helper->processLogin();
-				break;
-			case tLogout:
-				trans_helper->processLogout();
-				break;
-			case tWithdrawal:
-				trans_helper->processWithdrawal();
-				break;
-			case tPaybill:
-				trans_helper->processPaybill();
-				break;
-			case tTransfer:
-				trans_helper->processTransfer();
-				break;
-			case tDeposit:
-				trans_helper->processDeposit();
-				break;
-			case tCreate:
-				trans_helper->processCreate();
-				break;
-			case tChangeplan:
-				trans_helper->processChangePlan();
-				break;
-			case tEnable:
-				trans_helper->processEnable();
-				break;
-			case tDisable:
-				trans_helper->processDisable();
-				break;
-			case tDelete:
-				trans_helper->processDelete();
-				break;
-			default:
-				std::cout << "Unknown transaction command!" << std::endl;
-				break;
-			}
-		};
+	while(std::cin >> transactions) {
+		switch(hascode(trim(transactions))) {
+		case tLogin:
+			trans_helper->processLogin();
+			break;
+		case tLogout:
+			trans_helper->processLogout();
+			break;
+		case tWithdrawal:
+			trans_helper->processWithdrawal();
+			break;
+		case tPaybill:
+			trans_helper->processPaybill();
+			break;
+		case tTransfer:
+			trans_helper->processTransfer();
+			break;
+		case tDeposit:
+			trans_helper->processDeposit();
+			break;
+		case tCreate:
+			trans_helper->processCreate();
+			break;
+		case tChangeplan:
+			trans_helper->processChangePlan();
+			break;
+		case tEnable:
+			trans_helper->processEnable();
+			break;
+		case tDisable:
+			trans_helper->processDisable();
+			break;
+		case tDelete:
+			trans_helper->processDelete();
+			break;
+		default:
+			std::cout << "Unknown transaction command!" << std::endl;
+			break;
+		}
+	};
 	return 0;
 }
