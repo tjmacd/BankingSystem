@@ -1,5 +1,6 @@
 ## Remove old test files
-rm tests/consoleOutput/* tests/transactionFiles/*
+rm -r tests/consoleOutput/ tests/transactionFiles/
+mkdir tests/consoleOutput/ tests/transactionFiles/
 
 ## Run tests
 cd tests/input
