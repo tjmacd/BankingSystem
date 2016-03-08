@@ -70,20 +70,6 @@ transactionFiles/03create11.atf / expectedTransactionFiles/03create11.atf
 < 10                      00000 00000.00 A 
 
 
-consoleOutput/04delete01.out / expectedConsoleOutput/04delete01.out
-3a4
-> Permission denied. Only admin can use this command
-
-
-transactionFiles/04delete01.atf / expectedTransactionFiles/04delete01.atf
-1,2c1,2
-< 10 Account 1            00000 00000.00 S 
-< 00 Account 1            00000 00000.00   
----
-> 10                      00000 00000.00 S
-> 00                      00000 00000.00   
-
-
 consoleOutput/04delete02.out / expectedConsoleOutput/04delete02.out
 4,6c4,5
 < Enter Account holder's number: 
@@ -185,69 +171,19 @@ transactionFiles/04delete06.atf / expectedTransactionFiles/04delete06.atf
 > 00                      00000 00000.00   
 
 
-consoleOutput/05changeplan01.out / expectedConsoleOutput/05changeplan01.out
-2,5c2,4
+consoleOutput/05changeplan01.txt~.out / expectedConsoleOutput/05changeplan01.txt~.out
+1,5d0
+< Please select session type (standard or admin):
 < Please enter your name:
-< Logged in as changeplan
-< Unknown transaction command!
-< Unknown transaction command!
----
-> Plese enter your name:
-> Logged in as Account 1
-> Permission denied. Only admin can use this command
+< Logged in as Account 1
+< Permission denied. Only admin can use this command
+< Logged out
 
 
-transactionFiles/05changeplan01.atf / expectedTransactionFiles/05changeplan01.atf
-1,2c1,2
-< 10 changeplan           00000 00000.00 S 
-< 00 changeplan           00000 00000.00   
----
-> 10                      00000 00000.00 S
-> 00                      00000 00000.00   
-
-
-consoleOutput/05changeplan02.out / expectedConsoleOutput/05changeplan02.out
-4,5c4,5
-< Enter the account number:
-< Account number is not valid for that account holder
----
-> Account holder's name not found
-> Logged out
-
-
-transactionFiles/05changeplan02.atf / expectedTransactionFiles/05changeplan02.atf
-1a2
-> 00                      00000 00000.00   
-
-
-consoleOutput/05changeplan03.out / expectedConsoleOutput/05changeplan03.out
-4,5c4,5
-< Enter the account number:
-< Account number is not valid for that account holder
----
-> Enter account number:
-> Account number is not associated with the Account name
-
-
-consoleOutput/05changeplan04.out / expectedConsoleOutput/05changeplan04.out
-4,8c4,6
-< Enter the account number:
-< Plan has been changed to Non-Student
-< Please enter account holder's name:
-< Enter the account number:
-< Account number is not valid for that account holder
----
-> Enter account number:
-> Payment plan has been changed from Non-student to student
-> Logged out
-
-
-transactionFiles/05changeplan04.atf / expectedTransactionFiles/05changeplan04.atf
-2c2,3
-< 08 Student Account 1    00003 00000.00   
----
-> 08 Student Account 1    00003 00001.00
-> 00                      00000 00000.00   
+transactionFiles/05changeplan01.txt~.atf / expectedTransactionFiles/05changeplan01.txt~.atf
+1,2d0
+< 10 Account 1            00000 00000.00 S 
+< 00 Account 1            00000 00000.00   
 
 
 consoleOutput/06deposit01.out / expectedConsoleOutput/06deposit01.out
@@ -1070,20 +1006,6 @@ transactionFiles/10disable01.atf / expectedTransactionFiles/10disable01.atf
 < 00 Account 1            00000 00000.00   
 ---
 > 10                      00000 00000.00 S
-> 00                      00000 00000.00   
-
-
-consoleOutput/10disable02.out / expectedConsoleOutput/10disable02.out
-4,5c4,5
-< Enter the account number:
-< Account number is not valid for that account holder
----
-> Account holder's name not found
-> Logged out
-
-
-transactionFiles/10disable02.atf / expectedTransactionFiles/10disable02.atf
-1a2
 > 00                      00000 00000.00   
 
 
