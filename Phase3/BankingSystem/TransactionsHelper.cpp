@@ -213,13 +213,15 @@ void TransactionsHelper::processDeposit() {
 		if(is_admin) {
 			getName();
 		}
-		if(getNumber())	{
+		if(getNumber() && account_helper->getAccount(account_holder_number).is_active)	{
 			std::cout << "Enter the amount to deposit:" << std::endl;
 			std::cin >> amount;
             std::cout << "$" << amount << " deposited to account" << std::endl;
 			file_stream_help->logTransaction("04", account_holder_name, account_holder_number,
 				amount, "");
-		}
+		} else {
+      std::cout << "Account is disabled, cannot process transaction" << std::endl;
+    }
 	}
 }
 

@@ -4,4 +4,6 @@ changeplan
 Student Account 1
 00003
 changeplan
+Student Account 1
+00003
 logout
