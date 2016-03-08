@@ -15,6 +15,7 @@ private:
 
 public:
     const float MAX_AMOUNT = 99999.99;
+		const float MAX_TRANSFER = 1000.00;
 
     // Takes the current accounts file name as a parameter
 	AccountHelper(std::string accounts_file);
@@ -39,5 +40,6 @@ public:
 	float getFee(Account account);
 	bool deposit(int id, float amount);
 	bool deleteAccount(int id);
+	bool transferAmount(int fromAccount, int toAccount, float amount);
 };
 #endif // BANKINGSYSTEM_ACCOUNTHELPER_H

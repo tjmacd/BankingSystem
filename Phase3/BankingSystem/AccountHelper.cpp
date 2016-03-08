@@ -219,3 +219,22 @@ bool AccountHelper::deleteAccount(int id) {
 	}
 	return false;
 }
+
+bool AccountHelper::transferAmount(int fromAccount, int toAccount, float amount) {
+	Account from_account = getAccount(fromAccount);
+	Account to_account = getAccount(toAccount);
+	float fee = getFee(from_account);
+	float transfer_amount = amount + fee;
+	if(transfer_amount < 0 || from_account.balance < transfer_amount) {
+		std::cout << "Insufficient funds to cover fees" << std::endl;
+		return false;
+	}
+	if(transfer_amount > MAX_TRANSFER) {
+		std::cout << "Max transfer amount cannot exceed $1000" << std::endl;
+		return false;
+	}
+
+	from_account.balance -= transfer_amount;
+	to_account.balance += amount;
+	return true;
+}
