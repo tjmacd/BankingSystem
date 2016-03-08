@@ -10,6 +10,7 @@
 class AccountHelper
 {
 private:
+	int WITHDRAWAL_AMOUNT 500;
 
 public:
     // Takes the current accounts file name as a parameter
