@@ -7,7 +7,7 @@ for file in *
 do
 	test="${file%.txt}"
 	echo “running test $test”
-	../../BankingSystem/BankingSystem currentAccounts.txt ../transactionFiles/$test.atf < $file > ../consoleOutput/$test.out
+	../../BankingSystem/BankingSystem ../../currentAccounts.txt ../transactionFiles/$test.atf < $file > ../consoleOutput/$test.out
 done
 cd ..
 
