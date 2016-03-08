@@ -153,11 +153,8 @@ bool TransactionsHelper::verifyInputAmount(std::string input,
 
     // Convert the string input to float
     amount_output = std::atof(input.c_str());
-<<<<<<< HEAD
 
     // Check against maximum amount threshold
-=======
->>>>>>> 47fa56e30e3d5341dcbe7bd8b30f3ba88300da40
     if(amount_output > account_helper->MAX_AMOUNT){
         std::cout << "Input amount is too high. It must be no greater than $"
                     << account_helper->MAX_AMOUNT << std::endl;
@@ -249,13 +246,8 @@ void TransactionsHelper::processWithdrawal() {
 			std::cout << "Enter the amount to withdraw:" << std::endl;
 			std::cin >> toWithdraw;
 
-<<<<<<< HEAD
       // Check if the account is disabled, cannot further process
       if(!account_helper->isAccountActive(account_holder_number)) {
-=======
-
-    if(!account_helper->isAccountActive(account_holder_number)) {
->>>>>>> 47fa56e30e3d5341dcbe7bd8b30f3ba88300da40
         std::cout << "Cannot process transaction on disabled account" << std::endl;
         return;
       }
@@ -270,15 +262,12 @@ void TransactionsHelper::processWithdrawal() {
                             "standard account" << std::endl;
                     return;
                 }
-<<<<<<< HEAD
                 // Validate withdrawal amount against the list of accounts
-=======
                 if(std::fmod(amount, 5) != 0){
                     std::cout << "Withdrawal rejected; amount must be in "
                         "denominations of 5, 10, 20, 50 or 100" << std::endl;
                     return;
                 }
->>>>>>> 47fa56e30e3d5341dcbe7bd8b30f3ba88300da40
                 if(account_helper->validateWithdrawAmount(account_holder_number, amount, is_admin)) {
                     std::cout << "$" << toWithdraw << " withdrawn from account" << std::endl;
 
@@ -318,10 +307,7 @@ void TransactionsHelper::processPaybill() {
         return;
       }
 
-<<<<<<< HEAD
       // Prompt for payee company info
-=======
->>>>>>> 47fa56e30e3d5341dcbe7bd8b30f3ba88300da40
 			std::cout << "Enter the payee company:" << std::endl;
 			std::cin.ignore();
 			std::cin >> company;
@@ -340,10 +326,8 @@ void TransactionsHelper::processPaybill() {
 			if(!verifyInputAmount(amount_input, amount)){
                 return;
 			}
-<<<<<<< HEAD
 
       // Validate withdrawal amount
-=======
 			if(amount <= 0){
                 std::cout << "Invalid amount input" << std::endl;
                 return;
@@ -353,7 +337,6 @@ void TransactionsHelper::processPaybill() {
                     << "; Payment rejected" << std::endl;
                 return;
 			}
->>>>>>> 47fa56e30e3d5341dcbe7bd8b30f3ba88300da40
 			if(!account_helper->validateWithdrawAmount(account_holder_number,
                                                         amount, is_admin)){
                 return;
@@ -396,18 +379,12 @@ void TransactionsHelper::processTransfer() {
 			std::cout << "Enter the account number to transfer to:" << std::endl;
 			std::cin >> to_account_num;
 
-<<<<<<< HEAD
       // Validate the account to be transfered to
-=======
-
-
->>>>>>> 47fa56e30e3d5341dcbe7bd8b30f3ba88300da40
 			if(!account_helper->validateAccountNumber(to_account_num)) {
 				std::cout << "Invalid Account Number!" << std::endl;
 				return;
 			}
 
-<<<<<<< HEAD
       // Check if the account is active and ready to transaction
       if(!account_helper->isAccountActive(account_holder_number) || !account_helper->isAccountActive(to_account_num)) {
         std::cout << "Cannot process transaction on disabled account" << std::endl;
@@ -429,7 +406,6 @@ void TransactionsHelper::processTransfer() {
 
       // Log the transaction
 			file_stream_help->logTransaction("02", account_holder_name, account_holder_number,
-=======
             if(!account_helper->isAccountActive(account_holder_number) || !account_helper->isAccountActive(to_account_num)) {
                 std::cout << "Cannot process transaction on disabled account" << std::endl;
                 return;
@@ -446,7 +422,6 @@ void TransactionsHelper::processTransfer() {
             std::cout << "$" << amount << " transfered to account " << to_account_num << std::endl;
             account_helper->transferAmount(account_holder_number, to_account_num, amount, is_admin);
             file_stream_help->logTransaction("02", account_holder_name, account_holder_number,
->>>>>>> 47fa56e30e3d5341dcbe7bd8b30f3ba88300da40
 				amount, "");
 
       // Log the transaction
