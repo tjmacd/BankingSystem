@@ -139,10 +139,18 @@ void TransactionsHelper::processWithdrawal() {
 			std::cin.ignore();
 			std::cout << "Enter the amount to withdraw:" << std::endl;
 			std::cin >> toWithdraw;
-      if(verifyInputAmount(toWithdraw, amount) && account_helper->validateWithdrawAmount(account_holder_number, amount, is_admin)) {
-                std::cout << "$" << toWithdraw << " withdrawn from account" << std::endl;
-                file_stream_help->logTransaction("01", account_holder_name, account_holder_number,
-				amount, "");
+
+            if(verifyInputAmount(toWithdraw, amount)){
+                if(!is_admin && amount > WITHDRAWAL_LIMIT) {
+                    std::cout << "You can only withdraw amount less than $500.00 on " <<
+                            "standard account" << std::endl;
+                    return;
+                }
+                if(account_helper->validateWithdrawAmount(account_holder_number, amount, is_admin)) {
+                    std::cout << "$" << toWithdraw << " withdrawn from account" << std::endl;
+                    file_stream_help->logTransaction("01", account_holder_name, account_holder_number,
+                        amount, "");
+                }
 			}
 		}
 	}
@@ -150,6 +158,7 @@ void TransactionsHelper::processWithdrawal() {
 
 void TransactionsHelper::processPaybill() {
 	std::string company;
+	std::string amount_input;
 	float amount;
 
 	if(checkLoggedIn()) {
@@ -166,7 +175,14 @@ void TransactionsHelper::processPaybill() {
 				return;
 			}
 			std::cout << "Enter the amount to pay:" << std::endl;
-			std::cin >> amount;
+			std::cin >> amount_input;
+			if(!verifyInputAmount(amount_input, amount)){
+                return;
+			}
+			if(!account_helper->validateWithdrawAmount(account_holder_number,
+                                                        amount, is_admin)){
+                return;
+            }
 			std::cout << "$" << amount << " paid to " << company << std::endl;
 			file_stream_help->logTransaction("03", account_holder_name,
                                                 account_holder_number, amount,
