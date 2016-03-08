@@ -48,18 +48,40 @@ std::vector<Account> FileStreamHelper::readBankAccountFile() {
 	return accounts;
 }
 
+/*
+ * @method FileStreamHelper
+ * @desc FileStreamHelper deconstructor
+ * @params none
+ * @return none
+ */
 FileStreamHelper::~FileStreamHelper(void) {
 	accounts_file.clear();
 	outputs_file.clear();
 	if(DEBUG) std::cout << "[DEBUG]: FileStreamHelper Deconstructed" << std::endl;
 }
 
+/*
+ * @method trim
+ * @desc trim whitespace from start and end
+ * @params <std::string& str> string containing whitespace
+ * @return <std::string str> string without whitespace
+ */
 std::string FileStreamHelper::trim(std::string& str) {
     size_t first = str.find_first_not_of(' ');
     size_t last = str.find_last_not_of(' ');
     return str.substr(first, (last-first+1));
 }
 
+/*
+ * @method logTransaction
+ * @desc Log the transaction into a file
+ * @params <std::string code> transaction code
+ 					 <std::string account_holder_name> account holder's name
+					 <int account_num> account holder's number
+					 <float amount> Amount during the transaction process
+					 <std::string misc> Misc information if needed
+ * @return none
+ */
 void FileStreamHelper::logTransaction(std::string code,
 	std::string account_holder_name, int account_num, float amount,
 	std::string misc) {
