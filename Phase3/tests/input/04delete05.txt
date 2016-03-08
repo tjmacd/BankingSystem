@@ -1,10 +1,13 @@
 login
 admin
+delete
 Account 1
 00001
-delete
 logout
 login
 admin
+deposit
 Account 1
+00001
+0.01
 logout
