@@ -28,61 +28,52 @@ consoleOutput/03create11.out / expectedConsoleOutput/03create11.out
 < Account number is not valid for that account holder
 ---
 > No transactions are allowed on this account in this session
-13,14c13,23
+13,14c13,14
 < Enter the account number to transfer from:
 < Account number is not valid for that account holder
 ---
 > Enter the account number:
 > No transactions are allowed on this account in this session
-> Please enter account holder's name:
-> Enter the account number:
-> No transactions are allowed on this account in this session
-> Please enter account holder's name:
-> Enter the account number:
-> No transactions are allowed on this account in this session
-> Please enter account holder's name:
-> Enter the account number:
-> No transactions are allowed on this account in this session
-17c26
+17c17
 < Account number is not valid for that account holder
 ---
 > No transactions are allowed on this account in this session
-20c29
+20,21c20
+< Account number is not valid for that account holder
+< Account is disabled, cannot process transaction
+---
+> No transactions are allowed on this account in this session
+23,24c22,23
+< Account holder's name not found
+< Unknown transaction command!
+---
+> Enter the account number:
+> No transactions are allowed on this account in this session
+26,27c25,26
+< Account holder's name not found
+< Unknown transaction command!
+---
+> Enter the account number:
+> No transactions are allowed on this account in this session
+30c29
 < Account number is not valid for that account holder
 ---
 > No transactions are allowed on this account in this session
-22d30
-< Enter Account holder's number: 
-24c32,33
-< Account number is not valid for that account holder
+32,33c31,32
+< Account holder's name not found
+< Unknown transaction command!
 ---
+> Enter the account number:
 > No transactions are allowed on this account in this session
-> Logged out
-\ No newline at end of file
 
 
 transactionFiles/03create11.atf / expectedTransactionFiles/03create11.atf
-2c2
+2,4c2
 < 05 New Account          00000 00000.01   
+< 00                      00000 00000.00   
+< 10                      00000 00000.00 A 
 ---
 > 05 New Account          00005 00000.01   
-4d3
-< 10                      00000 00000.00 A 
-
-
-consoleOutput/04delete02.out / expectedConsoleOutput/04delete02.out
-4,6c4,5
-< Enter Account holder's number: 
-< Enter the account number:
-< Account number is not valid for that account holder
----
-> Account holder's name not found
-> Logged out
-
-
-transactionFiles/04delete02.atf / expectedTransactionFiles/04delete02.atf
-1a2
-> 00                      00000 00000.00   
 
 
 consoleOutput/04delete03.out / expectedConsoleOutput/04delete03.out
@@ -130,10 +121,12 @@ consoleOutput/04delete05.out / expectedConsoleOutput/04delete05.out
 < Unknown transaction command!
 < Unknown transaction command!
 < Unknown transaction command!
-7,9c4,11
-< Enter Account holder's number: 
-< Enter the account number:
-< Account number is not valid for that account holder
+7,11c4,10
+< Account holder's name not found
+< Already logged in!
+< Unknown transaction command!
+< Unknown transaction command!
+< Unknown transaction command!
 ---
 > Enter account number:
 > Account has been successfully deleted
@@ -142,13 +135,12 @@ consoleOutput/04delete05.out / expectedConsoleOutput/04delete05.out
 > Logged in as admin
 > Please enter account holder's name:
 > Account not found or has been deleted
-> Logged out
 
 
 transactionFiles/04delete05.atf / expectedTransactionFiles/04delete05.atf
-1a2,6
+1a2
 > 06 Account 1            00001 00001.00
-> 00                      00000 00000.00
+2a4,6
 > 10                      00000 00000.00 A
 > 00                      00000 00000.00   
 > 
@@ -184,34 +176,6 @@ transactionFiles/05changeplan01.txt~.atf / expectedTransactionFiles/05changeplan
 1,2d0
 < 10 Account 1            00000 00000.00 S 
 < 00 Account 1            00000 00000.00   
-
-
-consoleOutput/06deposit01.out / expectedConsoleOutput/06deposit01.out
-6c6
-< $0.01 deposited to account
----
-> $0.01 deposited to account 00001
-
-
-consoleOutput/06deposit02.out / expectedConsoleOutput/06deposit02.out
-6c6
-< $0.01 deposited to account
----
-> $0.01 deposited to account 00001
-
-
-consoleOutput/06deposit03.out / expectedConsoleOutput/06deposit03.out
-6c6
-< $0.05 deposited to account
----
-> $0.05 deposited to account 00007
-
-
-consoleOutput/06deposit04.out / expectedConsoleOutput/06deposit04.out
-6c6
-< $0.10 deposited to account
----
-> $0.10 deposited to account 00004
 
 
 consoleOutput/06deposit05.out / expectedConsoleOutput/06deposit05.out
@@ -285,8 +249,9 @@ transactionFiles/06deposit09.atf / expectedTransactionFiles/06deposit09.atf
 
 
 consoleOutput/06deposit10.out / expectedConsoleOutput/06deposit10.out
-5c5
+5,6c5
 < Account number is not valid for that account holder
+< Account is disabled, cannot process transaction
 ---
 > That account number does not belong to the name specified.
 
@@ -323,9 +288,10 @@ transactionFiles/06deposit11.atf / expectedTransactionFiles/06deposit11.atf
 
 
 consoleOutput/06deposit12.out / expectedConsoleOutput/06deposit12.out
-4,5c4,5
+4,6c4,5
 < Enter the account number:
 < Account number is not valid for that account holder
+< Account is disabled, cannot process transaction
 ---
 > Account holder name not found
 > Logged out
@@ -989,75 +955,5 @@ transactionFiles/09transfer08.atf / expectedTransactionFiles/09transfer08.atf
 ---
 > 00                  00000 00000.00
 \ No newline at end of file
-
-
-consoleOutput/10disable01.out / expectedConsoleOutput/10disable01.out
-2c2
-< Please enter your name:
----
-> Plese enter your name:
-3a4
-> Permission denied. Only admin can use this command
-
-
-transactionFiles/10disable01.atf / expectedTransactionFiles/10disable01.atf
-1,2c1,2
-< 10 Account 1            00000 00000.00 S 
-< 00 Account 1            00000 00000.00   
----
-> 10                      00000 00000.00 S
-> 00                      00000 00000.00   
-
-
-consoleOutput/10disable03.out / expectedConsoleOutput/10disable03.out
-4,5c4,5
-< Enter the account number:
-< Account number is not valid for that account holder
----
-> Enter account number:
-> Account number is not associated with the Account name
-
-
-consoleOutput/10disable04.out / expectedConsoleOutput/10disable04.out
-4,5c4,5
-< Enter the account number:
-< Account is already disabled!
----
-> Enter account number:
-> Account is already disabled
-
-
-consoleOutput/10disable05.out / expectedConsoleOutput/10disable05.out
-4,6c4,6
-< Enter the account number:
-< Enter the amount to deposit:
-< $0.00 deposited to account
----
-> Enter account number:
-> Account is disabled, cannot process transaction
-> Logged out
-
-
-transactionFiles/10disable05.atf / expectedTransactionFiles/10disable05.atf
-2c2
-< 04 Disabled Account     00006 00000.00   
----
-> 00                      00000 00000.00   
-
-
-consoleOutput/10disable06.out / expectedConsoleOutput/10disable06.out
-4,5c4,5
-< Enter the account number:
-< Account has been disabled
----
-> Enter account number:
-> Account has been successfully disabled
-
-
-transactionFiles/10disable06.atf / expectedTransactionFiles/10disable06.atf
-2c2
-< 07 Account 1            00001 00000.00   
----
-> 07 Disabled Account     00006 99999.99 
 
 
