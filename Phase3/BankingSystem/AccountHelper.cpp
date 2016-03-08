@@ -14,16 +14,20 @@ AccountHelper::AccountHelper(std::string accounts_file)
 {
 	// Construct FileStreamHelper with accounts file
 	file_stream_helper = new FileStreamHelper(accounts_file, "");
+
+	// Read the accounts file and load all the accounts into list of vector
+	accounts = file_stream_helper->readBankAccountFile();
 }
 
 /*
- * @method AccountHelper Overload
+ * @method AccountHelper Deconstructor
  * @desc AccountHelper Constructor Method
  * @params none
  * @return none
  */
 AccountHelper::~AccountHelper(void)
 {
+	delete file_stream_helper;
 }
 
 /*
@@ -33,17 +37,13 @@ AccountHelper::~AccountHelper(void)
  * @return <boolean true|false> if the account is valid
  */
 bool AccountHelper::validateAccount(int account_num, std::string account_name) {
-	// Read accounts file
-	file_stream_helper->readBankAccountFile();
-
-	// Iterate through each of the object in accounts list
-	for(int i = 0; i < file_stream_helper->accounts.size(); i++)
+	for(int i = 0; i < accounts.size(); i++)
 	{
 		// Check if the account number exists
-		if(file_stream_helper->accounts[i].number == account_num)
+		if(accounts[i].number == account_num)
 		{
 			// Check if the account name is associated with the number
-			if(file_stream_helper->accounts[i].name == account_name)
+			if(accounts[i].name == account_name)
 			{
 				return true; // boolean true if account found
 			}
@@ -56,7 +56,7 @@ bool AccountHelper::validateAccount(int account_num, std::string account_name) {
  * @method validateWithdrawAmount
  * @desc Validate the withdrawal amount
  * @params <int id>			 id of the account to be withdrawn from,
-				 <float amount>  amount to be withdrawn 
+				 <float amount>  amount to be withdrawn
 				 <bool is_admin> true if the account is admin
  * @return none
  */
@@ -97,20 +97,17 @@ Account AccountHelper::getAccount(int id) {
 	// Intitialize Structure
 	Account a;
 
-	// Get the list of accounts
-	file_stream_helper->readBankAccountFile();
-	
 	// Iterate through the list of accounts
-	for(int i = 0; i < file_stream_helper->accounts.size(); i++)
+	for(int i = 0; i < accounts.size(); i++)
 	{
 		// Check if the account number matches the account id
-		if(file_stream_helper->accounts[i].number == id)
+		if(accounts[i].number == id)
 		{
-			// Assign values for each of the children in the strucutre 
-			a.name = file_stream_helper->accounts[i].name;
-			a.balance = file_stream_helper->accounts[i].balance;
-			a.is_active = file_stream_helper->accounts[i].is_active;
-			a.number = file_stream_helper->accounts[i].number;
+			// Assign values for each of the children in the strucutre
+			a.name = accounts[i].name;
+			a.balance = accounts[i].balance;
+			a.is_active = accounts[i].is_active;
+			a.number = accounts[i].number;
 		}
 	}
 
@@ -125,43 +122,37 @@ Account AccountHelper::getAccount(int id) {
  */
 bool AccountHelper::validateAccountNumber(int id)
 {
-	// Read the list of accounts from file
-	file_stream_helper->readBankAccountFile();
-
 	// Iterate through the list of accounts
-	for(int i = 0; i < file_stream_helper->accounts.size(); i++)
+	for(int i = 0; i < accounts.size(); i++)
 	{
 		// Check if the account number exists
-		if(file_stream_helper->accounts[i].number == id)
+		if(accounts[i].number == id)
 		{
 			return true; // true if exists
 		} else {
 			return false; // false if otherwise
 		}
 	}
-	return false; // false if above fails 
+	return false; // false if above fails
 }
 
 /*
  * @method changeStatus
  * @desc Change the status of the account
- * @params <int id>					id of the account 
+ * @params <int id>					id of the account
 					 <bool new_state> status of the account to be changed
  * @return <boolean true|false> if the account number is not valid
  */
 bool AccountHelper::changeStatus(int id, bool new_state){
-	// Read the account file
-  file_stream_helper->readBankAccountFile();
-
 	// Iterate through the list of account
-	for(int i = 0; i < file_stream_helper->accounts.size(); i++)
+	for(int i = 0; i < accounts.size(); i++)
 	{
 		// Check if the account id exists
-		if(file_stream_helper->accounts[i].number == id)
+		if(accounts[i].number == id)
 		{
 			// Change the state of the account to the new status
-			if(file_stream_helper->accounts[i].is_active != new_state) {
-				file_stream_helper->accounts[i].is_active = new_state;
+			if(accounts[i].is_active != new_state) {
+				accounts[i].is_active = new_state;
 				return true;
 			}
 			else {
@@ -180,22 +171,18 @@ bool AccountHelper::changeStatus(int id, bool new_state){
  */
 char AccountHelper::changePlan(int id)
 {
-	// Read bank file of accounts
-	file_stream_helper->readBankAccountFile();
-
-	// Iterate through the list of accounts 
-	for(int i = 0; i < file_stream_helper->accounts.size(); i++)
+	for(int i = 0; i < accounts.size(); i++)
 	{
 		// Check if the account exists by its id
-		if(file_stream_helper->accounts[i].number == id)
+		if(accounts[i].number == id)
 		{
 			// Check if the account type is student, set it to false. True otherwise
-			if(file_stream_helper->accounts[i].is_student)
-				file_stream_helper->accounts[i].is_student = false;
+			if(accounts[i].is_student)
+				accounts[i].is_student = false;
 			else
-				file_stream_helper->accounts[i].is_student = true;
+				accounts[i].is_student = true;
 
-			return (file_stream_helper->accounts[i].is_student ? 'S' : 'N');
+			return (accounts[i].is_student ? 'S' : 'N');
 		}
 	}
 }

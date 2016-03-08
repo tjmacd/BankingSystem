@@ -1,0 +1,1314 @@
+consoleOutput/02logout02.out / expectedConsoleOutput/02logout02.out
+4,5c4,5
+< Enter the account number:
+< Plan has been changed to Student
+---
+> Enter account number:
+> Payment plan has been changed from Non-student to student
+
+
+transactionFiles/02logout02.atf / expectedTransactionFiles/02logout02.atf
+2c2
+< 08 Account 1            00001 00000.00   
+---
+> 08 Account 1            00001 00001.00 
+
+
+consoleOutput/02logout03.out / expectedConsoleOutput/02logout03.out
+4,5c4,5
+< Enter the account number:
+< Plan has been changed to Student
+---
+> Enter account number:
+> Payment plan has been changed from Non-student to student
+10,11c10,11
+< Enter the account number:
+< Plan has been changed to Non-Student
+---
+> Enter account number:
+> Payment plan has been changed from Student to Non-student
+
+
+transactionFiles/02logout03.atf / expectedTransactionFiles/02logout03.atf
+2c2
+< 08 Account 1            00001 00000.00   
+---
+> 08 Account 1            00001 00001.00
+5c5
+< 08 Account 1            00001 00000.00   
+---
+> 08 Account 1            00001 00001.00
+
+
+consoleOutput/02logout04.out / expectedConsoleOutput/02logout04.out
+4,5c4,5
+< Enter the account number:
+< Plan has been changed to Student
+---
+> Enter account number:
+> Payment plan has been changed from Non-student to student
+8,9d7
+< Please enter your name:
+< Logged in as 
+
+
+transactionFiles/02logout04.atf / expectedTransactionFiles/02logout04.atf
+2c2
+< 08 Account 1            00001 00000.00   
+---
+> 08 Account 1            00001 00001.00
+4c4
+< 10                      00000 00000.00 S 
+---
+> 10                      00000 00000.00 
+
+
+consoleOutput/02logout05.out / expectedConsoleOutput/02logout05.out
+1c1
+< Not logged in! Please login first!
+---
+> Must be logged in before logging out
+
+
+transactionFiles/02logout05.atf / expectedTransactionFiles/02logout05.atf
+0a1
+> 
+
+
+consoleOutput/03create11.out / expectedConsoleOutput/03create11.out
+5c5
+< Account creation pending
+---
+> Account successfully created for New Account with account number 00005
+11c11
+< Account number is not valid for that account holder
+---
+> No transactions are allowed on this account in this session
+14c14
+< Account number is not valid for that account holder
+---
+> No transactions are allowed on this account in this session
+17c17
+< Account number is not valid for that account holder
+---
+> No transactions are allowed on this account in this session
+20c20
+< Account number is not valid for that account holder
+---
+> No transactions are allowed on this account in this session
+22d21
+< Enter Account holder's number: 
+24c23,33
+< Account number is not valid for that account holder
+---
+> No transactions are allowed on this account in this session
+> Please enter account holder's name:
+> Enter the account number:
+> No transactions are allowed on this account in this session
+> Please enter account holder's name:
+> Enter the account number:
+> No transactions are allowed on this account in this session
+> Please enter account holder's name:
+> Enter the account number:
+> No transactions are allowed on this account in this session
+> Logged out
+\ No newline at end of file
+
+
+transactionFiles/03create11.atf / expectedTransactionFiles/03create11.atf
+2c2
+< 05 New Account          00000 00000.01   
+---
+> 05 New Account          00005 00000.01   
+4d3
+< 10                      00000 00000.00 A 
+
+
+consoleOutput/04delete01.out / expectedConsoleOutput/04delete01.out
+3a4
+> Permission denied. Only admin can use this command
+
+
+transactionFiles/04delete01.atf / expectedTransactionFiles/04delete01.atf
+1,2c1,2
+< 10 Account 1            00000 00000.00 S 
+< 00 Account 1            00000 00000.00   
+---
+> 10                      00000 00000.00 S
+> 00                      00000 00000.00   
+
+
+consoleOutput/04delete02.out / expectedConsoleOutput/04delete02.out
+4,6c4,5
+< Enter Account holder's number: 
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Account holder's name not found
+> Logged out
+
+
+transactionFiles/04delete02.atf / expectedTransactionFiles/04delete02.atf
+1a2
+> 00                      00000 00000.00   
+
+
+consoleOutput/04delete03.out / expectedConsoleOutput/04delete03.out
+4,6c4,6
+< Enter Account holder's number: 
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Enter account number:
+> Account number is not associated with the Account name
+> Logged out
+
+
+transactionFiles/04delete03.atf / expectedTransactionFiles/04delete03.atf
+1a2
+> 00                      00000 00000.00   
+
+
+consoleOutput/04delete04.out / expectedConsoleOutput/04delete04.out
+4,6c4,11
+< Enter Account holder's number: 
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Enter account number:
+> Account is deleted
+> Logged out
+> Please select session type (standard or admin):
+> Logged in as admin
+> Please enter account holder's name:
+> Account not found or has been deleted
+> Logged out
+
+
+transactionFiles/04delete04.atf / expectedTransactionFiles/04delete04.atf
+1a2,5
+> 06 Account 1            00001 00000.00
+> 00                      00000 00000.00   
+> 10                      00000 00000.00 D
+> 00                      00000 00000.00   
+
+
+consoleOutput/04delete05.out / expectedConsoleOutput/04delete05.out
+3,5d2
+< Unknown transaction command!
+< Unknown transaction command!
+< Unknown transaction command!
+7,9c4,11
+< Enter Account holder's number: 
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Enter account number:
+> Account has been successfully deleted
+> Logged out
+> Please select session type (standard or admin):
+> Logged in as admin
+> Please enter account holder's name:
+> Account not found or has been deleted
+> Logged out
+
+
+transactionFiles/04delete05.atf / expectedTransactionFiles/04delete05.atf
+1a2,6
+> 06 Account 1            00001 00001.00
+> 00                      00000 00000.00
+> 10                      00000 00000.00 A
+> 00                      00000 00000.00   
+> 
+
+
+consoleOutput/04delete06.out / expectedConsoleOutput/04delete06.out
+4,6c4,6
+< Enter Account holder's number: 
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Enter account number:
+> Account has been successfully deleted
+> Logged out
+
+
+transactionFiles/04delete06.atf / expectedTransactionFiles/04delete06.atf
+1a2,3
+> 06 Account 1            00001 00001.00
+> 00                      00000 00000.00   
+
+
+consoleOutput/05changeplan01.out / expectedConsoleOutput/05changeplan01.out
+2,5c2,4
+< Please enter your name:
+< Logged in as changeplan
+< Unknown transaction command!
+< Unknown transaction command!
+---
+> Plese enter your name:
+> Logged in as Account 1
+> Permission denied. Only admin can use this command
+
+
+transactionFiles/05changeplan01.atf / expectedTransactionFiles/05changeplan01.atf
+1,2c1,2
+< 10 changeplan           00000 00000.00 S 
+< 00 changeplan           00000 00000.00   
+---
+> 10                      00000 00000.00 S
+> 00                      00000 00000.00   
+
+
+consoleOutput/05changeplan02.out / expectedConsoleOutput/05changeplan02.out
+4,5c4,5
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Account holder's name not found
+> Logged out
+
+
+transactionFiles/05changeplan02.atf / expectedTransactionFiles/05changeplan02.atf
+1a2
+> 00                      00000 00000.00   
+
+
+consoleOutput/05changeplan03.out / expectedConsoleOutput/05changeplan03.out
+4,5c4,5
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Enter account number:
+> Account number is not associated with the Account name
+
+
+consoleOutput/05changeplan04.out / expectedConsoleOutput/05changeplan04.out
+4,8c4,6
+< Enter the account number:
+< Plan has been changed to Non-Student
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Enter account number:
+> Payment plan has been changed from Non-student to student
+> Logged out
+
+
+transactionFiles/05changeplan04.atf / expectedTransactionFiles/05changeplan04.atf
+2c2,3
+< 08 Student Account 1    00003 00000.00   
+---
+> 08 Student Account 1    00003 00001.00
+> 00                      00000 00000.00   
+
+
+consoleOutput/06deposit01.out / expectedConsoleOutput/06deposit01.out
+6c6
+< $0.01 deposited to account
+---
+> $0.01 deposited to account 00001
+
+
+consoleOutput/06deposit02.out / expectedConsoleOutput/06deposit02.out
+6c6
+< $0.01 deposited to account
+---
+> $0.01 deposited to account 00001
+
+
+consoleOutput/06deposit03.out / expectedConsoleOutput/06deposit03.out
+6c6
+< $0.05 deposited to account
+---
+> $0.05 deposited to account 00007
+
+
+consoleOutput/06deposit04.out / expectedConsoleOutput/06deposit04.out
+6c6
+< $0.10 deposited to account
+---
+> $0.10 deposited to account 00004
+
+
+consoleOutput/06deposit05.out / expectedConsoleOutput/06deposit05.out
+6c6
+< $0.04 deposited to account
+---
+> Insufficient funds to cover fees
+
+
+transactionFiles/06deposit05.atf / expectedTransactionFiles/06deposit05.atf
+2d1
+< 04 Empty Student        00007 00000.04   
+
+
+consoleOutput/06deposit06.out / expectedConsoleOutput/06deposit06.out
+6c6
+< $0.09 deposited to account
+---
+> Insufficient funds to cover fees
+
+
+transactionFiles/06deposit06.atf / expectedTransactionFiles/06deposit06.atf
+2d1
+< 04 Empty Account        00004 00000.09   
+
+
+consoleOutput/06deposit07.out / expectedConsoleOutput/06deposit07.out
+6c6
+< $-0.01 deposited to account
+---
+> Invalid amount input
+
+
+transactionFiles/06deposit07.atf / expectedTransactionFiles/06deposit07.atf
+2d1
+< 04 Account 1            00001 -0000.01   
+
+
+consoleOutput/06deposit08.out / expectedConsoleOutput/06deposit08.out
+6c6
+< $0.00 deposited to account
+---
+> Invalid amount input
+10c10
+< $2.00 deposited to account
+---
+> Invalid amount input
+
+
+transactionFiles/06deposit08.atf / expectedTransactionFiles/06deposit08.atf
+2,3d1
+< 04 Account 1            00001 00000.00   
+< 04 Account 1            00001 00002.00   
+
+
+consoleOutput/06deposit09.out / expectedConsoleOutput/06deposit09.out
+6c6,7
+< $0.00 deposited to account
+---
+> Invalid amount input
+> Logged out
+\ No newline at end of file
+
+
+transactionFiles/06deposit09.atf / expectedTransactionFiles/06deposit09.atf
+2c2
+< 04 Account 1            00001 00000.00   
+---
+> 00                      00000 00000.00   
+\ No newline at end of file
+
+
+consoleOutput/06deposit10.out / expectedConsoleOutput/06deposit10.out
+5c5
+< Account number is not valid for that account holder
+---
+> That account number does not belong to the name specified.
+
+
+consoleOutput/06deposit11.out / expectedConsoleOutput/06deposit11.out
+6c6
+< $10.00 deposited to account
+---
+> $10.00 deposited to account 00004
+12c12,13
+< Please enter amount to withdraw:
+---
+> Enter the amount to withdraw:
+> Insufficient funds for transaction
+14,15c15,16
+< Enter the account number:
+< Enter account number to transfer to:
+---
+> Enter the account number to transfer from:
+> Enter the account number to transfer to:
+16a18
+> Insufficient funds for transaction
+20,21c22,23
+< Enter amount to pay:
+< $0.01 paid to EC
+---
+> Enter the amount to pay:
+> Insufficient funds for transaction
+
+
+transactionFiles/06deposit11.atf / expectedTransactionFiles/06deposit11.atf
+1,7d0
+< 10                      00000 00000.00 A 
+< 04 Empty Account        00004 00010.00   
+< 00                      00000 00000.00   
+< 10                      00000 00000.00 A 
+< 02 Empty Account        00004 00000.01   
+< 03 Empty Account        00004 00000.01 EC
+< 00                      00000 00000.00   
+
+
+consoleOutput/06deposit12.out / expectedConsoleOutput/06deposit12.out
+4,5c4,5
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Account holder name not found
+> Logged out
+\ No newline at end of file
+
+
+transactionFiles/06deposit12.atf / expectedTransactionFiles/06deposit12.atf
+1a2
+> 00                      00000 00000.00   
+\ No newline at end of file
+
+
+consoleOutput/06deposit13.out / expectedConsoleOutput/06deposit13.out
+2,3c2,3
+< Please enter your name:
+< Logged in as Account Full
+---
+> Logged in as admin
+> Please enter account holder's name:
+6c6
+< $0.01 deposited to account
+---
+> Cannot deposit; Account is full
+
+
+transactionFiles/06deposit13.atf / expectedTransactionFiles/06deposit13.atf
+1,3c1,2
+< 10 Account Full         00000 00000.00 S 
+< 04 Account Full         00002 00000.01   
+< 00 Account Full         00000 00000.00   
+---
+> 10                      00000 00000.00 A 
+> 00                      00000 00000.00   
+\ No newline at end of file
+
+
+consoleOutput/07paybill01.out / expectedConsoleOutput/07paybill01.out
+5c5
+< Account number is not valid for that account holder
+---
+> That account number does not belong to the name specified.
+
+
+consoleOutput/07paybill02.out / expectedConsoleOutput/07paybill02.out
+6c6
+< Company name is not recognized
+---
+> Company name is not recognised.
+
+
+consoleOutput/07paybill03.out / expectedConsoleOutput/07paybill03.out
+6,7c6,7
+< Enter amount to pay:
+< $2000.00 paid to EC
+---
+> Enter the amount to pay:
+> $2000.00 payed to EC
+
+
+consoleOutput/07paybill04.out / expectedConsoleOutput/07paybill04.out
+6,7c6,7
+< Enter amount to pay:
+< $2000.01 paid to EC
+---
+> Enter the amount to pay:
+> Payment exceeds maximum amount for this session. Request rejected.
+
+
+transactionFiles/07paybill04.atf / expectedTransactionFiles/07paybill04.atf
+2d1
+< 03 Account Full         00002 02000.01 EC
+
+
+consoleOutput/07paybill05.out / expectedConsoleOutput/07paybill05.out
+6,7c6,7
+< Enter amount to pay:
+< $1000.01 paid to EC
+---
+> Enter the amount to pay:
+> $1000.01 payed to EC
+10,11c10,11
+< Enter amount to pay:
+< $1000.01 paid to EC
+---
+> Enter the amount to pay:
+> Payment exceeds maximum amount for this session. Request rejected.
+
+
+transactionFiles/07paybill05.atf / expectedTransactionFiles/07paybill05.atf
+3d2
+< 03 Account Full         00002 01000.01 EC
+
+
+consoleOutput/07paybill06.out / expectedConsoleOutput/07paybill06.out
+6,7c6,7
+< Enter amount to pay:
+< $1000.01 paid to EC
+---
+> Enter the amount to pay:
+> $1000.01 payed to EC
+10,11c10,11
+< Enter amount to pay:
+< $1000.01 paid to CQ
+---
+> Enter the amount to pay:
+> $1000.01 payed to CQ
+
+
+consoleOutput/07paybill07.out / expectedConsoleOutput/07paybill07.out
+6,7c6,7
+< Enter amount to pay:
+< $2000.01 paid to EC
+---
+> Enter the amount to pay:
+> $2000.01 payed to EC
+
+
+consoleOutput/07paybill08.out / expectedConsoleOutput/07paybill08.out
+6,7c6,7
+< Enter amount to pay:
+< $0.95 paid to EC
+---
+> Enter the amount to pay:
+> $0.95 payed to EC
+
+
+consoleOutput/07paybill09.out / expectedConsoleOutput/07paybill09.out
+6,7c6,7
+< Enter amount to pay:
+< $0.90 paid to EC
+---
+> Enter the amount to pay:
+> $0.90 payed to EC
+
+
+consoleOutput/07paybill10.out / expectedConsoleOutput/07paybill10.out
+6,7c6,7
+< Enter amount to pay:
+< $0.96 paid to EC
+---
+> Enter the amount to pay:
+> Insufficient funds for transaction
+
+
+transactionFiles/07paybill10.atf / expectedTransactionFiles/07paybill10.atf
+2d1
+< 03 Student Account 1    00003 00000.96 EC
+
+
+consoleOutput/07paybill11.out / expectedConsoleOutput/07paybill11.out
+6,7c6,7
+< Enter amount to pay:
+< $0.91 paid to EC
+---
+> Enter the amount to pay:
+> Insufficient funds for transaction
+
+
+transactionFiles/07paybill11.atf / expectedTransactionFiles/07paybill11.atf
+2d1
+< 03 Account 1            00001 00000.91 EC
+
+
+consoleOutput/07paybill12.out / expectedConsoleOutput/07paybill12.out
+6,7c6,7
+< Enter amount to pay:
+< $-0.01 paid to EC
+---
+> Enter the amount to pay:
+> Invalid amount input
+
+
+transactionFiles/07paybill12.atf / expectedTransactionFiles/07paybill12.atf
+2d1
+< 03 Account 1            00001 -0000.01 EC
+
+
+consoleOutput/07paybill13.out / expectedConsoleOutput/07paybill13.out
+6,7c6,7
+< Enter amount to pay:
+< $0.00 paid to EC
+---
+> Enter the amount to pay:
+> Invalid amount input
+
+
+transactionFiles/07paybill13.atf / expectedTransactionFiles/07paybill13.atf
+2d1
+< 03 Account 1            00001 00000.00 EC
+
+
+consoleOutput/07paybill14.out / expectedConsoleOutput/07paybill14.out
+6,7c6,13
+< Enter amount to pay:
+< $0.00 paid to EC
+---
+> Enter the amount to pay:
+> Invalid amount input
+> Please enter account holder's name:
+> Enter the account number:
+> Enter the payee company:
+> Enter the amount to pay:
+> Invalid amount input
+> Logged out
+\ No newline at end of file
+
+
+transactionFiles/07paybill14.atf / expectedTransactionFiles/07paybill14.atf
+2c2
+< 03 Account 1            00001 00000.00 EC
+---
+> 00                      00000 00000.00   
+\ No newline at end of file
+
+
+consoleOutput/07paybill15.out / expectedConsoleOutput/07paybill15.out
+4,5c4,5
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Account holder name not found
+> Logged out
+\ No newline at end of file
+
+
+transactionFiles/07paybill15.atf / expectedTransactionFiles/07paybill15.atf
+1a2
+> 00                      00000 00000.00   
+\ No newline at end of file
+
+
+consoleOutput/08withdrawal01.out / expectedConsoleOutput/08withdrawal01.out
+1,5c1,7
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> what is your name?
+> what is your account number?
+> inccorect name?
+> you have logged out
+\ No newline at end of file
+
+
+transactionFiles/08withdrawal01.atf / expectedTransactionFiles/08withdrawal01.atf
+1c1
+< 10                      00000 00000.00 A 
+---
+> 00                      00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/08withdrawal02.out / expectedConsoleOutput/08withdrawal02.out
+1,6c1,7
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+< Logged out
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> Incorrect accounumber?
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/08withdrawal02.atf / expectedTransactionFiles/08withdrawal02.atf
+1,2c1
+< 10                      00000 00000.00 A 
+< 00                      00000 00000.00   
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/08withdrawal03.out / expectedConsoleOutput/08withdrawal03.out
+1,7c1,8
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+< Unknown transaction command!
+< Logged out
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> How much would you like to withdraw?
+> Incorrect number format
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/08withdrawal03.atf / expectedTransactionFiles/08withdrawal03.atf
+1,2c1
+< 10                      00000 00000.00 A 
+< 00                      00000 00000.00   
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/08withdrawal04.out / expectedConsoleOutput/08withdrawal04.out
+1,7c1,7
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+< Unknown transaction command!
+< Logged out
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> You have to enter between $0.00 to $500.00
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/08withdrawal04.atf / expectedTransactionFiles/08withdrawal04.atf
+1,2c1
+< 10                      00000 00000.00 A 
+< 00                      00000 00000.00   
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/08withdrawal05.out / expectedConsoleOutput/08withdrawal05.out
+1,6c1,7
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+< Unknown transaction command!
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> Not a valid account
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/08withdrawal05.atf / expectedTransactionFiles/08withdrawal05.atf
+1c1
+< 10                      00000 00000.00 A 
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/08withdrawal06.out / expectedConsoleOutput/08withdrawal06.out
+1,6c1,8
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+< Unknown transaction command!
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> How much would you like to withdraw?
+> You have withdraw inbetween $0.00 to $500.00
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/08withdrawal06.atf / expectedTransactionFiles/08withdrawal06.atf
+1c1
+< 10                      00000 00000.00 A 
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/08withdrawal07.out / expectedConsoleOutput/08withdrawal07.out
+1,6c1,8
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+< Unknown transaction command!
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> How much would you like to withdraw?
+> Your balance has to be above $0.00 after you withdraw
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/08withdrawal07.atf / expectedTransactionFiles/08withdrawal07.atf
+1c1
+< 10                      00000 00000.00 A 
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/08withdrawal08.out / expectedConsoleOutput/08withdrawal08.out
+1,7c1,8
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+< Unknown transaction command!
+< Logged out
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> How much would you like to withdraw?
+> Can only withdraw in denominations of 5, 10, 20, 50, 100
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/08withdrawal08.atf / expectedTransactionFiles/08withdrawal08.atf
+1,2c1
+< 10                      00000 00000.00 A 
+< 00                      00000 00000.00   
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/09transfer01.out / expectedConsoleOutput/09transfer01.out
+1,5c1,7
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> Incorrect name?
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/09transfer01.atf / expectedTransactionFiles/09transfer01.atf
+1c1
+< 10                      00000 00000.00 A 
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/09transfer02.out / expectedConsoleOutput/09transfer02.out
+1,8c1,9
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+< Unknown transaction command!
+< Unknown transaction command!
+< Logged out
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> To which account would you like to transfer?
+> How much would you like to transfer?
+> Not in the correct format of ####.##
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/09transfer02.atf / expectedTransactionFiles/09transfer02.atf
+1,2c1
+< 10                      00000 00000.00 A 
+< 00                      00000 00000.00   
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/09transfer03.out / expectedConsoleOutput/09transfer03.out
+1,6c1,9
+< Please select session type (standard or admin):
+< Logged in as admin
+< Unknown transaction command!
+< Unknown transaction command!
+< Unknown transaction command!
+< Logged out
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> To which account would you like to transfer?
+> How much would you like to transfer?
+> Amount has to be above $0.00
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/09transfer03.atf / expectedTransactionFiles/09transfer03.atf
+1,2c1
+< 10                      00000 00000.00 A 
+< 00                      00000 00000.00   
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/09transfer04.out / expectedConsoleOutput/09transfer04.out
+1,6c1,7
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+< Logged out
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> Invalid bank account number
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/09transfer04.atf / expectedTransactionFiles/09transfer04.atf
+1,2c1
+< 10                      00000 00000.00 A 
+< 00                      00000 00000.00   
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/09transfer05.out / expectedConsoleOutput/09transfer05.out
+1,7c1,7
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+< Unknown transaction command!
+< Logged out
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> Invalid bank account number
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/09transfer05.atf / expectedTransactionFiles/09transfer05.atf
+1,2c1
+< 10                      00000 00000.00 A 
+< 00                      00000 00000.00   
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/09transfer06.out / expectedConsoleOutput/09transfer06.out
+1,7c1,8
+< Please select session type (standard or admin):
+< Logged in as admin
+< Unknown transaction command!
+< Unknown transaction command!
+< Unknown transaction command!
+< Unknown transaction command!
+< Logged out
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> To which account would you like to transfer?
+> Invalid bank account
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/09transfer06.atf / expectedTransactionFiles/09transfer06.atf
+1,2c1
+< 10                      00000 00000.00 A 
+< 00                      00000 00000.00   
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/09transfer07.out / expectedConsoleOutput/09transfer07.out
+1,8c1,9
+< Please select session type (standard or admin):
+< Logged in as admin
+< Please enter account holder's name:
+< Enter the account number:
+< Account number is not valid for that account holder
+< Unknown transaction command!
+< Unknown transaction command!
+< Logged out
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> To which account would you like to transfer?
+> How much would you like to transfer?
+> Can't transfer more than $1000.00
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/09transfer07.atf / expectedTransactionFiles/09transfer07.atf
+1,2c1
+< 10                      00000 00000.00 A 
+< 00                      00000 00000.00   
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/09transfer08.out / expectedConsoleOutput/09transfer08.out
+1,6c1,9
+< Please select session type (standard or admin):
+< Logged in as admin
+< Unknown transaction command!
+< Unknown transaction command!
+< Unknown transaction command!
+< Unknown transaction command!
+---
+> Welcome to the banking system enter session type
+> enter session type
+> login accepted
+> What is your name?
+> What is your account number?
+> To which account would you like to transfer?
+> How much would you like to transfer?
+> One of the accounts is less than $0.00 can't transfer the money
+> you have loggedout
+\ No newline at end of file
+
+
+transactionFiles/09transfer08.atf / expectedTransactionFiles/09transfer08.atf
+1c1
+< 10                      00000 00000.00 A 
+---
+> 00                  00000 00000.00
+\ No newline at end of file
+
+
+consoleOutput/10disable01.out / expectedConsoleOutput/10disable01.out
+2c2
+< Please enter your name:
+---
+> Plese enter your name:
+3a4
+> Permission denied. Only admin can use this command
+
+
+transactionFiles/10disable01.atf / expectedTransactionFiles/10disable01.atf
+1,2c1,2
+< 10 Account 1            00000 00000.00 S 
+< 00 Account 1            00000 00000.00   
+---
+> 10                      00000 00000.00 S
+> 00                      00000 00000.00   
+
+
+consoleOutput/10disable02.out / expectedConsoleOutput/10disable02.out
+4,5c4,5
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Account holder's name not found
+> Logged out
+
+
+transactionFiles/10disable02.atf / expectedTransactionFiles/10disable02.atf
+1a2
+> 00                      00000 00000.00   
+
+
+consoleOutput/10disable03.out / expectedConsoleOutput/10disable03.out
+4,5c4,5
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Enter account number:
+> Account number is not associated with the Account name
+
+
+consoleOutput/10disable04.out / expectedConsoleOutput/10disable04.out
+4,5c4,5
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Enter account number:
+> Account is already disabled
+
+
+consoleOutput/10disable05.out / expectedConsoleOutput/10disable05.out
+4,5c4,5
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Enter account number:
+> Account is disabled, cannot process transaction
+
+
+consoleOutput/10disable06.out / expectedConsoleOutput/10disable06.out
+4,5c4,5
+< Enter the account number:
+< Account has been disabled
+---
+> Enter account number:
+> Account has been successfully disabled
+
+
+transactionFiles/10disable06.atf / expectedTransactionFiles/10disable06.atf
+2c2
+< 07 Account 1            00001 00000.00   
+---
+> 07 Disabled Account     00006 99999.99 
+
+
+consoleOutput/11enable01.out / expectedConsoleOutput/11enable01.out
+5c5
+< Account number is not valid for that account holder
+---
+> Account 00006 enabled
+
+
+transactionFiles/11enable01.atf / expectedTransactionFiles/11enable01.atf
+1a2
+> 09 Disabled Account     00006 00000.00   
+
+
+consoleOutput/11enable03.out / expectedConsoleOutput/11enable03.out
+4,5c4,5
+< Enter the account number:
+< Account number is not valid for that account holder
+---
+> Account holder name not found
+> Logged out
+\ No newline at end of file
+
+
+transactionFiles/11enable03.atf / expectedTransactionFiles/11enable03.atf
+1a2
+> 00                      00000 00000.00   
+\ No newline at end of file
+
+
+consoleOutput/11enable04.out / expectedConsoleOutput/11enable04.out
+5c5
+< Account number is not valid for that account holder
+---
+> That account number does not belong to the name specified.
+
+
+consoleOutput/11enable05.out / expectedConsoleOutput/11enable05.out
+5c5
+< Account is already enabled!
+---
+> Account is already enabled
+
+
+consoleOutput/11enable06.out / expectedConsoleOutput/11enable06.out
+5c5
+< Account number is not valid for that account holder
+---
+> Account 00006 enabled
+8,9c8,9
+< Account number is not valid for that account holder
+< Unknown transaction command!
+---
+> Enter the amount to withdraw:
+> $5.00 withdrawn from account 00006
+11,14c11,14
+< Enter the account number:
+< Account number is not valid for that account holder
+< Unknown transaction command!
+< Unknown transaction command!
+---
+> Enter the account number to transfer from:
+> Enter the account number to transfer to:
+> Enter the amount to transfer:
+> $0.01 transfered to account 00001
+17,19c17,19
+< Account number is not valid for that account holder
+< Unknown transaction command!
+< Unknown transaction command!
+---
+> Enter the payee company:
+> Enter the amount to pay:
+> $0.01 payed to EC
+22,23c22,23
+< Account number is not valid for that account holder
+< Unknown transaction command!
+---
+> Enter the amount to deposit:
+> $0.01 deposited to account 00006
+26c26
+< Account number is not valid for that account holder
+---
+> 00006 has been changed to a student account
+
+
+transactionFiles/11enable06.atf / expectedTransactionFiles/11enable06.atf
+1a2,8
+> 09 Disabled Account     00006 00000.00   
+> 01 Disabled Account     00006 00005.00   
+> 02 Disabled Account     00006 00000.01   
+> 02 Disabled Account     00001 00000.01   
+> 03 Disabled Account     00006 00000.01 EC
+> 04 Disabled Account     00006 00000.01   
+> 08 Disabled Account     00006 00000.00   
+
+

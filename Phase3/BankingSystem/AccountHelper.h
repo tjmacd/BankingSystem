@@ -10,7 +10,10 @@
 class AccountHelper
 {
 private:
-	int WITHDRAWAL_AMOUNT 500;
+	// Set the limit to the withdrawal process
+	int WITHDRAWAL_AMOUNT = 500;
+	// List of all the accounts
+	std::vector<Account> accounts;
 
 public:
     // Takes the current accounts file name as a parameter
