@@ -251,12 +251,15 @@ void TransactionsHelper::processDelete() {
 	if(checkLoggedIn()) {
 		if(checkPrivileged()) {
 			getName();
-
+			if(!validateName()){
+                return;
+			}
 			std::cout << "Enter Account holder's number: " << std::endl;
 			std::cin >> account_holder_number;
 
 			if(getNumber()){
-                file_stream_help->logTransaction("06", account_holder_name, account_holder_number, 0, "");
+                file_stream_help->logTransaction("06", account_holder_name,
+                                                account_holder_number, 0, "");
             }
 		}
 	}
