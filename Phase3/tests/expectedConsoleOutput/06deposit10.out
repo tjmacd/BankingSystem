@@ -2,5 +2,5 @@ Please select session type (standard or admin):
 Logged in as admin
 Please enter account holder's name:
 Enter the account number:
-That account number does not belong to the name specified.
+Account number is not valid for that account holder
 Logged out

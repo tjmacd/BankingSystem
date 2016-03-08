@@ -208,24 +208,30 @@ void TransactionsHelper::processTransfer() {
 }
 
 void TransactionsHelper::processDeposit() {
+    std::string input;
 	float amount;
 
 	if(checkLoggedIn()) {
 		if(is_admin) {
 			getName();
 		}
-		if(getNumber() && account_helper->getAccount(account_holder_number).is_active)	{
-			std::cout << "Enter the amount to deposit:" << std::endl;
-			std::cin >> amount;
-			if(!account_helper->deposit(account_holder_number, amount)){
-                return;
-			}
-            std::cout << "$" << amount << " deposited to account" << std::endl;
-			file_stream_help->logTransaction("04", account_holder_name, account_holder_number,
-				amount, "");
-		} else {
-      std::cout << "Account is disabled, cannot process transaction" << std::endl;
-    }
+		if(getNumber()) {
+            if(account_helper->isAccountActive(account_holder_number))	{
+                std::cout << "Enter the amount to deposit:" << std::endl;
+                std::cin >> input;
+                if(!verifyInputAmount(input, amount)){
+                    return;
+                }
+                if(!account_helper->deposit(account_holder_number, amount)){
+                    return;
+                }
+                std::cout << "$" << amount << " deposited to account" << std::endl;
+                file_stream_help->logTransaction("04", account_holder_name, account_holder_number,
+                                                    amount, "");
+            } else {
+                std::cout << "Account is disabled, cannot process transaction" << std::endl;
+            }
+        }
 	}
 }
 
