@@ -5,3 +5,4 @@ Account 1
 00001
 00001
 10.00
+logout

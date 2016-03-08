@@ -1,9 +1,8 @@
 Please select session type (standard or admin):
-Logged in as admin
-Please enter account holder's name:
+Please enter your name:
+Logged in as Account 1
 Enter the account number to transfer from:
 Enter the account number to transfer to:
 Enter the amount to transfer:
-$1000.01 transfered to account 2
 Max transfer amount cannot exceed $1000
 Logged out

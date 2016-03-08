@@ -186,7 +186,9 @@ void TransactionsHelper::processLogin() {
 			getName();
 			std::cout << "Logged in as " << account_holder_name << std::endl;
 		}
-
+    companies["EC"]=0;
+    companies["CQ"]=0;
+    companies["TV"]=0;
     // Set the login status to true
 		is_logged_in = true;
 
@@ -242,15 +244,16 @@ void TransactionsHelper::processWithdrawal() {
 
     // Get number of account holder
 		if(getNumber()) {
-			std::cin.ignore();
-			std::cout << "Enter the amount to withdraw:" << std::endl;
-			std::cin >> toWithdraw;
-
-      // Check if the account is disabled, cannot further process
+		// Check if the account is disabled, cannot further process
       if(!account_helper->isAccountActive(account_holder_number)) {
         std::cout << "Cannot process transaction on disabled account" << std::endl;
         return;
       }
+			std::cin.ignore();
+			std::cout << "Enter the amount to withdraw:" << std::endl;
+			std::cin >> toWithdraw;
+
+
             // Validate the input amount with the limit
             if(verifyInputAmount(toWithdraw, amount)){
                 if(amount <= 0){
@@ -297,6 +300,9 @@ void TransactionsHelper::processPaybill() {
 		if(is_admin) {
       // Get the name of the account holder
 			getName();
+			if(!validateName()){
+                return;
+			}
 		}
 
     // Get the number of the account holder
@@ -313,7 +319,7 @@ void TransactionsHelper::processPaybill() {
 			std::cin >> company;
 
       // Validate the company type
-			if(!(company == "EC" || company == "CQ" || company == "TV")) {
+			if(!companies.count(company)) {
 				std::cout << "Company name is not recognized" << std::endl;
 				return;
 			}
@@ -341,6 +347,7 @@ void TransactionsHelper::processPaybill() {
                                                         amount, is_admin)){
                 return;
             }
+            companies[company] += amount;
       // Display the output
 			std::cout << "$" << amount << " paid to " << company << std::endl;
 
@@ -374,6 +381,10 @@ void TransactionsHelper::processTransfer() {
 
     // Get account holder's number
 		if(getNumber("Enter the account number to transfer from:"))	{
+            if(!account_helper->isAccountActive(account_holder_number)) {
+                std::cout << "Cannot process transaction on disabled account" << std::endl;
+                return;
+            }
 
       // Prompt the user to enter account number to transfer to
 			std::cout << "Enter the account number to transfer to:" << std::endl;
@@ -619,6 +630,10 @@ void TransactionsHelper::processChangePlan() {
 
       // Get account holder's number
 			if(getNumber()) {
+                if(!account_helper->isAccountActive(account_holder_number)) {
+                std::cout << "Cannot process transaction on disabled account" << std::endl;
+                return;
+            }
         // Call changePlan method from AccountHelper class
 				char newplan = account_helper->changePlan(account_holder_number);
 
