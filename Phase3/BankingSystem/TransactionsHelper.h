@@ -8,6 +8,7 @@
 #include <regex>
 #include <iomanip>
 #include <map>
+#include "math.h"
 
 // Contains methods to process transactions
 class TransactionsHelper
