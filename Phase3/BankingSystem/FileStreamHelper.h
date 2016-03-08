@@ -10,7 +10,7 @@
 
 const bool DEBUG(false);
 const std::regex accounts_regex(
-    "^([0-9]{5}) ([a-zA-Z0-9 ]{20}) (S|A) ([0-9.]{8}) (S|N)");
+    "^([0-9]{5}) ([a-zA-Z0-9 ]{20}) (D|A) ([0-9.]{8}) (S|N)");
 
 // Contains methods to read from and write to external files
 class FileStreamHelper

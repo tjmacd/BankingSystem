@@ -40,13 +40,8 @@ bool AccountHelper::validateAccount(int account_num, std::string account_name) {
 	for(int i = 0; i < accounts.size(); i++)
 	{
 		// Check if the account number exists
-		if(accounts[i].number == account_num)
-		{
-			// Check if the account name is associated with the number
-			if(accounts[i].name == account_name)
-			{
-				return true; // boolean true if account found
-			}
+		if(accounts[i].number == account_num && accounts[i].name == account_name) {
+            return true; // boolean true if account found
 		}
 	}
 	return false; // boolean false if it all fails
@@ -63,27 +58,18 @@ bool AccountHelper::validateAccount(int account_num, std::string account_name) {
 bool AccountHelper::validateWithdrawAmount(int id, float amount, bool is_admin)
 {
 	// boolean check if the account is admin
-	if(is_admin) {
-		// Check if the account has enough balance
-		if(getAccount(id).balance < amount) {
-			std::cerr << "Not enough balance!" << std::endl;
-			return false;
-        }
-	} else {
-		// Check for the Withdrawal amount limit
-		if(amount > WITHDRAWAL_AMOUNT)
-		{
-			std::cout << "You can only withdraw amount less than $500.00 on " <<
+	if(!is_admin && amount > WITHDRAWAL_AMOUNT) {
+        std::cout << "You can only withdraw amount less than $500.00 on " <<
 				"standard account" << std::endl;
-            return false;
-		} else {
-			// If account exists from the accounts pool,
-			// get the balance and validate
-			if(getAccount(id).balance < amount)
-				std::cout << "Not enough balance!" << std::endl;
-            return false;
-		}
-	}
+        return false;
+    }
+    // If account exists from the accounts pool,
+    // get the balance and validate
+    if(getAccount(id).balance < amount) {
+        std::cout << "Not enough balance!" << std::endl;
+        return false;
+    }
+
 	return true; // boolean true if all the above criteria matches
 }
 

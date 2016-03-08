@@ -25,9 +25,12 @@ private:
 	void setStatus(bool enabled);
 	// Prompts user for account holder name and reads it in
 	void getName();
+
+	bool validateAccountNumber();
 	// Prompts for, reads in, and validates account number against the account
 	// holder
 	bool getNumber();
+	bool getNumber(std::string prompt);
 	// Prints a message and returns false if no user is logged in
 	bool checkLoggedIn();
 	// Prints a message and returns false if user is not privileged

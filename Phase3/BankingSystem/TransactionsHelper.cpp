@@ -28,10 +28,7 @@ void TransactionsHelper::getName(){
     account_holder_name = input.substr(0,20);
 }
 
-bool TransactionsHelper::getNumber(){
-    std::cout << "Enter the account number:" << std::endl;
-	std::cin >> account_holder_number;
-
+bool TransactionsHelper::validateAccountNumber(){
 	if(!account_helper->validateAccount(account_holder_number,
                                         account_holder_name))
 	{
@@ -42,6 +39,18 @@ bool TransactionsHelper::getNumber(){
 	} else {
         return true;
 	}
+}
+
+bool TransactionsHelper::getNumber(){
+    std::cout << "Enter the account number:" << std::endl;
+	std::cin >> account_holder_number;
+    return validateAccountNumber();
+}
+
+bool TransactionsHelper::getNumber(std::string prompt){
+    std::cout << prompt << std::endl;
+    std::cin >> account_holder_number;
+    return validateAccountNumber();
 }
 
 bool TransactionsHelper::checkLoggedIn() {
@@ -121,10 +130,10 @@ void TransactionsHelper::processWithdrawal() {
 
 		if(getNumber()) {
 			std::cin.ignore();
-			std::cout << "Please enter amount to withdraw:" << std::endl;
+			std::cout << "Enter the amount to withdraw:" << std::endl;
 			std::cin >> toWithdraw;
 			if(account_helper->validateWithdrawAmount(account_holder_number, toWithdraw, is_admin)) {
-                std::cout << toWithdraw << " withdrawn from account" << std::endl;
+                std::cout << "$" << toWithdraw << " withdrawn from account" << std::endl;
                 file_stream_help->logTransaction("01", account_holder_name, account_holder_number,
 				toWithdraw, "");
 			}
@@ -149,7 +158,7 @@ void TransactionsHelper::processPaybill() {
 				std::cout << "Company name is not recognized" << std::endl;
 				return;
 			}
-			std::cout << "Enter amount to pay:" << std::endl;
+			std::cout << "Enter the amount to pay:" << std::endl;
 			std::cin >> amount;
 			std::cout << "$" << amount << " paid to " << company << std::endl;
 			file_stream_help->logTransaction("03", account_holder_name,
@@ -168,8 +177,8 @@ void TransactionsHelper::processTransfer() {
 		if(is_admin) {
 			getName();
 		}
-		if(getNumber())	{
-			std::cout << "Enter account number to transfer to:" << std::endl;
+		if(getNumber("Enter the account number to transfer from:"))	{
+			std::cout << "Enter the account number to transfer to:" << std::endl;
 			std::cin >> to_account_num;
 
 			if(!account_helper->validateAccountNumber(to_account_num))
@@ -181,7 +190,10 @@ void TransactionsHelper::processTransfer() {
 			std::cout << "Enter the amount to transfer:" << std::endl;
 			std::cin >> amount;
 
+			std::cout << "$" << amount << " transfered to account " << to_account_num << std::endl;
 			file_stream_help->logTransaction("02", account_holder_name, account_holder_number,
+				amount, "");
+            file_stream_help->logTransaction("02", account_holder_name, to_account_num,
 				amount, "");
 		}
 	}
