@@ -115,8 +115,18 @@ bool AccountHelper::validateAccountNumber(int id)
 		if(accounts[i].number == id)
 		{
 			return true; // true if exists
-		} else {
-			return false; // false if otherwise
+		}
+	}
+	return false; // false if above fails
+}
+
+bool AccountHelper::validateAccountHolderName(std::string name) {
+	// Iterate through the list of accounts
+	for(int i = 0; i < accounts.size(); i++)
+	{
+		// Check if the account holder name exists
+		if(accounts[i].name == name) {
+			return true; // true if exists
 		}
 	}
 	return false; // false if above fails

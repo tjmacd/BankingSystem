@@ -27,6 +27,8 @@ private:
 	void getName();
 
 	bool validateAccountNumber();
+
+	bool validateName();
 	// Prompts for, reads in, and validates account number against the account
 	// holder
 	bool getNumber();

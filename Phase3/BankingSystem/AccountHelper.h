@@ -27,6 +27,7 @@ public:
 	struct Account getAccount(int id);
 	// Returns true if an account with the given id exists
 	bool validateAccountNumber(int id);
+	bool validateAccountHolderName(std::string name);
 	// Changes the enabled state of the account to new_state. Returns false if
 	// account is already in that state
 	bool changeStatus(int id, bool new_state);

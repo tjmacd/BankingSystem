@@ -28,10 +28,18 @@ void TransactionsHelper::getName(){
     account_holder_name = input.substr(0,20);
 }
 
+bool TransactionsHelper::validateName() {
+    if(!account_helper->validateAccountHolderName(account_holder_name)){
+        std::cout << "Account holder's name not found" << std::endl;
+        return false;
+    } else {
+        return true;
+    }
+}
+
 bool TransactionsHelper::validateAccountNumber(){
 	if(!account_helper->validateAccount(account_holder_number,
-                                        account_holder_name))
-	{
+                                        account_holder_name)) {
 		std::cout << "Account number is not valid for that account holder"
             << std::endl;
 		account_holder_number = 0;
@@ -181,8 +189,7 @@ void TransactionsHelper::processTransfer() {
 			std::cout << "Enter the account number to transfer to:" << std::endl;
 			std::cin >> to_account_num;
 
-			if(!account_helper->validateAccountNumber(to_account_num))
-			{
+			if(!account_helper->validateAccountNumber(to_account_num)) {
 				std::cout << "Invalid Account Number!" << std::endl;
 				return;
 			}
@@ -259,6 +266,9 @@ void TransactionsHelper::setStatus(bool enabled) {
 	if(checkLoggedIn()) {
 		if(checkPrivileged()) {
 			getName();
+			if(!validateName()){
+                return;
+			}
 			if(getNumber())	{
                 std::string state;
                 std::string code;
