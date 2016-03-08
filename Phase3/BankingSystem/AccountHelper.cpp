@@ -208,11 +208,11 @@ bool AccountHelper::deposit(int id, float amount) {
         std::cout << "Insufficient funds to cover fees" << std::endl;
         return false;
     }
-    if(newBalance > 99999.99){
+    if(newBalance > MAX_AMOUNT){
         std::cout << "Cannot deposit; Account is full" << std::endl;
         return false;
     }
-    account.balance = newBalance;
+    account.balance -= fee;
     return true;
 }
 
