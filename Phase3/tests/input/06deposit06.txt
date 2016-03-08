@@ -1,7 +1,7 @@
 login
-admin
-deposit
+standard
 Empty Account
+deposit
 00004
 0.09
 logout

@@ -1,0 +1,14 @@
+10 Disabled Account     00000 00000.00 S 
+10 Disabled Account     00000 00000.00 S 
+00 Disabled Account     00000 00000.00   
+10 Disabled Account     00000 00000.00 A 
+10                      00000 00000.00 A 
+10                      00000 00000.00 A 
+09 Disabled Account     00006 00000.00   
+02 Account 1            00001 00000.01   
+02 Account 1            00006 00000.01   
+02 Disabled Account     00006 00000.01   
+02 Disabled Account     00001 00000.01   
+02 Disabled Account     00006 00059.00   
+02 Disabled Account     00001 00059.00   
+10 Disabled Account     00000 00000.00 S 

@@ -1,9 +1,8 @@
-Welcome to the banking system enter session type
-enter session type
-login accepted
-What is your name?
-What is your account number?
-To which account would you like to transfer?
-How much would you like to transfer?
-Amount has to be above $0.00
-you have loggedout
+Please select session type (standard or admin):
+Logged in as admin
+Please enter account holder's name:
+Enter the account number to transfer from:
+Enter the account number to transfer to:
+Enter the amount to transfer:
+Invalid amount input
+Logged out

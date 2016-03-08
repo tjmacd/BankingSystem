@@ -10,15 +10,16 @@ Logged in as admin
 Please enter account holder's name:
 Enter the account number:
 Enter the amount to withdraw:
-Insufficient funds for transaction
+Not enough balance!
 Please enter account holder's name:
 Enter the account number to transfer from:
 Enter the account number to transfer to:
 Enter the amount to transfer:
-Insufficient funds for transaction
+$0.01 transfered to account 1
+Insufficient funds to cover fees
 Please enter account holder's name:
 Enter the account number:
 Enter the payee company:
 Enter the amount to pay:
-Insufficient funds for transaction
+Not enough balance!
 Logged out

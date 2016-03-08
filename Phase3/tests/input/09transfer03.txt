@@ -1,6 +1,8 @@
 login
 admin
-mark
+transfer
+Account 1
 00001
+00003
 -1.00
 logout

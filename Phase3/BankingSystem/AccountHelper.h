@@ -37,9 +37,9 @@ public:
 	// to student and 'N' if changed to non-student
 	char changePlan(int id);
 
-	float getFee(Account account);
-	bool deposit(int id, float amount);
+	float getFee(Account account, bool is_admin);
+	bool deposit(int id, float amount, bool is_admin);
 	bool deleteAccount(int id);
-	bool transferAmount(int fromAccount, int toAccount, float amount);
+	bool transferAmount(int fromAccount, int toAccount, float amount, bool is_admin);
 };
 #endif // BANKINGSYSTEM_ACCOUNTHELPER_H

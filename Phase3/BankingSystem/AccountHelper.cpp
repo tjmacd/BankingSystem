@@ -58,7 +58,7 @@ bool AccountHelper::validateAccount(int account_num, std::string account_name) {
 bool AccountHelper::validateWithdrawAmount(int id, float amount, bool is_admin)
 {
 	Account account = getAccount(id);
-	float fee = getFee(account);
+	float fee = getFee(account, is_admin);
 	float toBewithdrawan = amount + fee;
 
     // If account exists from the accounts pool,
@@ -186,17 +186,18 @@ char AccountHelper::changePlan(int id) {
 	}
 }
 
-float AccountHelper::getFee(Account account) {
-    if(account.is_student){
-        return 0.05;
-    } else {
-        return 0.10;
-    }
+float AccountHelper::getFee(Account account, bool is_admin) {
+	if(is_admin) return 0;
+  if(!is_admin && account.is_student){
+      return 0.05;
+  } else {
+      return 0.10;
+  }
 }
 
-bool AccountHelper::deposit(int id, float amount) {
+bool AccountHelper::deposit(int id, float amount, bool is_admin) {
     Account account = getAccount(id);
-    float fee = getFee(account);
+    float fee = getFee(account, is_admin);
     float newBalance = account.balance + amount - fee;
     if(newBalance < 0){
         std::cout << "Insufficient funds to cover fees" << std::endl;
@@ -220,17 +221,18 @@ bool AccountHelper::deleteAccount(int id) {
 	return false;
 }
 
-bool AccountHelper::transferAmount(int fromAccount, int toAccount, float amount) {
+bool AccountHelper::transferAmount(int fromAccount, int toAccount, float amount, bool is_admin) {
 	Account from_account = getAccount(fromAccount);
 	Account to_account = getAccount(toAccount);
-	float fee = getFee(from_account);
+	float fee = getFee(from_account, is_admin);
 	float transfer_amount = amount + fee;
-	if(transfer_amount < 0 || from_account.balance < transfer_amount) {
-		std::cout << "Insufficient funds to cover fees" << std::endl;
+	if(amount > MAX_TRANSFER) {
+		std::cout << "Max transfer amount cannot exceed $1000" << std::endl;
 		return false;
 	}
-	if(transfer_amount > MAX_TRANSFER) {
-		std::cout << "Max transfer amount cannot exceed $1000" << std::endl;
+	
+	if(transfer_amount < 0 || from_account.balance < transfer_amount) {
+		std::cout << "Insufficient funds to cover fees" << std::endl;
 		return false;
 	}
 

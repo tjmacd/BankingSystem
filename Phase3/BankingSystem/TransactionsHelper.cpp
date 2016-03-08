@@ -78,6 +78,8 @@ bool TransactionsHelper::checkPrivileged() {
     }
 }
 
+
+
 bool TransactionsHelper::verifyInputAmount(std::string input,
                                             float& amount_output){
     if(!std::regex_match(input, std::regex("[0-9]+\\.[0-9]{2}"))){
@@ -140,6 +142,11 @@ void TransactionsHelper::processWithdrawal() {
 			std::cout << "Enter the amount to withdraw:" << std::endl;
 			std::cin >> toWithdraw;
 
+
+      if(!account_helper->isAccountActive(account_holder_number)) {
+        std::cout << "Cannot process transaction on disabled account" << std::endl;
+        return;
+      }
             if(verifyInputAmount(toWithdraw, amount)){
                 if(!is_admin && amount > WITHDRAWAL_LIMIT) {
                     std::cout << "You can only withdraw amount less than $500.00 on " <<
@@ -166,6 +173,11 @@ void TransactionsHelper::processPaybill() {
 			getName();
 		}
 		if(getNumber())	{
+      if(!account_helper->isAccountActive(account_holder_number)) {
+        std::cout << "Cannot process transaction on disabled account" << std::endl;
+        return;
+      }
+      
 			std::cout << "Enter the payee company:" << std::endl;
 			std::cin.ignore();
 			std::cin >> company;
@@ -210,12 +222,17 @@ void TransactionsHelper::processTransfer() {
 				return;
 			}
 
+      if(!account_helper->isAccountActive(account_holder_number) || !account_helper->isAccountActive(to_account_num)) {
+        std::cout << "Cannot process transaction on disabled account" << std::endl;
+        return;
+      }
+
 			std::cout << "Enter the amount to transfer:" << std::endl;
 			std::cin >> amountToTransfer;
 
       if(!verifyInputAmount(amountToTransfer, amount)) return;
 			std::cout << "$" << amount << " transfered to account " << to_account_num << std::endl;
-      account_helper->transferAmount(account_holder_number, to_account_num, amount);
+      account_helper->transferAmount(account_holder_number, to_account_num, amount, is_admin);
 			file_stream_help->logTransaction("02", account_holder_name, account_holder_number,
 				amount, "");
             file_stream_help->logTransaction("02", account_holder_name, to_account_num,
@@ -240,7 +257,13 @@ void TransactionsHelper::processDeposit() {
                 std::cout << "Enter the amount to deposit:" << std::endl;
                 std::cin >> input;
                 if(!verifyInputAmount(input, amount)) return;
-                if(!account_helper->deposit(account_holder_number, amount)) return;
+
+                if(!account_helper->isAccountActive(account_holder_number)) {
+                  std::cout << "Cannot process transaction on disabled account" << std::endl;
+                  return;
+                }
+
+                if(!account_helper->deposit(account_holder_number, amount, is_admin)) return;
 
                 std::cout << "$" << amount << " deposited to account" << std::endl;
                 file_stream_help->logTransaction("04", account_holder_name, account_holder_number,
@@ -283,14 +306,19 @@ void TransactionsHelper::processDelete() {
 			if(!validateName()){
                 return;
 			}
-			std::cout << "Enter Account holder's name: " << std::endl;
-			std::cin >> account_holder_name;
 
-			if(getNumber() && account_helper->deleteAccount(account_holder_number)){
+			if(getNumber()) {
+        if(!account_helper->isAccountActive(account_holder_number)) {
+          std::cout << "Cannot process transaction on disabled account" << std::endl;
+          return;
+        }
+
+        if(account_helper->deleteAccount(account_holder_number)){
         std::cout << "Account has been deleted" << std::endl;
                 file_stream_help->logTransaction("06", account_holder_name,
                                                 account_holder_number, 0, "");
             }
+          }
 		}
 	}
 }
@@ -303,6 +331,7 @@ void TransactionsHelper::setStatus(bool enabled) {
                 return;
 			}
 			if(getNumber())	{
+
                 std::string state;
                 std::string code;
                 if(enabled) {
