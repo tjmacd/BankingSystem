@@ -85,6 +85,10 @@ bool TransactionsHelper::verifyInputAmount(std::string input,
         return false;
     }
     amount_output = std::atof(input.c_str());
+    if(amount_output <= 0){
+        std::cout << "Invalid amount input" << std::endl;
+        return false;
+    }
     if(amount_output > account_helper->MAX_AMOUNT){
         std::cout << "Input amount is too high. It must be no greater than $"
                     << account_helper->MAX_AMOUNT << std::endl;
@@ -166,6 +170,9 @@ void TransactionsHelper::processPaybill() {
 	if(checkLoggedIn()) {
 		if(is_admin) {
 			getName();
+            if(!validateName()){
+                return;
+            }
 		}
 		if(getNumber())	{
 			std::cout << "Enter the payee company:" << std::endl;
@@ -181,7 +188,7 @@ void TransactionsHelper::processPaybill() {
 			if(!verifyInputAmount(amount_input, amount)){
                 return;
 			}
-			if(companies[company] + amount > PAYBILL_LIMIT){
+			if(!is_admin && (companies[company] + amount > PAYBILL_LIMIT)){
                 std::cout << "Payment exceeds maximum amount of " << PAYBILL_LIMIT
                     << "; Payment rejected" << std::endl;
                 return;
