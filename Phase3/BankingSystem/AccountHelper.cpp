@@ -59,7 +59,7 @@ bool AccountHelper::validateWithdrawAmount(int id, float amount, bool is_admin)
 {
 	Account account = getAccount(id);
 	float fee = getFee(account);
-	float newBalance = account.balance - amount - fee;
+	float toBewithdrawan = amount + fee;
 
 	// boolean check if the account is admin
 	if(!is_admin && amount > WITHDRAWAL_AMOUNT) {
@@ -69,11 +69,11 @@ bool AccountHelper::validateWithdrawAmount(int id, float amount, bool is_admin)
     }
     // If account exists from the accounts pool,
     // get the balance and validate
-    if(getAccount(id).balance < newBalance) {
+    if(getAccount(id).balance < toBewithdrawan) {
         std::cout << "Not enough balance!" << std::endl;
         return false;
     } else {
-			account.balance = newBalance;
+			account.balance = account.balance - toBewithdrawan;
 			return true;
 		}
 

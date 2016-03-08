@@ -178,6 +178,7 @@ void TransactionsHelper::processPaybill() {
 }
 
 void TransactionsHelper::processTransfer() {
+  std::string amountToTransfer;
 	float amount;
 	int from_account_num;
 	int to_account_num;
@@ -198,6 +199,7 @@ void TransactionsHelper::processTransfer() {
 			std::cout << "Enter the amount to transfer:" << std::endl;
 			std::cin >> amount;
 
+      if(!verifyInputAmount(amountToTransfer, amount)) return;
 			std::cout << "$" << amount << " transfered to account " << to_account_num << std::endl;
 			file_stream_help->logTransaction("02", account_holder_name, account_holder_number,
 				amount, "");
@@ -219,12 +221,9 @@ void TransactionsHelper::processDeposit() {
             if(account_helper->isAccountActive(account_holder_number))	{
                 std::cout << "Enter the amount to deposit:" << std::endl;
                 std::cin >> input;
-                if(!verifyInputAmount(input, amount)){
-                    return;
-                }
-                if(!account_helper->deposit(account_holder_number, amount)){
-                    return;
-                }
+                if(!verifyInputAmount(input, amount)) return;
+                if(!account_helper->deposit(account_holder_number, amount)) return;
+
                 std::cout << "$" << amount << " deposited to account" << std::endl;
                 file_stream_help->logTransaction("04", account_holder_name, account_holder_number,
                                                     amount, "");
