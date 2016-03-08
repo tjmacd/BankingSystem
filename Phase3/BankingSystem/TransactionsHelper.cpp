@@ -195,7 +195,7 @@ void TransactionsHelper::processTransfer() {
 			}
 
 			std::cout << "Enter the amount to transfer:" << std::endl;
-			std::cin >> amount;
+			std::cin >> amountToTransfer;
 
       if(!verifyInputAmount(amountToTransfer, amount)) return;
 			std::cout << "$" << amount << " transfered to account " << to_account_num << std::endl;
