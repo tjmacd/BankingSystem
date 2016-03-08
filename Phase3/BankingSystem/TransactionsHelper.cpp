@@ -397,24 +397,6 @@ void TransactionsHelper::processTransfer() {
 
       // Verify input amount for correct format
       if(!verifyInputAmount(amountToTransfer, amount)) return;
-
-      // Display the log
-			std::cout << "$" << amount << " transfered to account " << to_account_num << std::endl;
-
-      // Transfer the amount
-      account_helper->transferAmount(account_holder_number, to_account_num, amount, is_admin);
-
-      // Log the transaction
-			file_stream_help->logTransaction("02", account_holder_name, account_holder_number,
-            if(!account_helper->isAccountActive(account_holder_number) || !account_helper->isAccountActive(to_account_num)) {
-                std::cout << "Cannot process transaction on disabled account" << std::endl;
-                return;
-            }
-
-            std::cout << "Enter the amount to transfer:" << std::endl;
-			std::cin >> amountToTransfer;
-
-            if(!verifyInputAmount(amountToTransfer, amount)) return;
             if(amount <= 0){
                 std::cout << "Invalid amount input" << std::endl;
                 return;
