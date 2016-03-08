@@ -1,6 +1,6 @@
 Please select session type (standard or admin):
 Logged in as admin
 Please enter account holder's name:
-Enter account number:
-Account number is not associated with the Account name
-Logged out
+Enter Account holder's name: 
+Enter the account number:
+Account number is not valid for that account holder

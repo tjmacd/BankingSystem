@@ -37,5 +37,6 @@ public:
 
 	float getFee(Account account);
 	bool deposit(int id, float amount);
+	bool deleteAccount(int id);
 };
 #endif // BANKINGSYSTEM_ACCOUNTHELPER_H

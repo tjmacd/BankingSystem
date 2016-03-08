@@ -170,8 +170,7 @@ char AccountHelper::changePlan(int id) {
 	for(int i = 0; i < accounts.size(); i++)
 	{
 		// Check if the account exists by its id
-		if(accounts[i].number == id)
-		{
+		if(accounts[i].number == id) {
 			// Check if the account type is student, set it to false. True otherwise
 			if(accounts[i].is_student)
 				accounts[i].is_student = false;
@@ -205,4 +204,14 @@ bool AccountHelper::deposit(int id, float amount) {
     }
     account.balance = newBalance;
     return true;
+}
+
+bool AccountHelper::deleteAccount(int id) {
+	for(int i = 0; i < accounts.size(); i++) {
+		if(accounts[i].number == id) {
+			accounts.erase(accounts.begin() + i);
+			return true;
+		}
+	}
+	return false;
 }

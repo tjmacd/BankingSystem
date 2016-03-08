@@ -260,10 +260,11 @@ void TransactionsHelper::processDelete() {
 			if(!validateName()){
                 return;
 			}
-			std::cout << "Enter Account holder's number: " << std::endl;
+			std::cout << "Enter Account holder's name: " << std::endl;
 			std::cin >> account_holder_number;
 
 			if(getNumber()){
+        account_helper->deleteAccount(account_holder_number);
                 file_stream_help->logTransaction("06", account_holder_name,
                                                 account_holder_number, 0, "");
             }
