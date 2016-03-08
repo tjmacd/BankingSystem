@@ -1,6 +1,7 @@
 login 
-admin
+standard
+Account Full
 withdrawal
-mark
-00001
-500.01
+00002
+505.00
+logout

@@ -1,6 +1,7 @@
 Please select session type (standard or admin):
-Logged in as admin
-Please enter account holder's name:
+Please enter your name:
+Logged in as Account Full
 Enter the account number:
-Account number is not valid for that account holder
-Unknown transaction command!
+Enter the amount to withdraw:
+You can only withdraw amount up to $500.00 on standard account
+Logged out

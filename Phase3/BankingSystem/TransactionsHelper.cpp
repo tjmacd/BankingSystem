@@ -141,6 +141,9 @@ void TransactionsHelper::processWithdrawal() {
 	if(checkLoggedIn()) {
 		if(is_admin) {
 			getName();
+			if(!validateName()){
+                return;
+			}
 		}
 
 		if(getNumber()) {
@@ -149,14 +152,19 @@ void TransactionsHelper::processWithdrawal() {
 			std::cin >> toWithdraw;
 
 
-      if(!account_helper->isAccountActive(account_holder_number)) {
+    if(!account_helper->isAccountActive(account_holder_number)) {
         std::cout << "Cannot process transaction on disabled account" << std::endl;
         return;
       }
             if(verifyInputAmount(toWithdraw, amount)){
                 if(!is_admin && amount > WITHDRAWAL_LIMIT) {
-                    std::cout << "You can only withdraw amount less than $500.00 on " <<
+                    std::cout << "You can only withdraw amount up to $500.00 on " <<
                             "standard account" << std::endl;
+                    return;
+                }
+                if(std::fmod(amount, 5) != 0){
+                    std::cout << "Withdrawal rejected; amount must be in "
+                        "denominations of 5, 10, 20, 50 or 100" << std::endl;
                     return;
                 }
                 if(account_helper->validateWithdrawAmount(account_holder_number, amount, is_admin)) {
@@ -186,7 +194,7 @@ void TransactionsHelper::processPaybill() {
         std::cout << "Cannot process transaction on disabled account" << std::endl;
         return;
       }
-      
+
 			std::cout << "Enter the payee company:" << std::endl;
 			std::cin.ignore();
 			std::cin >> company;

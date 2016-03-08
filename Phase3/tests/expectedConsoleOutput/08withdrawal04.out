@@ -2,6 +2,6 @@ Please select session type (standard or admin):
 Logged in as admin
 Please enter account holder's name:
 Enter the account number:
-Account number is not valid for that account holder
-Unknown transaction command!
+Enter the amount to withdraw:
+Invalid amount input
 Logged out
