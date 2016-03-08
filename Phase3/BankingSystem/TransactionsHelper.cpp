@@ -179,6 +179,11 @@ void TransactionsHelper::processPaybill() {
 			if(!verifyInputAmount(amount_input, amount)){
                 return;
 			}
+			if(amount > PAYBILL_LIMIT){
+                std::cout << "Payment exceeds maximum amount of " << PAYBILL_LIMIT
+                    << "; Payment rejected" << std::endl;
+                return;
+			}
 			if(!account_helper->validateWithdrawAmount(account_holder_number,
                                                         amount, is_admin)){
                 return;

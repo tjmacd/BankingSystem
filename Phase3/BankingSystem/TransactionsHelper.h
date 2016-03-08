@@ -20,9 +20,9 @@ private:
 	std::string account_holder_name;
 	// Account number for the transaction
 	int account_holder_number;
-		// Set the limit to the withdrawal process
-	int WITHDRAWAL_LIMIT = 500;
-
+    // Set the limit to the withdrawal process
+	const float WITHDRAWAL_LIMIT = 500;
+    const float PAYBILL_LIMIT = 2000;
 	// Sets the account status to enabled or disabled
 	void setStatus(bool enabled);
 	// Prompts user for account holder name and reads it in
