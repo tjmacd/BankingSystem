@@ -20,7 +20,7 @@ public class FileStreamHelper {
 	/** The merged_transaction_regex. */
 	private Pattern TRANSACTIONS_REGEX = Pattern.compile("^([0-9]{2}) ([a-zA-Z0-9 ]{20}) ([0-9]{5}) ([0-9]{5}.[0-9]{2}) ([a-zA-Z]{1})?");
 	
-	private Pattern ACCOUNTS_REGEX = Pattern.compile("^([0-9]{5}) ([a-zA-Z0-9 ]{20}) ([A|D]) ([0-9]{5}.[0-9]{2}) ([0-9]{4})");
+	private Pattern ACCOUNTS_REGEX = Pattern.compile("^([0-9]{5}) ([a-zA-Z0-9 ]{20}) ([A|D]) ([0-9]{5}.[0-9]{2}) ([0-9]{4}) (S|N)");
 	
 	/** The merged_transaction_file. */
 	private String merged_transaction_file = "";
@@ -104,6 +104,7 @@ public class FileStreamHelper {
 					acc.is_active = (matches.group(3).charAt(0) == 'A' ? true : false);
 					acc.balance = Float.parseFloat(matches.group(4));
 					acc.trans_count = Integer.parseInt(matches.group(5));
+					acc.is_student = (matches.group(6).charAt(0) == 'S' ? true : false);
 					old_accounts_list.add(acc);
 				}
 			}
