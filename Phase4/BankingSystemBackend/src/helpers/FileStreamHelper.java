@@ -6,6 +6,7 @@ package helpers;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.*;
 import java.sql.*;
 
@@ -30,6 +31,9 @@ public class FileStreamHelper {
 	
 	/** The log_file. */
 	private String log_file = "files/backend.log";
+	
+	private String new_master_accounts_file = "files/masterBankAccountsFile.txt";
+    private String new_current_accounts_file = "files/currentAccounts.txt";
 	
 	ArrayList<Transactions> merged_transaction_list = new ArrayList<Transactions>();
 	ArrayList<Accounts> old_accounts_list = new ArrayList<Accounts>();
@@ -117,6 +121,21 @@ public class FileStreamHelper {
 			return old_accounts_list;
 		}
 	}
+	
+	public void writeCurrentAccounts(List<Accounts> accounts){
+        try(PrintStream currentAccounts = 
+                new PrintStream(this.new_current_accounts_file)){
+            for(Accounts account : accounts){
+            	String format = "%05d %-20s %s %08.2f %s";
+                currentAccounts.printf(format, account.number, account.name, 
+                						account.is_active ? "A" : "D", 
+                						account.balance,
+                						);
+            }
+        } catch(Exception e) {
+			System.out.print("ERROR: " + e);
+		} 
+    }
 	
 	/**
 	 * Log error.
