@@ -131,8 +131,9 @@ public class FileStreamHelper {
                 currentAccounts.printf(format, account.number, account.name, 
                 						account.is_active ? "A" : "D", 
                 						account.balance,
-                						);
+                						account.is_student ? "S" : "N");
             }
+            currentAccounts.close();
         } catch(Exception e) {
 			System.out.print("ERROR: " + e);
 		} 
