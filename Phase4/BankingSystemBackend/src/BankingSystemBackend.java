@@ -1,3 +1,4 @@
+import helpers.AccountsHelper;
 import helpers.FileStreamHelper;
 
 /**
@@ -11,6 +12,7 @@ import helpers.FileStreamHelper;
 public class BankingSystemBackend {
 	
 	private static FileStreamHelper fsh;
+	private static AccountsHelper ah;
 
 	/**
 	 * @param args
@@ -19,11 +21,9 @@ public class BankingSystemBackend {
 		// TODO Auto-generated method stub
 		fsh = new FileStreamHelper();
 		fsh.setMerged_transaction_file(args[0]);
-		fsh.setOld_account_file(args[1]);
-		fsh.readMergedTransFile();		
-		fsh.readOldAccFile();
-		
-		
+		fsh.setOld_account_file(args[1]);				
+		ah = new AccountsHelper(fsh.readMergedTransFile(), fsh.readOldAccFile());
+		ah.processTransactions();
 	}
 
 }

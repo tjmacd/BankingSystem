@@ -37,7 +37,8 @@ public class FileStreamHelper {
 	/**
 	 * Read merged trans file.
 	 */
-	public void readMergedTransFile() {
+	@SuppressWarnings({ "finally", "resource" })
+	public ArrayList<Transactions> readMergedTransFile() {
 		// Initialize BufferedReader class
 		BufferedReader br;
 		
@@ -73,10 +74,13 @@ public class FileStreamHelper {
 		} catch (IOException e) {
 			logError(e.getMessage());
 			e.printStackTrace();
+		} finally {
+			return merged_transaction_list;
 		}
 	}
 	
-	public void readOldAccFile() {
+	@SuppressWarnings({ "resource", "finally" })
+	public ArrayList<Accounts> readOldAccFile() {
 		// Initialize BufferedReader class
 		BufferedReader br;
 		
@@ -109,6 +113,8 @@ public class FileStreamHelper {
 		} catch (IOException e) {
 			logError(e.getMessage());
 			e.printStackTrace();
+		} finally {
+			return old_accounts_list;
 		}
 	}
 	
