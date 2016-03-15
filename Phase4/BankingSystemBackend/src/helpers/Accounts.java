@@ -10,5 +10,6 @@ public class Accounts {
 	public boolean is_active; // Is account active?
 	public float balance; // Contains balance information
 	public int trans_count; // Transaction count
+	public boolean is_student;
 }
  
