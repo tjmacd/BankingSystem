@@ -19,9 +19,13 @@ import java.sql.*;
 public class FileStreamHelper {
 	
 	/** The merged_transaction_regex. */
-	private Pattern TRANSACTIONS_REGEX = Pattern.compile("^([0-9]{2}) ([a-zA-Z0-9 ]{20}) ([0-9]{5}) ([0-9]{5}.[0-9]{2}) ([a-zA-Z]{1})?");
+	private Pattern TRANSACTIONS_REGEX = Pattern.compile(
+			"^([0-9]{2}) ([a-zA-Z0-9 ]{20}) ([0-9]{5}) ([0-9]{5}.[0-9]{2}) "
+			+ "([a-zA-Z]{1})?");
 	
-	private Pattern ACCOUNTS_REGEX = Pattern.compile("^([0-9]{5}) ([a-zA-Z0-9 ]{20}) ([A|D]) ([0-9]{5}.[0-9]{2}) ([0-9]{4}) (S|N)");
+	private Pattern ACCOUNTS_REGEX = Pattern.compile(
+			"^([0-9]{5}) ([a-zA-Z0-9 ]{20}) ([A|D]) ([0-9]{5}.[0-9]{2}) "
+			+ "([0-9]{4}) (S|N)");
 	
 	/** The merged_transaction_file. */
 	private String merged_transaction_file = "";
@@ -32,10 +36,12 @@ public class FileStreamHelper {
 	/** The log_file. */
 	private String log_file = "files/backend.log";
 	
-	private String new_master_accounts_file = "files/masterBankAccountsFile.txt";
+	private String new_master_accounts_file = 
+			"files/masterBankAccountsFile.txt";
     private String new_current_accounts_file = "files/currentAccounts.txt";
 	
-	ArrayList<Transactions> merged_transaction_list = new ArrayList<Transactions>();
+	ArrayList<Transactions> merged_transaction_list = 
+			new ArrayList<Transactions>();
 	ArrayList<Accounts> old_accounts_list = new ArrayList<Accounts>();
 	
 	/**
@@ -43,15 +49,10 @@ public class FileStreamHelper {
 	 */
 	@SuppressWarnings({ "finally", "resource" })
 	public ArrayList<Transactions> readMergedTransFile() {
-		// Initialize BufferedReader class
-		BufferedReader br;
-		
-		// Initialize String 
-		String line;
-		
-		try {
-			// Construct BufferedReader class
-			br = new BufferedReader(new FileReader(this.merged_transaction_file));
+		try (BufferedReader br = new BufferedReader(
+				new FileReader(this.merged_transaction_file))){
+			// Initialize String 
+			String line;
 			
 			// Iterate through each line in the file
 			while((line = br.readLine()) != null) {
@@ -62,11 +63,17 @@ public class FileStreamHelper {
 				if(matches.find()) {
 					// Construct new Transactions class
 					Transactions trans = new Transactions();
-					trans.code = Integer.parseInt(matches.group(1)); // Get the code of transaction [Group 1]
-					trans.name = matches.group(2).trim(); // Get the account name [Group 2]
-					trans.number = Integer.parseInt(matches.group(3)); // Get the account number [Group 3]
-					trans.amount = Float.parseFloat(matches.group(4)); // Get the account amount [Group 4]
-					trans.misc = (char) (matches.group(5) != null ? matches.group(5).charAt(0) : ' '); // Get the misc information [Group 5]
+					// Get the code of transaction [Group 1]
+					trans.code = Integer.parseInt(matches.group(1)); 
+					// Get the account name [Group 2]
+					trans.name = matches.group(2).trim();
+					// Get the account number [Group 3]
+					trans.number = Integer.parseInt(matches.group(3));
+					// Get the account amount [Group 4]
+					trans.amount = Float.parseFloat(matches.group(4)); 
+					// Get the misc information [Group 5]
+					trans.misc = (char) (matches.group(5) != null ? 
+							matches.group(5).charAt(0) : ' '); 
 					
 					// Add the transactions data to the array list
 					merged_transaction_list.add(trans);
@@ -85,16 +92,10 @@ public class FileStreamHelper {
 	
 	@SuppressWarnings({ "resource", "finally" })
 	public ArrayList<Accounts> readOldAccFile() {
-		// Initialize BufferedReader class
-		BufferedReader br;
-		
-		// Initialize String 
-		String line;
-		
-		try {
-			// Construct BufferedReader class
-			br = new BufferedReader(new FileReader(this.old_account_file));
-			
+		try (BufferedReader br = new BufferedReader(
+				new FileReader(this.old_account_file))){
+			// Initialize String 
+			String line;
 			// Iterate through each line in the file
 			while((line = br.readLine()) != null) {
 				// Run regex match to group each set of transaction properties
@@ -105,10 +106,12 @@ public class FileStreamHelper {
 					Accounts acc = new Accounts();
 					acc.number = Integer.parseInt(matches.group(1));
 					acc.name = matches.group(2).trim();
-					acc.is_active = (matches.group(3).charAt(0) == 'A' ? true : false);
+					acc.is_active = (matches.group(3).charAt(0) == 'A' 
+							? true : false);
 					acc.balance = Float.parseFloat(matches.group(4));
 					acc.trans_count = Integer.parseInt(matches.group(5));
-					acc.is_student = (matches.group(6).charAt(0) == 'S' ? true : false);
+					acc.is_student = (matches.group(6).charAt(0) == 'S' 
+							? true : false);
 					old_accounts_list.add(acc);
 				}
 			}
@@ -161,31 +164,18 @@ public class FileStreamHelper {
 	 * @param message the message
 	 */
 	public void logError(String message) {
-		// Initialize BufferedWriter class
-		BufferedWriter bw = null;
-		
 		// Construct new Date class
 		Date date = new Date();		
-		try {
-			// Construct the class
-			bw = new BufferedWriter(new FileWriter(this.log_file, true));
-			
+		try (BufferedWriter bw = new BufferedWriter(
+				new FileWriter(this.log_file, true))){
 			// Write the message along with the timestamp
 			bw.write("[" + new Timestamp(date.getTime()) + "] ERROR: " + message);
-			
 			// Create new line
 			bw.newLine();
-			
 			// Flush the stream
 			bw.flush();
 		} catch(Exception e) {
 			System.out.print("ERROR: " + e);
-		} finally {
-			// Check if the class is still constructed
-			if(bw != null) try {
-				// Close the file
-				bw.close();
-			} catch(IOException e) {}
 		}
 	}
 
