@@ -59,7 +59,7 @@ public class FileStreamHelper {
 					// Construct new Transactions class
 					Transactions trans = new Transactions();
 					trans.code = Integer.parseInt(matches.group(1)); // Get the code of transaction [Group 1]
-					trans.name = matches.group(2); // Get the account name [Group 2]
+					trans.name = matches.group(2).trim(); // Get the account name [Group 2]
 					trans.number = Integer.parseInt(matches.group(3)); // Get the account number [Group 3]
 					trans.amount = Float.parseFloat(matches.group(4)); // Get the account amount [Group 4]
 					trans.misc = (char) (matches.group(5) != null ? matches.group(5).charAt(0) : ' '); // Get the misc information [Group 5]
@@ -100,7 +100,7 @@ public class FileStreamHelper {
 				if(matches.find()) {
 					Accounts acc = new Accounts();
 					acc.number = Integer.parseInt(matches.group(1));
-					acc.name = matches.group(2);
+					acc.name = matches.group(2).trim();
 					acc.is_active = (matches.group(3).charAt(0) == 'A' ? true : false);
 					acc.balance = Float.parseFloat(matches.group(4));
 					acc.trans_count = Integer.parseInt(matches.group(5));
