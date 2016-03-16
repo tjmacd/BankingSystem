@@ -47,37 +47,37 @@ public class AccountsHelper {
 				System.out.println("Login");
 			break;*/
 			case "1":
-				System.out.println("Withdraw");
+				System.out.print("Withdraw ");
 				withdraw(trans.name, trans.number, trans.amount);
 			break;
 			case "2":
-				System.out.println("Transfer");
+				System.out.print("Transfer ");
 			break;
 			case "3":
-				System.out.println("Paybill");
+				System.out.print("Paybill ");
 			break;
 			case "4":
-				System.out.println("Deposit");
+				System.out.print("Deposit ");
 				deposit(trans.name, trans.number, trans.amount);
 			break;
 			case "5":
-				System.out.println("Create");
+				System.out.print("Create ");
 				create(trans.name, trans.amount);
 			break;
 			case "6":
-				System.out.println("Delete");
+				System.out.print("Delete ");
 				delete(trans.name, trans.number);
 			break;
 			case "7":
-				System.out.println("Disable");
+				System.out.print("Disable ");
 				changeStatus(trans.name, trans.number, 'D');
 			break;
 			case "8":
-				System.out.println("Changeplan");
+				System.out.print("Changeplan ");
 				changePlan(trans.name, trans.number);
 			break;
 			case "9":
-				System.out.println("Enable");
+				System.out.print("Enable ");
 				changeStatus(trans.name, trans.number, 'E');
 			break;
 			/*case "0":
@@ -114,6 +114,7 @@ public class AccountsHelper {
 		Accounts acc = old_accounts_list.get(index);
 		if(index != -1) {
 			acc.is_student = !acc.is_student;
+			System.out.println("--> Plan for " + name + " is now changed to " + (acc.is_student ? "Student" : "Non-Student"));
 		}
 	}
 	
@@ -130,6 +131,7 @@ public class AccountsHelper {
 		if(index != -1) {
 			if(status == 'D' && acc.is_active) acc.is_active = false;
 			if(status == 'E' && !acc.is_active) acc.is_active = true;
+			System.out.println("--> " + name + "'s account is now " + (status == 'E' ? "Enabled" : "Disabled"));
 		}
 	}
 	
@@ -145,6 +147,7 @@ public class AccountsHelper {
 		Accounts acc = old_accounts_list.get(index);
 		if(index != -1) {
 			acc.balance += amount;
+			System.out.println("--> Deposited $" + amount + " for " + name + ". New balance: $" + acc.balance);
 		}
 	}
 	
@@ -156,6 +159,7 @@ public class AccountsHelper {
 				new FileStreamHelper().logError("Not enough balance to withdraw!");
 			} else {
 				acc.balance -= amount;
+				System.out.println("--> " + name + "'s account balance after withdrawal of $" + amount + " is now $" + acc.balance);
 			}
 		}
 	}
@@ -168,13 +172,14 @@ public class AccountsHelper {
 	 */
 	public void create(String name, float amount) {
 		Accounts acc = new Accounts();
-		acc.number = (old_accounts_list.get(old_accounts_list.size() - 1)).number + 1;
+		acc.number = (getAccount(name, (old_accounts_list.get(old_accounts_list.size() - 1)).number + 1) == -1 ? (old_accounts_list.get(old_accounts_list.size() - 1)).number + 1 : null);
 		acc.name = name;
 		acc.is_active = true;
 		if(amount < 0) {
 			new FileStreamHelper().logError("Not enough balance to create!");
 		} else {
 			acc.balance = amount;
+			System.out.println("--> New Account created with name " + acc.name + " with balance of $" + acc.balance);
 		}
 		old_accounts_list.add(acc);
 	}
@@ -189,11 +194,11 @@ public class AccountsHelper {
 		int index = getAccount(name, number);
 		if(index != -1) {
 			old_accounts_list.remove(index);
+			System.out.println("--> Account named " + name + " is now deleted!");
 		}
 	}
 	
 	public ArrayList<Accounts> getAccountList() {
-		return old_accounts_list;
-		
+		return old_accounts_list;		
 	}
 }
