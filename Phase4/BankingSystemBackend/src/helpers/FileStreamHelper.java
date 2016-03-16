@@ -127,7 +127,7 @@ public class FileStreamHelper {
         try(PrintStream currentAccounts = 
                 new PrintStream(this.new_current_accounts_file)){
             for(Accounts account : accounts){
-            	String format = "%05d %-20s %s %08.2f %s";
+            	String format = "%05d %-20s %s %08.2f %s\n";
                 currentAccounts.printf(format, account.number, account.name, 
                 						account.is_active ? "A" : "D", 
                 						account.balance,

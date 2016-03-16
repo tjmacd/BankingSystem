@@ -5,4 +5,6 @@
 01 Account 3            00003 00020.01 
 05 New Account          00000 00000.00 
 06 New Account          00004 00000.00 
+05 New Account          00000 00100.00 
+07 New Account          00004 00000.00 
 00                      00000 00000.00 

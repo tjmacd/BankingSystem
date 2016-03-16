@@ -191,4 +191,9 @@ public class AccountsHelper {
 			old_accounts_list.remove(index);
 		}
 	}
+	
+	public ArrayList<Accounts> getAccountList() {
+		return old_accounts_list;
+		
+	}
 }

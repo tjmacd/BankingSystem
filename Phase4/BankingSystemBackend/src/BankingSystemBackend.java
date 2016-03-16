@@ -24,6 +24,8 @@ public class BankingSystemBackend {
 		fsh.setOld_account_file(args[1]);				
 		ah = new AccountsHelper(fsh.readMergedTransFile(), fsh.readOldAccFile());
 		ah.processTransactions();
+		
+		fsh.writeCurrentAccounts(ah.getAccountList());
 	}
 
 }
