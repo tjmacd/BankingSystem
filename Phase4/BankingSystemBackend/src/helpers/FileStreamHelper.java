@@ -124,32 +124,32 @@ public class FileStreamHelper {
 	}
 	
 	public void writeCurrentAccounts(List<Accounts> accounts){
-        try(PrintStream currentAccounts = 
+        try(PrintStream current_accounts = 
                 new PrintStream(this.new_current_accounts_file)){
             for(Accounts account : accounts){
             	String format = "%05d %-20s %s %08.2f %s\n";
-                currentAccounts.printf(format, account.number, account.name, 
+                current_accounts.printf(format, account.number, account.name, 
                 						account.is_active ? "A" : "D", 
                 						account.balance,
                 						account.is_student ? "S" : "N");
             }
-            currentAccounts.close();
+            current_accounts.close();
         } catch(Exception e) {
 			System.out.print("ERROR: " + e);
 		} 
     }
 	
 	public void writeMasterAccounts(List<Accounts> accounts){
-		try(PrintStream masterAccounts = 
+		try(PrintStream master_accounts = 
                 new PrintStream(this.new_master_accounts_file)){
             for(Accounts account : accounts){
             	String format = "%05d %-20s %s %08.2f %04d %s\n";
-                masterAccounts.printf(format, account.number, account.name, 
+                master_accounts.printf(format, account.number, account.name, 
                 						account.is_active ? "A" : "D", 
                 						account.balance, account.trans_count,
                 						account.is_student ? "S" : "N");
             }
-            masterAccounts.close();
+            master_accounts.close();
         } catch(Exception e) {
 			System.out.print("ERROR: " + e);
 		} 
