@@ -1,0 +1,4 @@
+00001 Account 1            A 00000.00 0055 S
+00002 Account 2            A 00394.00 9999 S
+00003 Account 3            A 00020.00 0000 S
+00004 New Account          D 00100.00 0000 N

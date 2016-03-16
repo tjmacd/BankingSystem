@@ -139,6 +139,22 @@ public class FileStreamHelper {
 		} 
     }
 	
+	public void writeMasterAccounts(List<Accounts> accounts){
+		try(PrintStream masterAccounts = 
+                new PrintStream(this.new_master_accounts_file)){
+            for(Accounts account : accounts){
+            	String format = "%05d %-20s %s %08.2f %04d %s\n";
+                masterAccounts.printf(format, account.number, account.name, 
+                						account.is_active ? "A" : "D", 
+                						account.balance, account.trans_count,
+                						account.is_student ? "S" : "N");
+            }
+            masterAccounts.close();
+        } catch(Exception e) {
+			System.out.print("ERROR: " + e);
+		} 
+	}
+	
 	/**
 	 * Log error.
 	 *

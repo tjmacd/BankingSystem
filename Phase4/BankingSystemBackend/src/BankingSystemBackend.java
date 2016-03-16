@@ -26,6 +26,7 @@ public class BankingSystemBackend {
 		ah.processTransactions();
 		
 		fsh.writeCurrentAccounts(ah.getAccountList());
+		fsh.writeMasterAccounts(ah.getAccountList());
 	}
 
 }
