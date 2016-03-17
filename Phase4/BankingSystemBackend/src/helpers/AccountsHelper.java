@@ -15,6 +15,8 @@ public class AccountsHelper {
 	/** The merged_transaction_list. */
 	public ArrayList<Transactions> merged_transaction_list = new ArrayList<Transactions>();
 	
+	public boolean is_admin;
+	
 	/**
 	 * Instantiates a new accounts helper.
 	 *
@@ -43,9 +45,10 @@ public class AccountsHelper {
 	public void processTransactions() {
 		for(Transactions trans : merged_transaction_list) {
 			switch(trans.code + "") {
-			/*case "10":
+			case "10":
 				System.out.println("Login");
-			break;*/
+				is_admin = (trans.misc.equals("A"));
+			break;
 			case "1":
 				System.out.print("Withdraw ");
 				withdraw(trans.name, trans.number, trans.amount);
@@ -55,6 +58,7 @@ public class AccountsHelper {
 			break;
 			case "3":
 				System.out.print("Paybill ");
+				paybill(trans.name, trans.number, trans.amount, trans.misc);
 			break;
 			case "4":
 				System.out.print("Deposit ");
@@ -80,9 +84,10 @@ public class AccountsHelper {
 				System.out.print("Enable ");
 				changeStatus(trans.name, trans.number, 'E');
 			break;
-			/*case "0":
+			case "0":
 				System.out.println("Logout");
-			break;*/
+				is_admin = false;
+			break;
 			}
 		}
 	}
@@ -144,22 +149,44 @@ public class AccountsHelper {
 	 */
 	public void deposit(String name, int number, float amount) {
 		int index = getAccount(name, number);
-		Accounts acc = old_accounts_list.get(index);
 		if(index != -1) {
-			acc.balance += amount;
-			System.out.println("--> Deposited $" + amount + " for " + name + ". New balance: $" + acc.balance);
+			Accounts acc = old_accounts_list.get(index);
+			float fee = !is_admin ? acc.getFee() : 0.0f;
+			float amount_change = amount - fee;
+			if(acc.balance + amount_change < 0){
+				new FileStreamHelper().logError("Not enough balance to cover fee!");
+			} else {
+				acc.balance += amount_change;
+				System.out.println("--> Deposited $" + amount + " for " + name + ". New balance: $" + acc.balance);
+			}
 		}
 	}
 	
 	public void withdraw(String name, int number, float amount) {
 		int index = getAccount(name, number);
-		Accounts acc = old_accounts_list.get(index);
 		if(index != -1) {
-			if(acc.balance - amount < 0) {
+			Accounts acc = old_accounts_list.get(index);
+			float fee = !is_admin ? acc.getFee() : 0.0f;
+			float amount_change = amount + fee;
+			if(acc.balance - amount_change < 0) {
 				new FileStreamHelper().logError("Not enough balance to withdraw!");
 			} else {
-				acc.balance -= amount;
+				acc.balance -= amount_change;
 				System.out.println("--> " + name + "'s account balance after withdrawal of $" + amount + " is now $" + acc.balance);
+			}
+		}
+	}
+	
+	public void paybill(String name, int number, float amount, String company){
+		int index = getAccount(name, number);
+		if(index != -1) {
+			Accounts acc = old_accounts_list.get(index);
+			float fee = !is_admin ? acc.getFee() : 0.0f;
+			float amount_change = amount + fee;
+			if(acc.balance - amount_change < 0){
+				new FileStreamHelper().logError("Not enough balance to pay bill!");
+			} else {
+				acc.balance -= amount_change;
 			}
 		}
 	}

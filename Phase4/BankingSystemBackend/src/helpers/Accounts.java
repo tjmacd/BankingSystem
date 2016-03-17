@@ -11,5 +11,9 @@ public class Accounts {
 	public float balance; // Contains balance information
 	public int trans_count; // Transaction count
 	public boolean is_student;
+	
+	public float getFee(){
+		return is_student ? 0.05f : 0.10f;
+	}
 }
  

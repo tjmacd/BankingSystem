@@ -9,6 +9,6 @@ public class Transactions {
 	public String name; // Contains Account name
 	public int number; // Contains Account number
 	public float amount; // Contains Account amount
-	public char misc; // Contains misc information
+	public String misc; // Contains misc information
 }
  

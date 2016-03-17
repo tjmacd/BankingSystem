@@ -21,7 +21,7 @@ public class FileStreamHelper {
 	/** The merged_transaction_regex. */
 	private Pattern TRANSACTIONS_REGEX = Pattern.compile(
 			"^([0-9]{2}) ([a-zA-Z0-9 ]{20}) ([0-9]{5}) ([0-9]{5}.[0-9]{2}) "
-			+ "([a-zA-Z]{1})?");
+			+ "([a-zA-Z]{1,2})?");
 	
 	private Pattern ACCOUNTS_REGEX = Pattern.compile(
 			"^([0-9]{5}) ([a-zA-Z0-9 ]{20}) ([A|D]) ([0-9]{5}.[0-9]{2}) "
@@ -72,8 +72,7 @@ public class FileStreamHelper {
 					// Get the account amount [Group 4]
 					trans.amount = Float.parseFloat(matches.group(4)); 
 					// Get the misc information [Group 5]
-					trans.misc = (char) (matches.group(5) != null ? 
-							matches.group(5).charAt(0) : ' '); 
+					trans.misc = matches.group(5) != null ? matches.group(5).trim() : ""; 
 					
 					// Add the transactions data to the array list
 					merged_transaction_list.add(trans);
