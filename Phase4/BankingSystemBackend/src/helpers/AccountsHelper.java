@@ -99,13 +99,13 @@ public class AccountsHelper {
 	 * @param number the account number
 	 * @return       the account index
 	 */
-	public int getAccount(String name, int number) {
+	public Accounts getAccount(String name, int number){
 		for(Accounts acc : accounts_list) {
-			if(acc.name.contains(name) && acc.number == number) {
-				return accounts_list.indexOf(acc);
+			if(acc.name.equals(name) && acc.number == number){
+				return acc;
 			}
 		}
-		return -1;
+		return null;
 	}
 	
 	/**
@@ -113,13 +113,13 @@ public class AccountsHelper {
 	 * @param number account number
 	 * @return       index of the account
 	 */
-	public int getAccount(int number) {
+	public Accounts getAccount(int number) {
 		for(Accounts acc : accounts_list) {
 			if(acc.number == number){
-				return accounts_list.indexOf(acc);
+				return acc;
 			}
 		}
-		return -1;
+		return null;
 	}
 	
 	/**
@@ -129,9 +129,9 @@ public class AccountsHelper {
 	 * @param number the account number
 	 */
 	public void changePlan(String name, int number) {
-		int index = getAccount(name, number);
-		Accounts acc = accounts_list.get(index);
-		if(index != -1) {
+		Accounts acc = getAccount(name, number);
+		// = accounts_list.get(index);
+		if(acc != null) {
 			acc.is_student = !acc.is_student;
 			System.out.println("--> Plan for " + name + " is now changed to " + (acc.is_student ? "Student" : "Non-Student"));
 		}
@@ -145,9 +145,8 @@ public class AccountsHelper {
 	 * @param status the new status
 	 */
 	public void changeStatus(String name, int number, char status) {
-		int index = getAccount(name, number);
-		Accounts acc = accounts_list.get(index);
-		if(index != -1) {
+		Accounts acc = getAccount(name, number);
+		if(acc != null) {
 			if(status == 'D' && acc.is_active) acc.is_active = false;
 			if(status == 'E' && !acc.is_active) acc.is_active = true;
 			System.out.println("--> " + name + "'s account is now " + (status == 'E' ? "Enabled" : "Disabled"));
@@ -162,9 +161,8 @@ public class AccountsHelper {
 	 * @param amount the amount to deposit
 	 */
 	public void deposit(String name, int number, float amount) {
-		int index = getAccount(name, number);
-		if(index != -1) {
-			Accounts acc = accounts_list.get(index);
+		Accounts acc = getAccount(name, number);
+		if(acc != null) {
 			float fee = !is_admin ? acc.getFee() : 0.0f;
 			float amount_change = amount - fee;
 			if(acc.balance + amount_change < 0){
@@ -185,9 +183,8 @@ public class AccountsHelper {
 	 * @param amount  amount to withdraw
 	 */
 	public void withdraw(String name, int number, float amount) {
-		int index = getAccount(name, number);
-		if(index != -1) {
-			Accounts acc = accounts_list.get(index);
+		Accounts acc = getAccount(name, number);
+		if(acc != null) {
 			float fee = !is_admin ? acc.getFee() : 0.0f;
 			float amount_change = amount + fee;
 			if(acc.balance - amount_change < 0) {
@@ -209,9 +206,8 @@ public class AccountsHelper {
 	 * @param company receiving company
 	 */
 	public void paybill(String name, int number, float amount, String company){
-		int index = getAccount(name, number);
-		if(index != -1) {
-			Accounts acc = accounts_list.get(index);
+		Accounts acc = getAccount(name, number);
+		if(acc != null) {
 			float fee = !is_admin ? acc.getFee() : 0.0f;
 			float amount_change = amount + fee;
 			if(acc.balance - amount_change < 0){
@@ -232,16 +228,14 @@ public class AccountsHelper {
 	 * @param to_number    account number to transfer to
 	 */
 	public void transfer(String name, int from_number, float amount, int to_number){
-		int index1 = getAccount(name, from_number);
-		if(index1 != -1) {
-			Accounts acc_from = accounts_list.get(index1);
+		Accounts acc_from = getAccount(name, from_number);
+		if(acc_from != null) {
 			float fee = !is_admin ? acc_from.getFee() : 0.0f;
 			if(acc_from.balance - amount - fee < 0){
 				new FileStreamHelper().logError("Not enough balance to transfer!");
 			} else {
-				int index2 = getAccount(to_number);
-				if(index2 != -1) {
-					Accounts acc_to = accounts_list.get(index2);
+				Accounts acc_to = getAccount(to_number);
+				if(acc_to != null) {
 					acc_from.balance -= (amount + fee);
 					acc_to.balance += amount;
 					if(!is_admin) acc_from.trans_count++;
@@ -260,17 +254,32 @@ public class AccountsHelper {
 	 * @param amount the amount
 	 */
 	public void create(String name, float amount) {
-		Accounts acc = new Accounts();
-		acc.number = (getAccount(name, (accounts_list.get(accounts_list.size() - 1)).number + 1) == -1 ? (accounts_list.get(accounts_list.size() - 1)).number + 1 : null);
-		acc.name = name;
-		acc.is_active = true;
+		Accounts new_account = new Accounts();
+		int i = 1;
+		int new_number = 0;
+		for(Accounts acc : accounts_list){
+			if(i == acc.number){
+				i++;
+			} else {
+				new_number = i;
+				break;
+			}
+		}
+		if(new_number == 0){
+			new_number = accounts_list.size() + 1;
+		}
+		new_account.number = new_number;
+		new_account.name = name;
+		new_account.is_active = true;
 		if(amount < 0) {
 			new FileStreamHelper().logError("Not enough balance to create!");
 		} else {
-			acc.balance = amount;
-			System.out.println("--> New Account created with name " + acc.name + " with balance of $" + acc.balance);
+			new_account.balance = amount;
+			accounts_list.add(new_account);
+			accounts_list.sort(new IdComparator());
+			System.out.println("--> New Account created with number " + 
+			new_account.number + " with balance of $" + new_account.balance);
 		}
-		accounts_list.add(acc);
 	}
 	
 	/**
@@ -280,10 +289,10 @@ public class AccountsHelper {
 	 * @param number the number
 	 */
 	public void delete(String name, int number) {
-		int index = getAccount(name, number);
-		if(index != -1) {
-			accounts_list.remove(index);
-			System.out.println("--> Account named " + name + " is now deleted!");
+		Accounts account = getAccount(name, number);
+		if(account != null) {
+			accounts_list.remove(account);
+			System.out.println("--> Account number " + number + " is now deleted!");
 		}
 	}
 	
