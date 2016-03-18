@@ -71,8 +71,18 @@ public class FileStreamHelper {
 					trans.number = Integer.parseInt(matches.group(3));
 					// Get the account amount [Group 4]
 					trans.amount = Float.parseFloat(matches.group(4)); 
-					// Get the misc information [Group 5]
-					trans.misc = matches.group(5) != null ? matches.group(5).trim() : ""; 
+					 
+					if(trans.code == 2){
+						// For transfer transaction, store recipient account in misc
+						line = br.readLine();
+						matches = TRANSACTIONS_REGEX.matcher(line);
+						if(matches.find() && matches.group(1).equals("02")){
+							trans.misc = matches.group(3);
+						}
+					} else {
+						// Get the misc information [Group 5]
+						trans.misc = matches.group(5) != null ? matches.group(5).trim() : "";
+					}
 					
 					// Add the transactions data to the array list
 					merged_transaction_list.add(trans);

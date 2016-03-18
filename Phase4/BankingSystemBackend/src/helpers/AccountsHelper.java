@@ -55,6 +55,8 @@ public class AccountsHelper {
 			break;
 			case "2":
 				System.out.print("Transfer ");
+				transfer(trans.name, trans.number, trans.amount, 
+						Integer.parseInt(trans.misc));
 			break;
 			case "3":
 				System.out.print("Paybill ");
@@ -102,6 +104,15 @@ public class AccountsHelper {
 	public int getAccount(String name, int number) {
 		for(Accounts acc : old_accounts_list) {
 			if(acc.name.contains(name) && acc.number == number) {
+				return old_accounts_list.indexOf(acc);
+			}
+		}
+		return -1;
+	}
+	
+	public int getAccount(int number) {
+		for(Accounts acc : old_accounts_list) {
+			if(acc.number == number){
 				return old_accounts_list.indexOf(acc);
 			}
 		}
@@ -187,6 +198,27 @@ public class AccountsHelper {
 				new FileStreamHelper().logError("Not enough balance to pay bill!");
 			} else {
 				acc.balance -= amount_change;
+			}
+		}
+	}
+	
+	public void transfer(String name, int from_number, float amount, int to_number){
+		int index1 = getAccount(name, from_number);
+		if(index1 != -1) {
+			Accounts acc_from = old_accounts_list.get(index1);
+			float fee = !is_admin ? acc_from.getFee() : 0.0f;
+			if(acc_from.balance - amount - fee < 0){
+				new FileStreamHelper().logError("Not enough balance to transfer!");
+			} else {
+				int index2 = getAccount(to_number);
+				if(index2 != -1) {
+					Accounts acc_to = old_accounts_list.get(index2);
+					acc_from.balance -= (amount + fee);
+					acc_to.balance += amount;
+				} else {
+					new FileStreamHelper().logError("Account " + to_number + 
+							" not found. Unable to transfer.");
+				}
 			}
 		}
 	}
