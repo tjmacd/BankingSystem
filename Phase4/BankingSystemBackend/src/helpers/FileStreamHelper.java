@@ -1,6 +1,3 @@
-/**
- * 
- */
 package helpers;
 
 import java.io.*;
@@ -10,44 +7,41 @@ import java.util.List;
 import java.util.regex.*;
 import java.sql.*;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class FileStreamHelper.
+ * This class handles all interactions with external files
  *
- * @author FlippinFlapJacks
  */
 public class FileStreamHelper {
 	
-	/** The merged_transaction_regex. */
+	// Transaction file pattern
 	private Pattern TRANSACTIONS_REGEX = Pattern.compile(
 			"^([0-9]{2}) ([a-zA-Z0-9 ]{20}) ([0-9]{5}) ([0-9]{5}.[0-9]{2}) "
 			+ "([a-zA-Z]{1,2})?");
-	
+	// Accounts file pattern
 	private Pattern ACCOUNTS_REGEX = Pattern.compile(
 			"^([0-9]{5}) ([a-zA-Z0-9 ]{20}) ([A|D]) ([0-9]{5}.[0-9]{2}) "
 			+ "([0-9]{4}) (S|N)");
-	
-	/** The merged_transaction_file. */
+	// Filename of merged transaction file
 	private String merged_transaction_file = "";
-	
-	/** The old_account_file. */
+	// Filename of accounts file
 	private String old_account_file = "";
-	
-	/** The log_file. */
+	// File name of error log
 	private String log_file = "files/backend.log";
-	
+	// Filename of master bank accounts file
 	private String new_master_accounts_file = 
 			"files/masterBankAccountsFile.txt";
+	// Filename of new current accounts file to be written
     private String new_current_accounts_file = "files/currentAccounts.txt";
-	
+    // List of transactions
 	ArrayList<Transactions> merged_transaction_list = 
 			new ArrayList<Transactions>();
+	// List of accounts
 	ArrayList<Accounts> old_accounts_list = new ArrayList<Accounts>();
 	
 	/**
 	 * Read merged trans file.
 	 */
-	@SuppressWarnings({ "finally", "resource" })
+	@SuppressWarnings({ "finally" })
 	public ArrayList<Transactions> readMergedTransFile() {
 		try (BufferedReader br = new BufferedReader(
 				new FileReader(this.merged_transaction_file))){
@@ -99,7 +93,7 @@ public class FileStreamHelper {
 		}
 	}
 	
-	@SuppressWarnings({ "resource", "finally" })
+	@SuppressWarnings({ "finally" })
 	public ArrayList<Accounts> readOldAccFile() {
 		try (BufferedReader br = new BufferedReader(
 				new FileReader(this.old_account_file))){

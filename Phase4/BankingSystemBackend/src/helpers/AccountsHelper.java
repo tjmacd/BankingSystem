@@ -3,18 +3,16 @@ package helpers;
 import java.util.ArrayList;
 import java.util.Collections;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class AccountsHelper.
+ * Handles all interactions with accounts database
  */
 public class AccountsHelper {
 	
-	/** The old_accounts_list. */
+	// A list of all the accounts
 	public ArrayList<Accounts> accounts_list = new ArrayList<Accounts>();
-	
-	/** The merged_transaction_list. */
+	// List of all transactions
 	public ArrayList<Transactions> merged_transaction_list = new ArrayList<Transactions>();
-	
+	// Tracks whether session is admin
 	public boolean is_admin;
 	
 	/**
@@ -31,7 +29,7 @@ public class AccountsHelper {
 	}
 	
 	/**
-	 * Prints the accounts.
+	 * Prints the accounts to console
 	 */
 	public void printAccounts() {
 		for(Accounts acc : accounts_list) {
@@ -40,7 +38,7 @@ public class AccountsHelper {
 	}
 	
 	/**
-	 * Process transactions.
+	 * Processs transactions in transaction list
 	 */
 	public void processTransactions() {
 		for(Transactions trans : merged_transaction_list) {
@@ -95,11 +93,11 @@ public class AccountsHelper {
 	}
 	
 	/**
-	 * Gets the account.
+	 * Gets the index of an account given name and number
 	 *
-	 * @param name the name
-	 * @param number the number
-	 * @return the account
+	 * @param name   the name of the account holder
+	 * @param number the account number
+	 * @return       the account index
 	 */
 	public int getAccount(String name, int number) {
 		for(Accounts acc : accounts_list) {
@@ -110,6 +108,11 @@ public class AccountsHelper {
 		return -1;
 	}
 	
+	/**
+	 * Gets the index of an account given a number
+	 * @param number account number
+	 * @return       index of the account
+	 */
 	public int getAccount(int number) {
 		for(Accounts acc : accounts_list) {
 			if(acc.number == number){
@@ -122,8 +125,8 @@ public class AccountsHelper {
 	/**
 	 * Changes plan from student to non-student and vice-versa
 	 *
-	 * @param name the name
-	 * @param number the number
+	 * @param name   the name of the account holder
+	 * @param number the account number
 	 */
 	public void changePlan(String name, int number) {
 		int index = getAccount(name, number);
@@ -135,11 +138,11 @@ public class AccountsHelper {
 	}
 	
 	/**
-	 * Change status.
+	 * Changes the status of the account
 	 *
-	 * @param name the name
-	 * @param number the number
-	 * @param status the status
+	 * @param name   the name of the account holder
+	 * @param number the account number
+	 * @param status the new status
 	 */
 	public void changeStatus(String name, int number, char status) {
 		int index = getAccount(name, number);
@@ -152,11 +155,11 @@ public class AccountsHelper {
 	}
 	
 	/**
-	 * Deposit.
+	 * Deposits money into the account
 	 *
-	 * @param name the name
-	 * @param number the number
-	 * @param amount the amount
+	 * @param name   the name of the account holder
+	 * @param number the account number
+	 * @param amount the amount to deposit
 	 */
 	public void deposit(String name, int number, float amount) {
 		int index = getAccount(name, number);
@@ -174,6 +177,13 @@ public class AccountsHelper {
 		}
 	}
 	
+	/**
+	 * Withdraws money from an account
+	 * 
+	 * @param name    name of account holder
+	 * @param number  account number
+	 * @param amount  amount to withdraw
+	 */
 	public void withdraw(String name, int number, float amount) {
 		int index = getAccount(name, number);
 		if(index != -1) {
@@ -190,6 +200,14 @@ public class AccountsHelper {
 		}
 	}
 	
+	/**
+	 * Pays bill to a company
+	 * 
+	 * @param name    name of the account holder
+	 * @param number  account number
+	 * @param amount  amount to pay
+	 * @param company receiving company
+	 */
 	public void paybill(String name, int number, float amount, String company){
 		int index = getAccount(name, number);
 		if(index != -1) {
@@ -205,6 +223,14 @@ public class AccountsHelper {
 		}
 	}
 	
+	/**
+	 * Transfers money from one account to another
+	 * 
+	 * @param name         name of the account holder
+	 * @param from_number  account number to transfer from
+	 * @param amount       amount to transfer
+	 * @param to_number    account number to transfer to
+	 */
 	public void transfer(String name, int from_number, float amount, int to_number){
 		int index1 = getAccount(name, from_number);
 		if(index1 != -1) {
@@ -230,7 +256,7 @@ public class AccountsHelper {
 	/**
 	 * Creates an account
 	 *
-	 * @param name the name
+	 * @param name   the name
 	 * @param amount the amount
 	 */
 	public void create(String name, float amount) {
@@ -248,9 +274,9 @@ public class AccountsHelper {
 	}
 	
 	/**
-	 * Delete.
+	 * Deletes an account
 	 *
-	 * @param name the name
+	 * @param name   the name
 	 * @param number the number
 	 */
 	public void delete(String name, int number) {
@@ -261,6 +287,10 @@ public class AccountsHelper {
 		}
 	}
 	
+	/**
+	 * Gets the account list
+	 * @return account list
+	 */
 	public ArrayList<Accounts> getAccountList() {
 		return accounts_list;		
 	}
