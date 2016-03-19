@@ -276,7 +276,7 @@ public class AccountsHelper {
 		} else {
 			new_account.balance = amount;
 			accounts_list.add(new_account);
-			accounts_list.sort(new IdComparator());
+			Collections.sort(accounts_list, new IdComparator());
 			System.out.println("--> New Account created with number " + 
 			new_account.number + " with balance of $" + new_account.balance);
 		}

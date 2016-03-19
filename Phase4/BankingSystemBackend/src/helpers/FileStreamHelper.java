@@ -35,6 +35,8 @@ public class FileStreamHelper {
     // List of transactions
 	ArrayList<Transactions> merged_transaction_list = 
 			new ArrayList<Transactions>();
+	ArrayList<Transactions> to_be_merged = 
+			new ArrayList<Transactions>();
 	// List of accounts
 	ArrayList<Accounts> old_accounts_list = new ArrayList<Accounts>();
 	
@@ -216,5 +218,57 @@ public class FileStreamHelper {
 	 */
 	public void setOld_account_file(String old_account_file) {
 		this.old_account_file = "files/" + old_account_file;
+	}
+	
+	public File[] readFolder(String dirName) {
+		File dir = new File(dirName);
+		
+		return dir.listFiles(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String filename) {
+				return filename.endsWith(".txt");
+			}
+			
+		});
+	}
+	
+	public void mergeFiles(String dirPath, String mergedFile) {
+		File[] files = readFolder(dirPath);
+		FileWriter fstream = null;
+		BufferedWriter out = null;
+		
+		try {
+			fstream = new FileWriter(mergedFile, true);
+			out = new BufferedWriter(fstream);
+		} catch(IOException ex) {
+			ex.printStackTrace();
+		}
+		
+		for(File f : files) {
+			System.out.println("merging: " + f.getName());
+			FileInputStream fis;
+			
+			try {
+				fis = new FileInputStream(f);
+				BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+				
+				String aLine;
+				while((aLine = in.readLine()) != null) {
+					out.write(aLine);
+					out.newLine();
+				}
+				
+				in.close();
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		try {
+			out.close();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
