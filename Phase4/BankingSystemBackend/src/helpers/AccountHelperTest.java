@@ -2,15 +2,34 @@ package helpers;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class AccountHelperTest {
+	
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+	
+	@Before
+	public void setUpStreams() {
+	    System.setOut(new PrintStream(outContent));
+	    System.setErr(new PrintStream(errContent));
+	}
+
+	@After
+	public void cleanUpStreams() {
+	    System.setOut(null);
+	    System.setErr(null);
+	}
 
 	@Test
-	public final void testAccountsHelper() {
+	public final void testAccountsHelper() {		
 		ArrayList<Transactions> trans = new ArrayList<Transactions>();
 		ArrayList<Accounts> accs = new ArrayList<Accounts>();
 		
@@ -37,7 +56,7 @@ public class AccountHelperTest {
 		a2.balance = 0;
 		a2.trans_count = 0;
 		a2.is_student = true;
-		accs.add(a2);
+		accs.add(a2);	
 		
 		AccountsHelper ah1 = new AccountsHelper(trans, accs);
 		
@@ -49,12 +68,90 @@ public class AccountHelperTest {
 		
 	}
 
-	/*@Test
-	public final void testProcessTransactions() {
-		fail("Not yet implemented"); // TODO
+	private void testProcessTransactions(String output, int code) {
+		ArrayList<Transactions> trans = new ArrayList<Transactions>();
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = true;
+		a.balance = 1000;
+		a.trans_count = 0;
+		a.is_student = true;
+		accs.add(a);
+		
+		Transactions t = new Transactions();
+		t.code = code;
+		t.name = "Account 1";
+		t.number = 1;
+		t.amount = 100;
+		t.misc = "A";
+		trans.add(t);
+		
+		AccountsHelper ah1 = new AccountsHelper(trans, accs);
+
+		ah1.processTransactions();
+
+		assertEquals(new String(output), outContent.toString().trim()); 
+	}
+	
+	@Test
+	public final void testLoginTransaction() {
+		testProcessTransactions("Login", 10); // Test for Login Process
+	}
+	
+	@Test
+	public final void testWithdrawTransaction() {
+		testProcessTransactions("Withdraw --> Account 1's account balance after withdrawal of $100.0 is now $899.95", 1); // Test for Withdraw Process
+	}
+	
+	@Test
+	public final void testTransferTransaction() {
+		testProcessTransactions("Transfer", 2); // Test for Transfer Process
+	}
+	
+	@Test
+	public final void testPaybillTransaction() {
+		testProcessTransactions("Paybill", 3); // Test for Paybill Process
+	}
+	
+	@Test
+	public final void testDepositTransaction() {
+		testProcessTransactions("Deposit --> Deposited $100.0 for Account 1. New balance: $1099.95", 4); // Test for Deposit Process
+	}
+	
+	@Test
+	public final void testCreateTransaction() {
+		testProcessTransactions("Create", 5); // Test for Create Process
+	}
+	
+	@Test
+	public final void testDeleteTransaction() {
+		testProcessTransactions("Delete", 6); // Test for Delete Process
+	}
+	
+	@Test
+	public final void testDisableTransaction() {
+		testProcessTransactions("Disable", 7); // Test for Disable Process
+	}
+	
+	@Test
+	public final void testChangeplanTransaction() {
+		testProcessTransactions("Changeplan", 8); // Test for Changeplan Process
+	}
+	
+	@Test
+	public final void testEnableTransaction() {
+		testProcessTransactions("Enable", 9); // Test for Enable Process
+	}
+	
+	@Test
+	public final void testLogoutTransaction() {
+		testProcessTransactions("Logout", 0); // Test for Logout Process
 	}
 
-	@Test
+	/*@Test
 	public final void testGetAccountStringInt() {
 		fail("Not yet implemented"); // TODO
 	}
