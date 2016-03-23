@@ -86,7 +86,7 @@ public class AccountHelperTest {
 		t.name = "Account 1";
 		t.number = 1;
 		t.amount = 100;
-		t.misc = "A";
+		t.misc = "1";
 		trans.add(t);
 		
 		AccountsHelper ah1 = new AccountsHelper(trans, accs);
@@ -123,27 +123,27 @@ public class AccountHelperTest {
 	
 	@Test
 	public final void testCreateTransaction() {
-		testProcessTransactions("Create", 5); // Test for Create Process
+		testProcessTransactions("Create --> New Account created with number 2 with balance of $100.0", 5); // Test for Create Process
 	}
 	
 	@Test
 	public final void testDeleteTransaction() {
-		testProcessTransactions("Delete", 6); // Test for Delete Process
+		testProcessTransactions("Delete --> Account number 1 is now deleted!", 6); // Test for Delete Process
 	}
 	
 	@Test
 	public final void testDisableTransaction() {
-		testProcessTransactions("Disable", 7); // Test for Disable Process
+		testProcessTransactions("Disable --> Account 1's account is now Disabled", 7); // Test for Disable Process
 	}
 	
 	@Test
 	public final void testChangeplanTransaction() {
-		testProcessTransactions("Changeplan", 8); // Test for Changeplan Process
+		testProcessTransactions("Changeplan --> Plan for Account 1 is now changed to Non-Student", 8); // Test for Changeplan Process
 	}
 	
 	@Test
 	public final void testEnableTransaction() {
-		testProcessTransactions("Enable", 9); // Test for Enable Process
+		testProcessTransactions("Enable --> Account 1's account is now Enabled", 9); // Test for Enable Process
 	}
 	
 	@Test
