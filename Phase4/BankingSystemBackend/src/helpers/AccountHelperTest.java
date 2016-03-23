@@ -245,12 +245,42 @@ public class AccountHelperTest {
 		assertEquals(false, ah1.getAccount(a.number).is_student);  // Check if it the account plan is non-student
 	}
 
-	/*@Test
+	@Test
 	public final void testChangeStatus() {
-		fail("Not yet implemented"); // TODO
+		ArrayList<Transactions> trans = new ArrayList<Transactions>();
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 1000;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs.add(a);
+		
+		Transactions t = new Transactions();
+		t.code = 8;
+		t.name = "Account 1";
+		t.number = 1;
+		t.amount = 100;
+		t.misc = "1";
+		trans.add(t);
+		
+		AccountsHelper ah1 = new AccountsHelper(trans, accs);
+		
+		// Test to change the plan of the non-student to student
+		assertNotEquals(true, ah1.getAccount(a.number).is_active); // Check if the account plan is non-student
+		ah1.changeStatus(a.name, a.number, 'E');
+		assertEquals(new String("--> Account 1's account is now Enabled"), outContent.toString().trim()); 
+		assertEquals(true, ah1.getAccount(a.number).is_active);  // Check if it the account plan is student
+		outContent.reset();
+		ah1.changeStatus(a.name, a.number, 'D');
+		assertEquals(new String("--> Account 1's account is now Disabled"), outContent.toString().trim()); 
+		assertEquals(false, ah1.getAccount(a.number).is_active);  // Check if it the account plan is non-student
 	}
 
-	@Test
+	/*@Test
 	public final void testDeposit() {
 		fail("Not yet implemented"); // TODO
 	}
