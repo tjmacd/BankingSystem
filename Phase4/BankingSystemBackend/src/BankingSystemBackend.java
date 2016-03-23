@@ -20,7 +20,7 @@ public class BankingSystemBackend {
 		// Call the mergeFiles method to merge multiple transaction files into one
 		// First parameter takes in: folder to be read containing transaction files
 		// Second parameter takes in: merged file name to be written in
-		fsh.mergeFiles("files/filesToBeMerged/", "files/" + args[0]);
+		//fsh.mergeFiles("files/filesToBeMerged/", "files/" + args[0]);
 		
 		// Take in the first argument of mergedTransactionFile
 		fsh.setMerged_transaction_file(args[0]);
