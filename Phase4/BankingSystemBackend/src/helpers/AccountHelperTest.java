@@ -3,6 +3,7 @@ package helpers;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -210,7 +211,7 @@ public class AccountHelperTest {
 	}
 
 	@Test
-	public final void testChangePlan() {
+	public final void testChangePlan() throws IOException {
 		ArrayList<Transactions> trans = new ArrayList<Transactions>();
 		ArrayList<Accounts> accs = new ArrayList<Accounts>();
 		
@@ -236,8 +237,11 @@ public class AccountHelperTest {
 		// Test to change the plan of the non-student to student
 		assertNotEquals(true, ah1.getAccount(a.number).is_student); // Check if the account plan is non-student
 		ah1.changePlan(a.name, a.number);
+		assertEquals(new String("--> Plan for Account 1 is now changed to Student"), outContent.toString().trim()); 
 		assertEquals(true, ah1.getAccount(a.number).is_student);  // Check if it the account plan is student
+		outContent.reset();
 		ah1.changePlan(a.name, a.number);
+		assertEquals(new String("--> Plan for Account 1 is now changed to Non-Student"), outContent.toString().trim()); 
 		assertEquals(false, ah1.getAccount(a.number).is_student);  // Check if it the account plan is non-student
 	}
 
