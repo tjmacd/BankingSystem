@@ -29,15 +29,6 @@ public class AccountsHelper {
 	}
 	
 	/**
-	 * Prints the accounts to console
-	 */
-	public void printAccounts() {
-		for(Accounts acc : accounts_list) {
-			System.out.println(acc.name + " ");
-		}
-	}
-	
-	/**
 	 * Processs transactions in transaction list
 	 */
 	public void processTransactions() {
