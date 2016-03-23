@@ -3,6 +3,7 @@ package helpers;
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -86,7 +87,7 @@ public class AccountHelperTest {
 		t.name = "Account 1";
 		t.number = 1;
 		t.amount = 100;
-		t.misc = "A";
+		t.misc = "1";
 		trans.add(t);
 		
 		AccountsHelper ah1 = new AccountsHelper(trans, accs);
@@ -123,27 +124,27 @@ public class AccountHelperTest {
 	
 	@Test
 	public final void testCreateTransaction() {
-		testProcessTransactions("Create", 5); // Test for Create Process
+		testProcessTransactions("Create --> New Account created with number 2 with balance of $100.0", 5); // Test for Create Process
 	}
 	
 	@Test
 	public final void testDeleteTransaction() {
-		testProcessTransactions("Delete", 6); // Test for Delete Process
+		testProcessTransactions("Delete --> Account number 1 is now deleted!", 6); // Test for Delete Process
 	}
 	
 	@Test
 	public final void testDisableTransaction() {
-		testProcessTransactions("Disable", 7); // Test for Disable Process
+		testProcessTransactions("Disable --> Account 1's account is now Disabled", 7); // Test for Disable Process
 	}
 	
 	@Test
 	public final void testChangeplanTransaction() {
-		testProcessTransactions("Changeplan", 8); // Test for Changeplan Process
+		testProcessTransactions("Changeplan --> Plan for Account 1 is now changed to Non-Student", 8); // Test for Changeplan Process
 	}
 	
 	@Test
 	public final void testEnableTransaction() {
-		testProcessTransactions("Enable", 9); // Test for Enable Process
+		testProcessTransactions("Enable --> Account 1's account is now Enabled", 9); // Test for Enable Process
 	}
 	
 	@Test
@@ -151,22 +152,100 @@ public class AccountHelperTest {
 		testProcessTransactions("Logout", 0); // Test for Logout Process
 	}
 
-	/*@Test
+	@Test
 	public final void testGetAccountStringInt() {
-		fail("Not yet implemented"); // TODO
+		ArrayList<Transactions> trans = new ArrayList<Transactions>();
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = true;
+		a.balance = 1000;
+		a.trans_count = 0;
+		a.is_student = true;
+		accs.add(a);
+		
+		Transactions t = new Transactions();
+		t.code = 1;
+		t.name = "Account 1";
+		t.number = 1;
+		t.amount = 100;
+		t.misc = "1";
+		trans.add(t);
+		
+		AccountsHelper ah1 = new AccountsHelper(trans, accs);
+		
+		// Test to get account object given account name and number
+		assertEquals(a, ah1.getAccount("Account 1", 1)); // Check if it returns account object
+		assertEquals(null, ah1.getAccount("Account 1", 2));  // Check if it returns null
 	}
 
 	@Test
 	public final void testGetAccountInt() {
-		fail("Not yet implemented"); // TODO
+		ArrayList<Transactions> trans = new ArrayList<Transactions>();
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = true;
+		a.balance = 1000;
+		a.trans_count = 0;
+		a.is_student = true;
+		accs.add(a);
+		
+		Transactions t = new Transactions();
+		t.code = 1;
+		t.name = "Account 1";
+		t.number = 1;
+		t.amount = 100;
+		t.misc = "1";
+		trans.add(t);
+		
+		AccountsHelper ah1 = new AccountsHelper(trans, accs);
+		
+		// Test to get account object given account number
+		assertEquals(a, ah1.getAccount(1)); // Check if it returns account object
+		assertEquals(null, ah1.getAccount(2));  // Check if it returns null
 	}
 
 	@Test
-	public final void testChangePlan() {
-		fail("Not yet implemented"); // TODO
+	public final void testChangePlan() throws IOException {
+		ArrayList<Transactions> trans = new ArrayList<Transactions>();
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = true;
+		a.balance = 1000;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs.add(a);
+		
+		Transactions t = new Transactions();
+		t.code = 8;
+		t.name = "Account 1";
+		t.number = 1;
+		t.amount = 100;
+		t.misc = "1";
+		trans.add(t);
+		
+		AccountsHelper ah1 = new AccountsHelper(trans, accs);
+		
+		// Test to change the plan of the non-student to student
+		assertNotEquals(true, ah1.getAccount(a.number).is_student); // Check if the account plan is non-student
+		ah1.changePlan(a.name, a.number);
+		assertEquals(new String("--> Plan for Account 1 is now changed to Student"), outContent.toString().trim()); 
+		assertEquals(true, ah1.getAccount(a.number).is_student);  // Check if it the account plan is student
+		outContent.reset();
+		ah1.changePlan(a.name, a.number);
+		assertEquals(new String("--> Plan for Account 1 is now changed to Non-Student"), outContent.toString().trim()); 
+		assertEquals(false, ah1.getAccount(a.number).is_student);  // Check if it the account plan is non-student
 	}
 
-	@Test
+	/*@Test
 	public final void testChangeStatus() {
 		fail("Not yet implemented"); // TODO
 	}
