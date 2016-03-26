@@ -189,7 +189,7 @@ public class FileStreamHelper {
 	 *
 	 * @return the merged_transaction_file
 	 */
-	public String getMerged_transaction_file() {
+	public String getMergedTransactionFile() {
 		return merged_transaction_file;
 	}
 
@@ -198,7 +198,7 @@ public class FileStreamHelper {
 	 *
 	 * @param merged_transaction_file the new merged_transaction_file
 	 */
-	public void setMerged_transaction_file(String merged_transaction_file) {
+	public void setMergedTransactionFile(String merged_transaction_file) {
 		this.merged_transaction_file = "files/" + merged_transaction_file;
 	}
 
@@ -207,7 +207,7 @@ public class FileStreamHelper {
 	 *
 	 * @return the old_account_file
 	 */
-	public String getOld_account_file() {
+	public String getOldAccountFile() {
 		return old_account_file;
 	}
 
@@ -216,7 +216,7 @@ public class FileStreamHelper {
 	 *
 	 * @param old_account_file the new old_account_file
 	 */
-	public void setOld_account_file(String old_account_file) {
+	public void setOldAccountFile(String old_account_file) {
 		this.old_account_file = "files/" + old_account_file;
 	}
 	

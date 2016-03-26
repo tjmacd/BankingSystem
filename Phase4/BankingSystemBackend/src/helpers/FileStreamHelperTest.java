@@ -30,7 +30,7 @@ public class FileStreamHelperTest {
 	@Test // Case 1: transaction code 2 - execute lines 73-77
 	public void testReadMergedTransFile1() {
 		FileStreamHelper fsh = new FileStreamHelper();
-		fsh.setMerged_transaction_file("transferTransaction.txt");
+		fsh.setMergedTransactionFile("transferTransaction.txt");
 		ArrayList<Transactions> list = fsh.readMergedTransFile();
 		assertEquals(1, list.size());
 		
@@ -40,7 +40,7 @@ public class FileStreamHelperTest {
 	@Test // Case 2: transaction code not 2 - execute line 80
 	public void testReadMergedTransFile2() {
 		FileStreamHelper fsh = new FileStreamHelper();
-		fsh.setMerged_transaction_file("paybillTransaction.txt");
+		fsh.setMergedTransactionFile("paybillTransaction.txt");
 		ArrayList<Transactions> list = fsh.readMergedTransFile();
 		assertEquals(1, list.size());
 		
@@ -50,7 +50,7 @@ public class FileStreamHelperTest {
 	@Test // Case 3: file not found - line 87-89
 	public void testReadMergedTransFile3() {
 		FileStreamHelper fsh = new FileStreamHelper();
-		fsh.setMerged_transaction_file("nofile");
+		fsh.setMergedTransactionFile("nofile");
 		ArrayList<Transactions> list = fsh.readMergedTransFile();
 		
 		String exception = errContent.toString().split(" ")[0];
@@ -60,7 +60,7 @@ public class FileStreamHelperTest {
 	@Test // Case 4: io exception - lines 90-92
 	public void testReadMergedTransFile4() {
 		FileStreamHelper fsh = new FileStreamHelper();
-		fsh.setMerged_transaction_file("folder");
+		fsh.setMergedTransactionFile("folder");
 		ArrayList<Transactions> list = fsh.readMergedTransFile();
 		
 		String exception = errContent.toString().split(" ")[0];
