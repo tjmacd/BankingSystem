@@ -12,4 +12,5 @@ testlog.txt
 /Phase2/FlippinFlapJacks/BankSysBackEnd/nbproject/private/
 /Phase2/FlippinFlapJacks/BankSysBackEnd/build/
 /Phase2/FlippinFlapJacks/BankSysBackEnd/dist/
+backend.log
 *.class

@@ -269,23 +269,67 @@ public class AccountHelperTest {
 		
 		AccountsHelper ah1 = new AccountsHelper(trans, accs);
 		
-		// Test to change the plan of the non-student to student
-		assertNotEquals(true, ah1.getAccount(a.number).is_active); // Check if the account plan is non-student
-		ah1.changeStatus(a.name, a.number, 'E');
+		// Test to change the status of the account
+		assertNotEquals(true, ah1.getAccount(a.number).is_active); // Check if the account plan is not enabled
+		ah1.changeStatus(a.name, a.number, 'E'); // Enable the account
 		assertEquals(new String("--> Account 1's account is now Enabled"), outContent.toString().trim()); 
-		assertEquals(true, ah1.getAccount(a.number).is_active);  // Check if it the account plan is student
+		assertEquals(true, ah1.getAccount(a.number).is_active);  // Check if it the account plan is Enabled
 		outContent.reset();
-		ah1.changeStatus(a.name, a.number, 'D');
+		ah1.changeStatus(a.name, a.number, 'D'); // Disable the account
 		assertEquals(new String("--> Account 1's account is now Disabled"), outContent.toString().trim()); 
-		assertEquals(false, ah1.getAccount(a.number).is_active);  // Check if it the account plan is non-student
-	}
-
-	/*@Test
-	public final void testDeposit() {
-		fail("Not yet implemented"); // TODO
+		assertEquals(false, ah1.getAccount(a.number).is_active);  // Check if it the account is disabled
 	}
 
 	@Test
+	public final void testDeposit() {
+		ArrayList<Transactions> trans = new ArrayList<Transactions>();
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 0;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs.add(a);
+		
+		Accounts a2 = new Accounts();
+		a2.number = 2;
+		a2.name = "Account 2";
+		a2.is_active = false;
+		a2.balance = 1000;
+		a2.trans_count = 0;
+		a2.is_student = false;
+		accs.add(a2);
+		
+		Transactions t = new Transactions();
+		t.code = 4;
+		t.name = "Account 1";
+		t.number = 1;
+		t.amount = 100;
+		t.misc = "1";
+		trans.add(t);
+		
+		Transactions t2 = new Transactions();
+		t2.code = 4;
+		t2.name = "Account 1";
+		t2.number = 1;
+		t2.amount = -100;
+		t2.misc = "1";
+		trans.add(t2);
+		
+		AccountsHelper ah1 = new AccountsHelper(trans, accs);
+		
+		// Test to change the status of the account
+		ah1.deposit(t.name, t.number, t.amount); // Deposit $100 into account
+		assertEquals(new String("--> Deposited $100.0 for Account 1. New balance: $99.9"), outContent.toString().trim());
+		outContent.reset(); // Reset the console
+		ah1.deposit(t2.name, t2.number, t2.amount); // Deposit negative amount
+		assertEquals(new String("Not enough balance to cover fee!"), outContent.toString().trim());
+	}
+
+	/*@Test
 	public final void testWithdraw() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -312,66 +356,6 @@ public class AccountHelperTest {
 
 	@Test
 	public final void testGetAccountList() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testObject() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testGetClass() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testHashCode() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testEquals() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testClone() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testToString() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testNotify() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testNotifyAll() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testWaitLong() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testWaitLongInt() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testWait() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testFinalize() {
 		fail("Not yet implemented"); // TODO
 	}*/
 

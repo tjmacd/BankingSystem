@@ -157,6 +157,7 @@ public class AccountsHelper {
 			float fee = !is_admin ? acc.getFee() : 0.0f;
 			float amount_change = amount - fee;
 			if(acc.balance + amount_change < 0){
+				System.out.println("Not enough balance to cover fee!");
 				new FileStreamHelper().logError("Not enough balance to cover fee!");
 			} else {
 				acc.balance += amount_change;
