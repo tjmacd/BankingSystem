@@ -17,11 +17,6 @@ public class BankingSystemBackend {
 		// Construct new FileStreamHelper() class
 		fsh = new FileStreamHelper();
 		
-		// Call the mergeFiles method to merge multiple transaction files into one
-		// First parameter takes in: folder to be read containing transaction files
-		// Second parameter takes in: merged file name to be written in
-		//fsh.mergeFiles("files/filesToBeMerged/", "files/" + args[0]);
-		
 		// Take in the first argument of mergedTransactionFile
 		fsh.setMergedTransactionFile(args[0]);
 		
