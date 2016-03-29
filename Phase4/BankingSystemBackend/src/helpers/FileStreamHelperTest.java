@@ -60,7 +60,7 @@ public class FileStreamHelperTest {
 	@Test // Case 4: io exception - lines 90-92
 	public void testReadMergedTransFile4() {
 		FileStreamHelper fsh = new FileStreamHelper();
-		fsh.setMergedTransactionFile("folder");
+		fsh.setMergedTransactionFile("../bin/BankingSystemBackend.class");
 		ArrayList<Transactions> list = fsh.readMergedTransFile();
 		
 		String exception = errContent.toString().split(" ")[0];
@@ -68,11 +68,39 @@ public class FileStreamHelperTest {
 		assertEquals("java.io.IOException:", exception);
 	}
 	
-	@Test
-	public void testReadOldAccFile() {
-		fail("Not yet implemented");
+	@Test // Case 1: 100-122 successful try block
+	public void testReadOldAccFile1() {
+		FileStreamHelper fsh = new FileStreamHelper();
+		fsh.setOldAccountFile("masterOneAccount.txt");
+		ArrayList<Accounts> list = fsh.readOldAccFile();
+		assertEquals(1, list.size());
+		Accounts account = list.get(0);
+		assertEquals(1, account.number);
+		assertEquals("Name", account.name);
+		assertTrue(account.is_active);
+		assertFalse(account.is_student);
+		assertEquals(1.0, account.balance, 0.001);
+		assertEquals(1, account.trans_count);
+	}
+	
+	@Test // Case 2: FileNotFoundException
+	public void testReadOldAccFile2() {
+		FileStreamHelper fsh = new FileStreamHelper();
+		fsh.setOldAccountFile("nofile");
+		ArrayList<Accounts> list = fsh.readOldAccFile();
+		String exception = errContent.toString().split(" ")[0];
+		assertEquals("java.io.FileNotFoundException:", exception);
 	}
 
+	@Test // Case 3: IOException
+	public void testReadOldAccFile3() {
+		FileStreamHelper fsh = new FileStreamHelper();
+		fsh.setOldAccountFile("");
+		ArrayList<Accounts> list = fsh.readOldAccFile();
+		String exception = errContent.toString().split(" ")[0];
+		assertEquals("java.io.IOException:", exception);
+	}
+	
 	@Test
 	public void testWriteCurrentAccounts() {
 		fail("Not yet implemented");

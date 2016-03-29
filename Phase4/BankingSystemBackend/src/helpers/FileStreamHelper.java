@@ -143,7 +143,7 @@ public class FileStreamHelper {
             }
             current_accounts.close();
         } catch(Exception e) {
-			System.out.print("ERROR: " + e);
+			System.err.print("ERROR: " + e);
 		} 
     }
 	
