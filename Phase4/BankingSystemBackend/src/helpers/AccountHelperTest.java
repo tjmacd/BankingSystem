@@ -600,5 +600,101 @@ public class AccountHelperTest {
 		// test to see if the newly added account is the same in AccountsHelper
 		assertNotEquals(accs, ah1.getAccountList());
 	}
+	
+	@Test
+	public final void testLoopCoverageGetAccountZero() {
+		AccountsHelper ah0 = new AccountsHelper(new ArrayList<Transactions>(), new ArrayList<Accounts>());
+		
+		assertEquals(ah0.getAccount("Account 0", 0), null);
+	}
+	
+	@Test
+	public final void testLoopCoverageGetAccountOne() {
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a1 = new Accounts();
+		a1.number = 1;
+		a1.name = "Account 1";
+		a1.is_active = false;
+		a1.balance = 0;
+		a1.trans_count = 0;
+		a1.is_student = false;
+		accs.add(a1);
+		
+		AccountsHelper ah0 = new AccountsHelper(new ArrayList<Transactions>(), accs);
+		
+		assertEquals(ah0.getAccount("Account 2", 0), null);
+	}
+	
+	@Test
+	public final void testLoopCoverageGetAccountTwo() {
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a1 = new Accounts();
+		a1.number = 1;
+		a1.name = "Account 1";
+		a1.is_active = false;
+		a1.balance = 0;
+		a1.trans_count = 0;
+		a1.is_student = false;
+		accs.add(a1);
 
+		Accounts a2 = new Accounts();
+		a2.number = 1;
+		a2.name = "Account 2";
+		a2.is_active = false;
+		a2.balance = 0;
+		a2.trans_count = 0;
+		a2.is_student = false;
+		accs.add(a2);
+		
+		AccountsHelper ah0 = new AccountsHelper(new ArrayList<Transactions>(), accs);
+		
+		assertEquals(ah0.getAccount("Account 3", 0), null);
+	}
+	
+	@Test
+	public final void testLoopCoverageGetAccountMultiple() {
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a1 = new Accounts();
+		a1.number = 1;
+		a1.name = "Account 1";
+		a1.is_active = false;
+		a1.balance = 0;
+		a1.trans_count = 0;
+		a1.is_student = false;
+		accs.add(a1);
+
+		Accounts a2 = new Accounts();
+		a2.number = 2;
+		a2.name = "Account 2";
+		a2.is_active = false;
+		a2.balance = 0;
+		a2.trans_count = 0;
+		a2.is_student = false;
+		accs.add(a2);
+		
+		Accounts a3 = new Accounts();
+		a3.number = 3;
+		a3.name = "Account 3";
+		a3.is_active = false;
+		a3.balance = 0;
+		a3.trans_count = 0;
+		a3.is_student = false;
+		accs.add(a3);
+		
+		Accounts a4 = new Accounts();
+		a4.number = 4;
+		a4.name = "Account 4";
+		a4.is_active = false;
+		a4.balance = 0;
+		a4.trans_count = 0;
+		a4.is_student = false;
+		accs.add(a4);
+		
+		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs);
+		
+		assertEquals(ah.getAccount("Account 4", 4), a4);
+	}
 }
