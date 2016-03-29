@@ -439,6 +439,13 @@ public class AccountHelperTest {
 		
 		// Test to make the sure the transfer has been processed
 		assertEquals(new String("--> Transfered $50.0 from Account No.1 to Account No. 2"), outContent.toString().trim());
+		
+		outContent.reset(); // Reset the console
+		
+		ah.transfer("Account 1", 1, 30, 3);
+		
+		// Test to make the sure account is valid for transfer
+		assertEquals(new String("Account 3 not found. Unable to transfer."), outContent.toString().trim());
 	}
 
 	@Test

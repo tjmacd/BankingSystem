@@ -241,6 +241,8 @@ public class AccountsHelper {
 					if(!is_admin) acc_from.trans_count++;
 					System.out.println("--> Transfered $" + amount + " from Account No." + from_number + " to Account No. " + to_number);
 				} else {
+					System.out.println("Account " + to_number + 
+							" not found. Unable to transfer.");
 					new FileStreamHelper().logError("Account " + to_number + 
 							" not found. Unable to transfer.");
 				}
