@@ -63,17 +63,6 @@ public class FileStreamHelperTest {
 		assertEquals("java.io.FileNotFoundException:", exception);
 	}
 	
-	@Test // Case 4: io exception - lines 90-92
-	public void testReadMergedTransFile4() {
-		FileStreamHelper fsh = new FileStreamHelper();
-		fsh.setMergedTransactionFile("../bin/BankingSystemBackend.class");
-		ArrayList<Transactions> list = fsh.readMergedTransFile();
-		
-		String exception = errContent.toString().split(" ")[0];
-		
-		assertEquals("java.io.IOException:", exception);
-	}
-	
 	@Test // Case 1: 100-122 successful try block
 	public void testReadOldAccFile1() {
 		FileStreamHelper fsh = new FileStreamHelper();
@@ -96,15 +85,6 @@ public class FileStreamHelperTest {
 		ArrayList<Accounts> list = fsh.readOldAccFile();
 		String exception = errContent.toString().split(" ")[0];
 		assertEquals("java.io.FileNotFoundException:", exception);
-	}
-
-	@Test // Case 3: IOException
-	public void testReadOldAccFile3() {
-		FileStreamHelper fsh = new FileStreamHelper();
-		fsh.setOldAccountFile("");
-		ArrayList<Accounts> list = fsh.readOldAccFile();
-		String exception = errContent.toString().split(" ")[0];
-		assertEquals("java.io.IOException:", exception);
 	}
 	
 	@Test // Case 1: successful write

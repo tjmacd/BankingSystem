@@ -84,9 +84,6 @@ public class FileStreamHelper {
 					merged_transaction_list.add(trans);
 				}
 			}
-		} catch(FileNotFoundException e) {
-			logError(e.getMessage());
-			e.printStackTrace();
 		} catch (IOException e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -120,9 +117,6 @@ public class FileStreamHelper {
 					old_accounts_list.add(acc);
 				}
 			}
-		} catch(FileNotFoundException e) {
-			logError(e.getMessage());
-			e.printStackTrace();
 		} catch (IOException e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -159,7 +153,7 @@ public class FileStreamHelper {
             }
             master_accounts.close();
         } catch(Exception e) {
-			System.out.print("ERROR: " + e);
+			System.err.print("ERROR: " + e);
 		} 
 	}
 	
