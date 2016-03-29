@@ -263,8 +263,8 @@ public class AccountHelperTest {
 		assertEquals(false, ah1.getAccount(a.number).is_student);  // Check if it the account plan is non-student
 	}
 
-	@Test
-	public final void testChangeStatus() {
+	@Test // enable
+	public final void testChangeStatus1() {
 		ArrayList<Transactions> trans = new ArrayList<Transactions>();
 		ArrayList<Accounts> accs = new ArrayList<Accounts>();
 		
@@ -277,29 +277,38 @@ public class AccountHelperTest {
 		a.is_student = false;
 		accs.add(a);
 		
-		Transactions t = new Transactions();
-		t.code = 8;
-		t.name = "Account 1";
-		t.number = 1;
-		t.amount = 100;
-		t.misc = "1";
-		trans.add(t);
+		AccountsHelper ah1 = new AccountsHelper(trans, accs);
+		
+		// Test to change the status of the account
+		ah1.changeStatus(a.name, a.number, 'E'); // Enable the account
+		assertEquals(new String("--> Account 1's account is now Enabled"), outContent.toString().trim()); 
+		assertEquals(true, ah1.getAccount(a.number).is_active);  // Check if it the account plan is Enabled
+	}
+	
+	@Test // Disable
+	public final void testChangeStatus2() {
+		ArrayList<Transactions> trans = new ArrayList<Transactions>();
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = true;
+		a.balance = 1000;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs.add(a);
 		
 		AccountsHelper ah1 = new AccountsHelper(trans, accs);
 		
 		// Test to change the status of the account
-		assertNotEquals(true, ah1.getAccount(a.number).is_active); // Check if the account plan is not enabled
-		ah1.changeStatus(a.name, a.number, 'E'); // Enable the account
-		assertEquals(new String("--> Account 1's account is now Enabled"), outContent.toString().trim()); 
-		assertEquals(true, ah1.getAccount(a.number).is_active);  // Check if it the account plan is Enabled
-		outContent.reset();
 		ah1.changeStatus(a.name, a.number, 'D'); // Disable the account
 		assertEquals(new String("--> Account 1's account is now Disabled"), outContent.toString().trim()); 
 		assertEquals(false, ah1.getAccount(a.number).is_active);  // Check if it the account is disabled
 	}
 
-	@Test
-	public final void testDeposit() {
+	@Test // Successful deposit
+	public final void testDeposit1() {
 		ArrayList<Transactions> trans = new ArrayList<Transactions>();
 		ArrayList<Accounts> accs = new ArrayList<Accounts>();
 		
@@ -312,45 +321,62 @@ public class AccountHelperTest {
 		a.is_student = false;
 		accs.add(a);
 		
-		Accounts a2 = new Accounts();
-		a2.number = 2;
-		a2.name = "Account 2";
-		a2.is_active = false;
-		a2.balance = 1000;
-		a2.trans_count = 0;
-		a2.is_student = false;
-		accs.add(a2);
+		AccountsHelper ah1 = new AccountsHelper(trans, accs);
 		
-		Transactions t = new Transactions();
-		t.code = 4;
-		t.name = "Account 1";
-		t.number = 1;
-		t.amount = 100;
-		t.misc = "1";
-		trans.add(t);
+		// Test to change the status of the account
+		ah1.deposit(a.name, a.number, 100); // Deposit $100 into account
+		assertEquals(new String("--> Deposited $100.0 for Account 1. New balance: $99.9"), outContent.toString().trim());
+	}
+	
+	@Test // Not enough balance
+	public final void testDeposit2() {
+		ArrayList<Transactions> trans = new ArrayList<Transactions>();
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
 		
-		Transactions t2 = new Transactions();
-		t2.code = 4;
-		t2.name = "Account 1";
-		t2.number = 1;
-		t2.amount = -100;
-		t2.misc = "1";
-		trans.add(t2);
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 0;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs.add(a);
 		
 		AccountsHelper ah1 = new AccountsHelper(trans, accs);
 		
 		// Test to change the status of the account
-		ah1.deposit(t.name, t.number, t.amount); // Deposit $100 into account
-		assertEquals(new String("--> Deposited $100.0 for Account 1. New balance: $99.9"), outContent.toString().trim());
-		outContent.reset(); // Reset the console
-		ah1.deposit(t2.name, t2.number, t2.amount); // Deposit negative amount
+		ah1.deposit(a.name, a.number, -100); // Deposit negative amount
 		assertEquals(new String("Not enough balance to cover fee!"), outContent.toString().trim());
 		
 		outContent.reset();
 	}
 
-	@Test
-	public final void testWithdraw() {
+	@Test // Successful withdrawal
+	public final void testWithdraw1() {
+		outContent.reset(); // Reset the console
+		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
+		accs1.clear();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 100;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs1.add(a);
+		
+		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);
+		
+		ah.withdraw("Account 1", 1, 1.0f);
+		// Test to see if the account can be withdrawn with 0 balance
+		assertEquals(new String("--> Account 1's account balance after "
+				+ "withdrawal of $1.0 is now $98.90"), 
+				outContent.toString().trim());
+	}
+	
+	@Test // Not enough balance
+	public final void testWithdraw2() {
 		outContent.reset(); // Reset the console
 		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
 		accs1.clear();
@@ -370,23 +396,6 @@ public class AccountHelperTest {
 		// Test to see if the account can be withdrawn with 0 balance
 		assertEquals(new String("Not enough balance to withdraw!"), outContent.toString().trim());
 		
-		// Add balance for more tests
-		ah.deposit(a.name, a.number, 100);
-		
-		outContent.reset(); // Reset the console
-		
-		ah.withdraw("Account 1", 1, 100);
-		// Test to see if the account can be withdrawn with 0 balance
-		assertEquals(new String("Not enough balance to withdraw!"), outContent.toString().trim());
-		
-		// Add balance for more tests
-		ah.deposit(a.name, a.number, 100);
-				
-		outContent.reset(); // Reset the console
-		
-		ah.withdraw("Account 1", 1, 100);
-		// Test to see if the account can be withdrawn with 0 balance
-		assertEquals(new String("--> Account 1's account balance after withdrawal of $100.0 is now $99.70"), outContent.toString().trim());
 	}
 
 	@Test
