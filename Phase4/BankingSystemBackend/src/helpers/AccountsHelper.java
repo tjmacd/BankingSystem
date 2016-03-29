@@ -184,11 +184,12 @@ public class AccountsHelper {
 			float fee = !is_admin ? acc.getFee() : 0.0f;
 			float amount_change = amount + fee;
 			if(acc.balance - amount_change < 0) {
+				System.out.println("Not enough balance to withdraw!");
 				new FileStreamHelper().logError("Not enough balance to withdraw!");
 			} else {
 				acc.balance -= amount_change;
 				if(!is_admin) acc.trans_count++;
-				System.out.println("--> " + name + "'s account balance after withdrawal of $" + amount + " is now $" + acc.balance);
+				System.out.println("--> " + name + "'s account balance after withdrawal of $" + amount + " is now $" + String.format("%.02f", acc.balance));
 			}
 		}
 	}

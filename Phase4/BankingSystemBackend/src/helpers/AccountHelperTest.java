@@ -329,12 +329,47 @@ public class AccountHelperTest {
 		assertEquals(new String("Not enough balance to cover fee!"), outContent.toString().trim());
 	}
 
-	/*@Test
+	@Test
 	public final void testWithdraw() {
-		fail("Not yet implemented"); // TODO
+		outContent.reset(); // Reset the console
+		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
+		accs1.clear();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 0;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs1.add(a);
+		
+		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);
+		
+		ah.withdraw("Account 1", 1, 100);
+		// Test to see if the account can be withdrawn with 0 balance
+		assertEquals(new String("Not enough balance to withdraw!"), outContent.toString().trim());
+		
+		// Add balance for more tests
+		ah.deposit(a.name, a.number, 100);
+		
+		outContent.reset(); // Reset the console
+		
+		ah.withdraw("Account 1", 1, 100);
+		// Test to see if the account can be withdrawn with 0 balance
+		assertEquals(new String("Not enough balance to withdraw!"), outContent.toString().trim());
+		
+		// Add balance for more tests
+		ah.deposit(a.name, a.number, 100);
+				
+		outContent.reset(); // Reset the console
+		
+		ah.withdraw("Account 1", 1, 100);
+		// Test to see if the account can be withdrawn with 0 balance
+		assertEquals(new String("--> Account 1's account balance after withdrawal of $100.0 is now $99.70"), outContent.toString().trim());
 	}
 
-	@Teste
+	/*@Test
 	public final void testPaybill() {
 		fail("Not yet implemented"); // TODO
 	}
