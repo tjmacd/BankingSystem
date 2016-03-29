@@ -151,6 +151,11 @@ public class AccountHelperTest {
 	public final void testLogoutTransaction() {
 		testProcessTransactions("Logout", 0); // Test for Logout Process
 	}
+	
+	@Test
+	public final void testInvalidTransaction() {
+		testProcessTransactions("Transaction not Found!", 11); // Test for Logout Process
+	}
 
 	@Test
 	public final void testGetAccountStringInt() {
