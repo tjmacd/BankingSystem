@@ -157,8 +157,8 @@ public class AccountHelperTest {
 		testProcessTransactions("Transaction not Found!", 11); // Test for Logout Process
 	}
 
-	@Test
-	public final void testGetAccountStringInt() {
+	@Test // successfully get
+	public final void testGetAccountStringInt1() {
 		ArrayList<Transactions> trans = new ArrayList<Transactions>();
 		ArrayList<Accounts> accs = new ArrayList<Accounts>();
 		
@@ -170,24 +170,26 @@ public class AccountHelperTest {
 		a.trans_count = 0;
 		a.is_student = true;
 		accs.add(a);
-		
-		Transactions t = new Transactions();
-		t.code = 1;
-		t.name = "Account 1";
-		t.number = 1;
-		t.amount = 100;
-		t.misc = "1";
-		trans.add(t);
 		
 		AccountsHelper ah1 = new AccountsHelper(trans, accs);
 		
 		// Test to get account object given account name and number
 		assertEquals(a, ah1.getAccount("Account 1", 1)); // Check if it returns account object
-		assertEquals(null, ah1.getAccount("Account 1", 2));  // Check if it returns null
 	}
 
-	@Test
-	public final void testGetAccountInt() {
+	@Test // Account not found
+	public final void testGetAccountStringInt2() {
+		ArrayList<Transactions> trans = new ArrayList<Transactions>();
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+
+		
+		AccountsHelper ah1 = new AccountsHelper(trans, accs);
+		
+		assertEquals(null, ah1.getAccount("Account 1", 2));  // Check if it returns null
+	}
+	
+	@Test // Successfully get
+	public final void testGetAccountInt1() {
 		ArrayList<Transactions> trans = new ArrayList<Transactions>();
 		ArrayList<Accounts> accs = new ArrayList<Accounts>();
 		
@@ -200,23 +202,25 @@ public class AccountHelperTest {
 		a.is_student = true;
 		accs.add(a);
 		
-		Transactions t = new Transactions();
-		t.code = 1;
-		t.name = "Account 1";
-		t.number = 1;
-		t.amount = 100;
-		t.misc = "1";
-		trans.add(t);
-		
 		AccountsHelper ah1 = new AccountsHelper(trans, accs);
 		
 		// Test to get account object given account number
 		assertEquals(a, ah1.getAccount(1)); // Check if it returns account object
+	}
+	
+	@Test
+	public final void testGetAccountInt2() {
+		ArrayList<Transactions> trans = new ArrayList<Transactions>();
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		AccountsHelper ah1 = new AccountsHelper(trans, accs);
+		
+		// Test to get account object given account number
 		assertEquals(null, ah1.getAccount(2));  // Check if it returns null
 	}
 
-	@Test
-	public final void testChangePlan() throws IOException {
+	@Test // To student
+	public final void testChangePlan1() throws IOException {
 		ArrayList<Transactions> trans = new ArrayList<Transactions>();
 		ArrayList<Accounts> accs = new ArrayList<Accounts>();
 		
@@ -229,22 +233,31 @@ public class AccountHelperTest {
 		a.is_student = false;
 		accs.add(a);
 		
-		Transactions t = new Transactions();
-		t.code = 8;
-		t.name = "Account 1";
-		t.number = 1;
-		t.amount = 100;
-		t.misc = "1";
-		trans.add(t);
+		AccountsHelper ah1 = new AccountsHelper(trans, accs);
+		
+		// Test to change the plan of the non-student to student
+		ah1.changePlan(a.name, a.number);
+		assertEquals(new String("--> Plan for Account 1 is now changed to Student"), outContent.toString().trim()); 
+		assertEquals(true, ah1.getAccount(a.number).is_student);  // Check if it the account plan is student
+	}
+	
+	@Test // To non-student
+	public final void testChangePlan2() throws IOException {
+		ArrayList<Transactions> trans = new ArrayList<Transactions>();
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = true;
+		a.balance = 1000;
+		a.trans_count = 0;
+		a.is_student = true;
+		accs.add(a);
 		
 		AccountsHelper ah1 = new AccountsHelper(trans, accs);
 		
 		// Test to change the plan of the non-student to student
-		assertNotEquals(true, ah1.getAccount(a.number).is_student); // Check if the account plan is non-student
-		ah1.changePlan(a.name, a.number);
-		assertEquals(new String("--> Plan for Account 1 is now changed to Student"), outContent.toString().trim()); 
-		assertEquals(true, ah1.getAccount(a.number).is_student);  // Check if it the account plan is student
-		outContent.reset();
 		ah1.changePlan(a.name, a.number);
 		assertEquals(new String("--> Plan for Account 1 is now changed to Non-Student"), outContent.toString().trim()); 
 		assertEquals(false, ah1.getAccount(a.number).is_student);  // Check if it the account plan is non-student
