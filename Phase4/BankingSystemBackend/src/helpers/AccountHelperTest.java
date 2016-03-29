@@ -463,6 +463,15 @@ public class AccountHelperTest {
 		a.is_student = false;
 		accs1.add(a);
 		
+		Accounts a3 = new Accounts();
+		a3.number = 3;
+		a3.name = "Account 3";
+		a3.is_active = false;
+		a3.balance = 0;
+		a3.trans_count = 0;
+		a3.is_student = false;
+		accs1.add(a3);
+		
 		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);
 		
 		// Check if there is one account
@@ -496,6 +505,7 @@ public class AccountHelperTest {
 		// Test if the newly created Account has the same value
 		assertEquals(ah.getAccountList().get(1).name, accs1.get(1).name);
 		assertEquals(ah.getAccountList().get(1).balance, accs1.get(1).balance, 0.001);
+		assertEquals(ah.getAccountList().get(1).number, accs1.get(1).number);
 	}
 
 	@Test
