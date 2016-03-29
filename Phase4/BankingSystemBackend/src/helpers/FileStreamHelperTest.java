@@ -109,11 +109,6 @@ public class FileStreamHelperTest {
 		reader.close();
 		assertEquals("00001 Name                 A 00001.00 S", line);
 	}
-	
-	@Test // Case 2: Exception TODO
-	public void testWriteCurrentAccounts2() {
-		fail("Not yet implemented");
-	}
 
 	@Test // Case 1: successful write
 	public void testWriteMasterAccounts1() throws IOException {
@@ -135,11 +130,6 @@ public class FileStreamHelperTest {
 		reader.close();
 		assertEquals("00001 Name                 A 00001.00 0001 S", line);
 	}
-	
-	@Test // Case 2: Exception TODO
-	public void testWriteMasterAccounts2() {
-		fail("Not yet implemented");
-	}
 
 	@Test // Case 1: successfully log error
 	public void testLogError1() throws IOException {
@@ -153,11 +143,6 @@ public class FileStreamHelperTest {
 		String line = reader.readLine().substring(26);
 		reader.close();
 		assertEquals("ERROR: " + message, line);
-	}
-	
-	@Test // Case 2: exception TODO
-	public void testLogError2() {
-		fail("Not yet implemented");
 	}
 
 	@Test // Test set then get transaction file

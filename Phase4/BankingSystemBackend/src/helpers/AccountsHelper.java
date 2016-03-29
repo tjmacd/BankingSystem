@@ -129,7 +129,7 @@ public class AccountsHelper {
 		if(acc != null) {
 			acc.is_student = !acc.is_student;
 			System.out.println("--> Plan for " + name + " is now changed to " + (acc.is_student ? "Student" : "Non-Student"));
-		} else {}
+		}
 	}
 	
 	/**
