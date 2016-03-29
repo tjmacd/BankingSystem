@@ -347,12 +347,53 @@ public class AccountHelperTest {
 	@Test
 	public final void testCreate() {
 		fail("Not yet implemented"); // TODO
-	}
+	}*/
 
 	@Test
 	public final void testDelete() {
-		fail("Not yet implemented"); // TODO
-	}*/
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 0;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs.add(a);
+		
+		Accounts a2 = new Accounts();
+		a2.number = 2;
+		a2.name = "Account 2";
+		a2.is_active = false;
+		a2.balance = 1000;
+		a2.trans_count = 0;
+		a2.is_student = false;
+		accs.add(a2);
+		
+		AccountsHelper ah1 = new AccountsHelper(new ArrayList<Transactions>(), accs);
+		
+		// Reset the console window
+		outContent.reset();
+		
+		// Delete first account
+		ah1.delete(a.name, a.number);
+		assertEquals(new String("--> Account number 1 is now deleted!"), outContent.toString().trim());
+		
+		outContent.reset();
+		
+		// Delete first account again, which does not exist
+		ah1.delete(a.name, a.number);
+		assertNotEquals(new String("--> Account number 1 is now deleted!"), outContent.toString().trim());
+		
+		outContent.reset();
+		
+		// Delete second account
+		ah1.delete(a2.name, a2.number);
+		assertEquals(new String("--> Account number 2 is now deleted!"), outContent.toString().trim()); 
+		
+		
+	}
 
 	@Test
 	public final void testGetAccountList() {

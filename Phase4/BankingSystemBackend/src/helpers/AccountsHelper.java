@@ -79,6 +79,10 @@ public class AccountsHelper {
 				System.out.println("Logout");
 				is_admin = false;
 			break;
+			
+			default:
+				System.out.println("Transaction not Found!");
+			break;
 			}
 		}
 	}
@@ -94,9 +98,9 @@ public class AccountsHelper {
 		for(Accounts acc : accounts_list) {
 			if(acc.name.equals(name) && acc.number == number){
 				return acc;
-			}
+			} else return null;
 		}
-		return null;
+		return null; 
 	}
 	
 	/**
@@ -125,7 +129,7 @@ public class AccountsHelper {
 		if(acc != null) {
 			acc.is_student = !acc.is_student;
 			System.out.println("--> Plan for " + name + " is now changed to " + (acc.is_student ? "Student" : "Non-Student"));
-		}
+		} else {}
 	}
 	
 	/**
