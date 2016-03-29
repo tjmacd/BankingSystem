@@ -684,4 +684,35 @@ public class AccountHelperTest {
 		
 		assertEquals(ah.getAccount("Account 4", 4), a4);
 	}
+	
+	@Test
+	public final void testDecisionCoverageOfWithdraw() {
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a1 = new Accounts();
+		a1.number = 1;
+		a1.name = "Account 1";
+		a1.is_active = false;
+		a1.balance = 0;
+		a1.trans_count = 0;
+		a1.is_student = false;
+		accs.add(a1);
+		
+		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs);
+		
+		ah.withdraw("Account 1", 1, 10);
+		
+		// Test if the account has enough balance for withdraw
+		assertEquals(new String("Not enough balance to withdraw!"), outContent.toString().trim());
+		
+		// Add money to account
+		ah.deposit("Account 1", 1, 20);
+		
+		outContent.reset();
+		
+		ah.withdraw("Account 1", 1, 10);
+		
+		// Test if the account is able to withdraw with enough balance
+		assertEquals(new String("--> Account 1's account balance after withdrawal of $10.0 is now $9.80"), outContent.toString().trim());
+	}
 }
