@@ -84,9 +84,6 @@ public class FileStreamHelper {
 					merged_transaction_list.add(trans);
 				}
 			}
-		} catch(FileNotFoundException e) {
-			logError(e.getMessage());
-			e.printStackTrace();
 		} catch (IOException e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -120,9 +117,6 @@ public class FileStreamHelper {
 					old_accounts_list.add(acc);
 				}
 			}
-		} catch(FileNotFoundException e) {
-			logError(e.getMessage());
-			e.printStackTrace();
 		} catch (IOException e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -159,7 +153,7 @@ public class FileStreamHelper {
             }
             master_accounts.close();
         } catch(Exception e) {
-			System.out.print("ERROR: " + e);
+			System.err.print("ERROR: " + e);
 		} 
 	}
 	
@@ -218,57 +212,5 @@ public class FileStreamHelper {
 	 */
 	public void setOldAccountFile(String old_account_file) {
 		this.old_account_file = "files/" + old_account_file;
-	}
-	
-	public File[] readFolder(String dirName) {
-		File dir = new File(dirName);
-		
-		return dir.listFiles(new FilenameFilter() {
-
-			@Override
-			public boolean accept(File dir, String filename) {
-				return filename.endsWith(".txt");
-			}
-			
-		});
-	}
-	
-	public void mergeFiles(String dirPath, String mergedFile) {
-		File[] files = readFolder(dirPath);
-		FileWriter fstream = null;
-		BufferedWriter out = null;
-		
-		try {
-			fstream = new FileWriter(mergedFile, true);
-			out = new BufferedWriter(fstream);
-		} catch(IOException ex) {
-			ex.printStackTrace();
-		}
-		
-		for(File f : files) {
-			System.out.println("merging: " + f.getName());
-			FileInputStream fis;
-			
-			try {
-				fis = new FileInputStream(f);
-				BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-				
-				String aLine;
-				while((aLine = in.readLine()) != null) {
-					out.write(aLine);
-					out.newLine();
-				}
-				
-				in.close();
-			} catch(IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		try {
-			out.close();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
 	}
 }
