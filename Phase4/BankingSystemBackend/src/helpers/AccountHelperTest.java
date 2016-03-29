@@ -527,11 +527,9 @@ public class AccountHelperTest {
 		assertEquals(new String("Account 3 not found. Unable to transfer."), outContent.toString().trim());
 	}
 
-	@Test
-	public final void testCreate() {
-		outContent.reset(); // Reset the console
+	@Test // Successfully create account 2 between 1 and 3
+	public final void testCreate1() {
 		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
-		accs1.clear();
 		
 		Accounts a = new Accounts();
 		a.number = 1;
@@ -553,38 +551,45 @@ public class AccountHelperTest {
 		
 		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);
 		
-		// Check if there is one account
-		assertEquals(ah.getAccountList(), accs1);	
-		
 		// Add a new account
 		ah.create("Account 2", 0);
 		
 		// Test to make sure the Account is successfully created
 		assertEquals(new String("--> New Account created with number 2 with balance of $0.0"), outContent.toString().trim());
+		// Test if the newly created Account has the same value
+		assertEquals("Account 2", ah.accounts_list.get(1).name);
+		assertEquals(0, ah.accounts_list.get(1).balance, 0.001);
+		assertEquals(2, ah.accounts_list.get(1).number);
+	}
+	
+	@Test // Attempt to create with negative balance
+	public final void testCreate2() {
+		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 0;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs1.add(a);
+		
+		Accounts a3 = new Accounts();
+		a3.number = 3;
+		a3.name = "Account 3";
+		a3.is_active = false;
+		a3.balance = 0;
+		a3.trans_count = 0;
+		a3.is_student = false;
+		accs1.add(a3);
+		
+		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);
 		
 		// Test to add account with negative amount
-		outContent.reset(); // Reset the console
 		ah.create("Account 3", -1);
 		
-		assertEquals(new String("Not enough balance to create!"), outContent.toString().trim());
-		
-		// Test to make sure the objects are same after new account
-		
-		Accounts a1 = new Accounts();
-		a1.number = 2;
-		a1.name = "Account 2";
-		a1.is_active = true;
-		a1.balance = 0;
-		a1.trans_count = 0;
-		a1.is_student = false;
-		accs1.add(a1);
-		
-		Collections.sort(accs1, new IdComparator()); // Sort the accounts collection
-		
-		// Test if the newly created Account has the same value
-		assertEquals(ah.getAccountList().get(1).name, accs1.get(1).name);
-		assertEquals(ah.getAccountList().get(1).balance, accs1.get(1).balance, 0.001);
-		assertEquals(ah.getAccountList().get(1).number, accs1.get(1).number);
+		assertEquals(new String("Not enough balance to create!"), outContent.toString().trim());		
 	}
 
 	@Test
@@ -600,15 +605,6 @@ public class AccountHelperTest {
 		a.is_student = false;
 		accs.add(a);
 		
-		Accounts a2 = new Accounts();
-		a2.number = 2;
-		a2.name = "Account 2";
-		a2.is_active = false;
-		a2.balance = 1000;
-		a2.trans_count = 0;
-		a2.is_student = false;
-		accs.add(a2);
-		
 		AccountsHelper ah1 = new AccountsHelper(new ArrayList<Transactions>(), accs);
 		
 		// Reset the console window
@@ -622,13 +618,7 @@ public class AccountHelperTest {
 		
 		// Delete first account again, which does not exist
 		ah1.delete(a.name, a.number);
-		assertNotEquals(new String("--> Account number 1 is now deleted!"), outContent.toString().trim());
-		
-		outContent.reset();
-		
-		// Delete second account
-		ah1.delete(a2.name, a2.number);
-		assertEquals(new String("--> Account number 2 is now deleted!"), outContent.toString().trim()); 		
+		assertNotEquals(new String("--> Account number 1 is now deleted!"), outContent.toString().trim());			
 	}
 
 	@Test
@@ -647,19 +637,7 @@ public class AccountHelperTest {
 		// Test to see if getAccountList returns the same object
 		AccountsHelper ah1 = new AccountsHelper(new ArrayList<Transactions>(), accs);
 		// Test to see if the accs list is the same as the list returned from AccountHelper
-		assertEquals(accs, ah1.getAccountList());
-		
-		Accounts a1 = new Accounts();
-		a.number = 1;
-		a.name = "Account 1";
-		a.is_active = false;
-		a.balance = 0;
-		a.trans_count = 0;
-		a.is_student = false;
-		accs.add(a1);
-		
-		// test to see if the newly added account is the same in AccountsHelper
-		assertNotEquals(accs, ah1.getAccountList());
+		assertEquals(ah1.getAccountList(), accs);
 	}
 	
 	@Test
