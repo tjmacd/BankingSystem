@@ -140,12 +140,13 @@ public class FileStreamHelperTest {
 	@Test // Case 1: successfully log error
 	public void testLogError1() throws IOException {
 		String message = "This is an error";
-		PrintStream log_file = new PrintStream("backend.log");
+		String filename = "files/backend.log";
+		PrintStream log_file = new PrintStream(filename);
 		log_file.close();
 		FileStreamHelper fsh = new FileStreamHelper();
 		fsh.logError(message);
-		BufferedReader reader = new BufferedReader(new FileReader("backend.log"));
-		String line = reader.readLine();
+		BufferedReader reader = new BufferedReader(new FileReader(filename));
+		String line = reader.readLine().substring(26);
 		reader.close();
 		assertEquals("ERROR: " + message, line);
 	}
