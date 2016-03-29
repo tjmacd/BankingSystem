@@ -268,6 +268,7 @@ public class AccountsHelper {
 		new_account.name = name;
 		new_account.is_active = true;
 		if(amount < 0) {
+			System.out.println("Not enough balance to create!");
 			new FileStreamHelper().logError("Not enough balance to create!");
 		} else {
 			new_account.balance = amount;

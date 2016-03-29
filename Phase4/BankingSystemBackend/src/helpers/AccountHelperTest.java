@@ -334,7 +334,7 @@ public class AccountHelperTest {
 		fail("Not yet implemented"); // TODO
 	}
 
-	@Test
+	@Teste
 	public final void testPaybill() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -342,12 +342,57 @@ public class AccountHelperTest {
 	@Test
 	public final void testTransfer() {
 		fail("Not yet implemented"); // TODO
-	}
+	}*/
 
 	@Test
 	public final void testCreate() {
-		fail("Not yet implemented"); // TODO
-	}*/
+		outContent.reset(); // Reset the console
+		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
+		accs1.clear();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 0;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs1.add(a);
+		
+		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);
+		
+		// Check if there is one account
+		assertEquals(ah.getAccountList(), accs1);	
+		
+		// Add a new account
+		ah.create("Account 2", 0);
+		
+		// Test to make sure the Account is successfully created
+		assertEquals(new String("--> New Account created with number 2 with balance of $0.0"), outContent.toString().trim());
+		
+		// Test to add account with negative amount
+		outContent.reset(); // Reset the console
+		ah.create("Account 3", -1);
+		
+		assertEquals(new String("Not enough balance to create!"), outContent.toString().trim());
+		
+		// Test to make sure the objects are same after new account
+		
+		Accounts a1 = new Accounts();
+		a1.number = 2;
+		a1.name = "Account 2";
+		a1.is_active = true;
+		a1.balance = 0;
+		a1.trans_count = 0;
+		a1.is_student = false;
+		accs1.add(a1);
+		
+		Collections.sort(accs1, new IdComparator()); // Sort the accounts collection
+		
+		// Test if the newly created Account has the same value
+		assertEquals(ah.getAccountList().get(1).name, accs1.get(1).name);
+		assertEquals(ah.getAccountList().get(1).balance, accs1.get(1).balance, 0.001);
+	}
 
 	@Test
 	public final void testDelete() {
@@ -390,9 +435,7 @@ public class AccountHelperTest {
 		
 		// Delete second account
 		ah1.delete(a2.name, a2.number);
-		assertEquals(new String("--> Account number 2 is now deleted!"), outContent.toString().trim()); 
-		
-		
+		assertEquals(new String("--> Account number 2 is now deleted!"), outContent.toString().trim()); 		
 	}
 
 	@Test
