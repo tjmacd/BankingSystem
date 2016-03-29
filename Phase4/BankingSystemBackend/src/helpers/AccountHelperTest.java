@@ -109,7 +109,7 @@ public class AccountHelperTest {
 	
 	@Test
 	public final void testTransferTransaction() {
-		testProcessTransactions("Transfer", 2); // Test for Transfer Process
+		testProcessTransactions("Transfer --> Transfered $100.0 from Account No.1 to Account No. 1", 2); // Test for Transfer Process
 	}
 	
 	@Test
@@ -402,10 +402,44 @@ public class AccountHelperTest {
 		assertEquals(new String("--> Bill paid to EC by Account 1 of $50.0"), outContent.toString().trim());
 	}
 
-	/*@Test
+	@Test
 	public final void testTransfer() {
-		fail("Not yet implemented"); // TODO
-	}*/
+		outContent.reset(); // Reset the console
+		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
+		accs1.clear();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 100;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs1.add(a);
+		
+		Accounts a1 = new Accounts();
+		a1.number = 2;
+		a1.name = "Account 2";
+		a1.is_active = false;
+		a1.balance = 0;
+		a1.trans_count = 0;
+		a1.is_student = false;
+		accs1.add(a1);
+		
+		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);
+		
+		ah.transfer("Account 1", 1, 100, 2);
+		
+		// Test to make sure that account does not have enough balance
+		assertEquals(new String("Not enough balance to transfer!"), outContent.toString().trim());
+		
+		outContent.reset(); // Reset the console
+		
+		ah.transfer("Account 1", 1, 50, 2);
+		
+		// Test to make the sure the transfer has been processed
+		assertEquals(new String("--> Transfered $50.0 from Account No.1 to Account No. 2"), outContent.toString().trim());
+	}
 
 	@Test
 	public final void testCreate() {

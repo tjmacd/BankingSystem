@@ -231,6 +231,7 @@ public class AccountsHelper {
 		if(acc_from != null) {
 			float fee = !is_admin ? acc_from.getFee() : 0.0f;
 			if(acc_from.balance - amount - fee < 0){
+				System.out.println("Not enough balance to transfer!");
 				new FileStreamHelper().logError("Not enough balance to transfer!");
 			} else {
 				Accounts acc_to = getAccount(to_number);
@@ -238,6 +239,7 @@ public class AccountsHelper {
 					acc_from.balance -= (amount + fee);
 					acc_to.balance += amount;
 					if(!is_admin) acc_from.trans_count++;
+					System.out.println("--> Transfered $" + amount + " from Account No." + from_number + " to Account No. " + to_number);
 				} else {
 					new FileStreamHelper().logError("Account " + to_number + 
 							" not found. Unable to transfer.");
