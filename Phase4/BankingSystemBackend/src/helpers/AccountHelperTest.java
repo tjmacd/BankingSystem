@@ -398,8 +398,8 @@ public class AccountHelperTest {
 		
 	}
 
-	@Test
-	public final void testPaybill() {
+	@Test // successful bill payment
+	public final void testPaybill1() {
 		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
 		accs1.clear();
 		
@@ -414,23 +414,67 @@ public class AccountHelperTest {
 		
 		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);
 		
-		outContent.reset(); // Reset the console
-		
 		ah.paybill("Account 1", 1, 100, "EC");
 		
 		// Test to make sure there is enough balance to pay the bill
 		assertEquals(new String("Not enough balance to pay bill!"), outContent.toString().trim());
+	}
+	
+	@Test // Not enough balance
+	public final void testPaybill2() {
+		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
+		accs1.clear();
 		
-		outContent.reset(); // Reset the console
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 100;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs1.add(a);
 		
+		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);
 		ah.paybill("Account 1", 1, 50, "EC");
 		
 		// Test to make sure bill has been paid
 		assertEquals(new String("--> Bill paid to EC by Account 1 of $50.0"), outContent.toString().trim());
 	}
 
-	@Test
-	public final void testTransfer() {
+	@Test // successful transfer
+	public final void testTransfer1() {
+		outContent.reset(); // Reset the console
+		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
+		accs1.clear();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 100;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs1.add(a);
+		
+		Accounts a1 = new Accounts();
+		a1.number = 2;
+		a1.name = "Account 2";
+		a1.is_active = false;
+		a1.balance = 0;
+		a1.trans_count = 0;
+		a1.is_student = false;
+		accs1.add(a1);
+		
+		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);
+		
+		ah.transfer("Account 1", 1, 50, 2);
+		
+		// Test to make the sure the transfer has been processed
+		assertEquals(new String("--> Transfered $50.0 from Account No.1 to Account No. 2"), outContent.toString().trim());
+	}
+	
+	@Test // not enough balance
+	public final void testTransfer2() {
 		outContent.reset(); // Reset the console
 		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
 		accs1.clear();
@@ -459,16 +503,24 @@ public class AccountHelperTest {
 		
 		// Test to make sure that account does not have enough balance
 		assertEquals(new String("Not enough balance to transfer!"), outContent.toString().trim());
-		
+	}
+	
+	@Test // account not found
+	public final void testTransfer3() {
 		outContent.reset(); // Reset the console
+		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
+		accs1.clear();
 		
-		ah.transfer("Account 1", 1, 50, 2);
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 100;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs1.add(a);
 		
-		// Test to make the sure the transfer has been processed
-		assertEquals(new String("--> Transfered $50.0 from Account No.1 to Account No. 2"), outContent.toString().trim());
-		
-		outContent.reset(); // Reset the console
-		
+		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);		
 		ah.transfer("Account 1", 1, 30, 3);
 		
 		// Test to make the sure account is valid for transfer
