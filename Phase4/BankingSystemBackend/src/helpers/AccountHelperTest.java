@@ -114,7 +114,7 @@ public class AccountHelperTest {
 	
 	@Test
 	public final void testPaybillTransaction() {
-		testProcessTransactions("Paybill", 3); // Test for Paybill Process
+		testProcessTransactions("Paybill --> Bill paid to 1 by Account 1 of $100.0", 3); // Test for Paybill Process
 	}
 	
 	@Test
@@ -327,6 +327,8 @@ public class AccountHelperTest {
 		outContent.reset(); // Reset the console
 		ah1.deposit(t2.name, t2.number, t2.amount); // Deposit negative amount
 		assertEquals(new String("Not enough balance to cover fee!"), outContent.toString().trim());
+		
+		outContent.reset();
 	}
 
 	@Test
@@ -369,12 +371,38 @@ public class AccountHelperTest {
 		assertEquals(new String("--> Account 1's account balance after withdrawal of $100.0 is now $99.70"), outContent.toString().trim());
 	}
 
-	/*@Test
+	@Test
 	public final void testPaybill() {
-		fail("Not yet implemented"); // TODO
+		ArrayList<Accounts> accs1 = new ArrayList<Accounts>();
+		accs1.clear();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 100;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs1.add(a);
+		
+		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);
+		
+		outContent.reset(); // Reset the console
+		
+		ah.paybill("Account 1", 1, 100, "EC");
+		
+		// Test to make sure there is enough balance to pay the bill
+		assertEquals(new String("Not enough balance to pay bill!"), outContent.toString().trim());
+		
+		outContent.reset(); // Reset the console
+		
+		ah.paybill("Account 1", 1, 50, "EC");
+		
+		// Test to make sure bill has been paid
+		assertEquals(new String("--> Bill paid to EC by Account 1 of $50.0"), outContent.toString().trim());
 	}
 
-	@Test
+	/*@Test
 	public final void testTransfer() {
 		fail("Not yet implemented"); // TODO
 	}*/
