@@ -23,10 +23,10 @@ public class BankingSystemBackend {
 		//fsh.mergeFiles("files/filesToBeMerged/", "files/" + args[0]);
 		
 		// Take in the first argument of mergedTransactionFile
-		fsh.setMerged_transaction_file(args[0]);
+		fsh.setMergedTransactionFile(args[0]);
 		
 		// Take in the second argument containing account file name
-		fsh.setOld_account_file(args[1]);				
+		fsh.setOldAccountFile(args[1]);				
 		
 		// Construct AccountsHelper class with 2 parameters
 		// First parameter: ArrayList<Transactions> merged transactions file
