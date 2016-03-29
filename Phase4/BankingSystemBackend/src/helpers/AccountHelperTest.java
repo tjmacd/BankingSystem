@@ -344,7 +344,7 @@ public class AccountHelperTest {
 		
 		AccountsHelper ah1 = new AccountsHelper(trans, accs);
 		
-		// Test to change the status of the account
+		// Test if the negative amount throws error
 		ah1.deposit(a.name, a.number, -100); // Deposit negative amount
 		assertEquals(new String("Not enough balance to cover fee!"), outContent.toString().trim());
 		
@@ -369,7 +369,7 @@ public class AccountHelperTest {
 		AccountsHelper ah = new AccountsHelper(new ArrayList<Transactions>(), accs1);
 		
 		ah.withdraw("Account 1", 1, 1.0f);
-		// Test to see if the account can be withdrawn with 0 balance
+		// Test to see if the account can be withdrawn
 		assertEquals(new String("--> Account 1's account balance after "
 				+ "withdrawal of $1.0 is now $98.90"), 
 				outContent.toString().trim());
