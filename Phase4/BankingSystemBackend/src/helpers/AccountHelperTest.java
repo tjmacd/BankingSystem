@@ -352,11 +352,37 @@ public class AccountHelperTest {
 	@Test
 	public final void testDelete() {
 		fail("Not yet implemented"); // TODO
-	}
+	}*/
 
 	@Test
 	public final void testGetAccountList() {
-		fail("Not yet implemented"); // TODO
-	}*/
+		ArrayList<Accounts> accs = new ArrayList<Accounts>();
+		
+		Accounts a = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 0;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs.add(a);
+		
+		// Test to see if getAccountList returns the same object
+		AccountsHelper ah1 = new AccountsHelper(new ArrayList<Transactions>(), accs);
+		// Test to see if the accs list is the same as the list returned from AccountHelper
+		assertEquals(accs, ah1.getAccountList());
+		
+		Accounts a1 = new Accounts();
+		a.number = 1;
+		a.name = "Account 1";
+		a.is_active = false;
+		a.balance = 0;
+		a.trans_count = 0;
+		a.is_student = false;
+		accs.add(a1);
+		
+		// test to see if the newly added account is the same in AccountsHelper
+		assertNotEquals(accs, ah1.getAccountList());
+	}
 
 }
