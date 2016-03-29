@@ -98,7 +98,7 @@ public class AccountsHelper {
 		for(Accounts acc : accounts_list) {
 			if(acc.name.equals(name) && acc.number == number){
 				return acc;
-			} else return null;
+			}
 		}
 		return null; 
 	}
