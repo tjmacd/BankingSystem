@@ -2,8 +2,14 @@ package helpers;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -101,39 +107,90 @@ public class FileStreamHelperTest {
 		assertEquals("java.io.IOException:", exception);
 	}
 	
-	@Test
-	public void testWriteCurrentAccounts() {
+	@Test // Case 1: successful write
+	public void testWriteCurrentAccounts1() throws IOException {
+		ArrayList<Accounts> accounts = new ArrayList<Accounts>();
+		Accounts account = new Accounts();
+		account.balance = 1.0f;
+		account.name = "Name";
+		account.is_active = true;
+		account.is_student = true;
+		account.number = 1;
+		account.trans_count = 1;
+		accounts.add(account);
+		FileStreamHelper fsh = new FileStreamHelper();
+		
+		fsh.writeCurrentAccounts(accounts);
+		BufferedReader reader = new BufferedReader(new FileReader("files/currentAccounts.txt"));
+		String line = reader.readLine();
+		reader.close();
+		assertEquals("00001 Name                 A 00001.00 S", line);
+	}
+	
+	@Test // Case 2: Exception TODO
+	public void testWriteCurrentAccounts2() {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testWriteMasterAccounts() {
+	@Test // Case 1: successful write
+	public void testWriteMasterAccounts1() throws IOException {
+		ArrayList<Accounts> accounts = new ArrayList<Accounts>();
+		Accounts account = new Accounts();
+		account.balance = 1.0f;
+		account.name = "Name";
+		account.is_active = true;
+		account.is_student = true;
+		account.number = 1;
+		account.trans_count = 1;
+		accounts.add(account);
+		FileStreamHelper fsh = new FileStreamHelper();
+		
+		fsh.writeMasterAccounts(accounts);
+		BufferedReader reader = new BufferedReader(new FileReader("files/masterBankAccountsFile.txt"));
+		String line = reader.readLine();
+		reader.close();
+		assertEquals("00001 Name                 A 00001.00 0001 S", line);
+	}
+	
+	@Test // Case 2: Exception TODO
+	public void testWriteMasterAccounts2() {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testLogError() {
+	@Test // Case 1: successfully log error
+	public void testLogError1() throws IOException {
+		String message = "This is an error";
+		PrintStream log_file = new PrintStream("backend.log");
+		log_file.close();
+		FileStreamHelper fsh = new FileStreamHelper();
+		fsh.logError(message);
+		BufferedReader reader = new BufferedReader(new FileReader("backend.log"));
+		String line = reader.readLine();
+		reader.close();
+		assertEquals("ERROR: " + message, line);
+	}
+	
+	@Test // Case 2: exception TODO
+	public void testLogError2() {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testGetMerged_transaction_file() {
-		fail("Not yet implemented");
+	@Test // Test set then get transaction file
+	public void testSetGetMergedTransactionFile() {
+		FileStreamHelper fsh = new FileStreamHelper();
+		String filename = "mergedTransactionFile";
+		fsh.setMergedTransactionFile(filename);
+		String actual_filename = fsh.getMergedTransactionFile();
+		assertEquals("files/" + filename, actual_filename);
 	}
 
-	@Test
-	public void testSetMerged_transaction_file() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetOld_account_file() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetOld_account_file() {
-		fail("Not yet implemented");
+	@Test // Test set and get Old account file
+	public void testSetGetOldAccountFile() {
+		FileStreamHelper fsh = new FileStreamHelper();
+		String filename = "accountFile";
+		fsh.setOldAccountFile(filename);
+		String actual_filename = fsh.getOldAccountFile();
+		assertEquals("files/" + filename, actual_filename);
 	}
 
 }

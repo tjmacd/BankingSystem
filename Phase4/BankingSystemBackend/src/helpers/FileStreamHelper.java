@@ -180,7 +180,7 @@ public class FileStreamHelper {
 			// Flush the stream
 			bw.flush();
 		} catch(Exception e) {
-			System.out.print("ERROR: " + e);
+			System.err.print("ERROR: " + e);
 		}
 	}
 
