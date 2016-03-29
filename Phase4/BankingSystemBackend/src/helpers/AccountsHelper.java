@@ -260,6 +260,7 @@ public class AccountsHelper {
 		Accounts new_account = new Accounts();
 		int i = 1;
 		int new_number = 0;
+		// Find the lowest unused account number
 		for(Accounts acc : accounts_list){
 			if(i == acc.number){
 				i++;
@@ -271,15 +272,17 @@ public class AccountsHelper {
 		if(new_number == 0){
 			new_number = accounts_list.size() + 1;
 		}
+		// Initialize new account
 		new_account.number = new_number;
 		new_account.name = name;
 		new_account.is_active = true;
-		if(amount < 0) {
+		if(amount < 0) { // Check amount is not negative
 			System.out.println("Not enough balance to create!");
 			new FileStreamHelper().logError("Not enough balance to create!");
 		} else {
 			new_account.balance = amount;
 			accounts_list.add(new_account);
+			// Re-sort list
 			Collections.sort(accounts_list, new IdComparator());
 			System.out.println("--> New Account created with number " + 
 			new_account.number + " with balance of $" + new_account.balance);

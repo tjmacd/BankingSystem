@@ -18,8 +18,10 @@ import org.junit.Test;
 
 public class FileStreamHelperTest {
 	
-	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+	private final ByteArrayOutputStream outContent = 
+			new ByteArrayOutputStream();
+	private final ByteArrayOutputStream errContent = 
+			new ByteArrayOutputStream();
 	
 	@Before
 	public void setUpStreams() {
@@ -101,7 +103,8 @@ public class FileStreamHelperTest {
 		FileStreamHelper fsh = new FileStreamHelper();
 		
 		fsh.writeCurrentAccounts(accounts);
-		BufferedReader reader = new BufferedReader(new FileReader("files/currentAccounts.txt"));
+		BufferedReader reader = new BufferedReader(
+				new FileReader("files/currentAccounts.txt"));
 		String line = reader.readLine();
 		reader.close();
 		assertEquals("00001 Name                 A 00001.00 S", line);
@@ -126,7 +129,8 @@ public class FileStreamHelperTest {
 		FileStreamHelper fsh = new FileStreamHelper();
 		
 		fsh.writeMasterAccounts(accounts);
-		BufferedReader reader = new BufferedReader(new FileReader("files/masterBankAccountsFile.txt"));
+		BufferedReader reader = new BufferedReader(
+				new FileReader("files/masterBankAccountsFile.txt"));
 		String line = reader.readLine();
 		reader.close();
 		assertEquals("00001 Name                 A 00001.00 0001 S", line);
@@ -173,5 +177,4 @@ public class FileStreamHelperTest {
 		String actual_filename = fsh.getOldAccountFile();
 		assertEquals("files/" + filename, actual_filename);
 	}
-
 }
