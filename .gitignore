@@ -14,3 +14,5 @@ testlog.txt
 /Phase2/FlippinFlapJacks/BankSysBackEnd/dist/
 backend.log
 *.class
+/Phase6/simulation/.class/
+/Phase6/simulation/daily/
