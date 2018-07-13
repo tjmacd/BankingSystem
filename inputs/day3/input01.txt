@@ -1,0 +1,18 @@
+login
+standard
+Account 1
+deposit
+00001
+100.00
+logout
+login
+standard
+Account Full
+deposit
+00002
+50.00
+paybill
+00002
+CQ
+100.00
+logout

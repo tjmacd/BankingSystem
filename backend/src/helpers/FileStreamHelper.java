@@ -26,12 +26,12 @@ public class FileStreamHelper {
 	// Filename of accounts file
 	private String old_account_file = "";
 	// File name of error log
-	private String log_file = "files/backend.log";
+	private String log_file = "backend.log";
 	// Filename of master bank accounts file
 	private String new_master_accounts_file = 
-			"files/masterBankAccountsFile.txt";
+			"masterBankAccountsFile.txt";
 	// Filename of new current accounts file to be written
-    private String new_current_accounts_file = "files/currentAccounts.txt";
+    private String new_current_accounts_file = "currentAccounts.txt";
     // List of transactions
 	ArrayList<Transactions> merged_transaction_list = 
 			new ArrayList<Transactions>();
@@ -193,7 +193,7 @@ public class FileStreamHelper {
 	 * @param merged_transaction_file the new merged_transaction_file
 	 */
 	public void setMergedTransactionFile(String merged_transaction_file) {
-		this.merged_transaction_file = "files/" + merged_transaction_file;
+		this.merged_transaction_file = merged_transaction_file;
 	}
 
 	/**
@@ -211,6 +211,6 @@ public class FileStreamHelper {
 	 * @param old_account_file the new old_account_file
 	 */
 	public void setOldAccountFile(String old_account_file) {
-		this.old_account_file = "files/" + old_account_file;
+		this.old_account_file = old_account_file;
 	}
 }

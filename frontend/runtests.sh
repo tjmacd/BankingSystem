@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ## Remove old test files
 rm -r tests/consoleOutput/ tests/transactionFiles/
 mkdir tests/consoleOutput/ tests/transactionFiles/
@@ -8,7 +10,7 @@ for file in *
 do
 	test="${file%.txt}"
 	echo “running test $test”
-	../../BankingSystem/BankingSystem ../../currentAccounts.txt ../transactionFiles/$test.atf < $file > ../consoleOutput/$test.out
+	../../frontend ../../currentAccounts.txt ../transactionFiles/$test.atf < $file > ../consoleOutput/$test.out
 done
 cd ..
 

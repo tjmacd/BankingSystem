@@ -1,0 +1,10 @@
+login
+admin
+deposit
+Empty Account
+00004
+500.00
+enable
+Disabled Account
+00006
+logout

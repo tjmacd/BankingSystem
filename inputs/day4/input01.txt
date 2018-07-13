@@ -1,0 +1,8 @@
+login
+standard
+Account Full
+transfer
+00002
+00007
+200.00
+logout

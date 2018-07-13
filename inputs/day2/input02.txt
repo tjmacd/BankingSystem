@@ -1,0 +1,6 @@
+login
+admin
+changeplan
+Empty Student
+00007
+logout

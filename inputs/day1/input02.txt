@@ -1,0 +1,11 @@
+login
+standard
+Account Full
+withdrawal
+00002
+100.00
+paybill
+00002
+TV
+100.00
+logout

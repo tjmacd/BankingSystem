@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 	if(argc == 3)
 		trans_helper = new TransactionsHelper(argv[1], argv[2]);
 	else {
-		std::cout << "Usage: BankingSystem <accounts file> <transaction file>" << std::endl;
+		std::cout << "Usage: frontend <accounts file> <transaction file>" << std::endl;
 		return 0;
 	}
 	std::string transactions;

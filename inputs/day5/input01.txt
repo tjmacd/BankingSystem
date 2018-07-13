@@ -1,0 +1,10 @@
+login
+admin
+delete
+New Name
+00100
+deposit
+Account 5
+00005
+100.00
+logout

@@ -1,0 +1,8 @@
+00001 Account 1            A 00200.80 0000 N
+00002 Account Full         A 99048.89 0000 N
+00003 Student Account 1    A 00001.00 0000 S
+00004 Empty Account        A 02000.00 0000 N
+00005 Account 5            A 00225.00 0000 N
+00006 Disabled Account     A 99599.79 0000 N
+00007 Empty Student        A 00000.00 0000 N
+00000 END OF FILE            00000000       

@@ -1,0 +1,10 @@
+login
+admin
+enable
+Account 5
+00005
+deposit
+Account 5
+00005
+10.00
+logout
