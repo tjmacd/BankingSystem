@@ -21,6 +21,7 @@ Quality Assurance testing was done throughout the development. Continuous blackb
 
 ## Transactions and Codes
 Transactions marked \* require admin privileges
+
 | Code | Transaction | Description |
 | -----|-------------|-------------|
 | 00   | logout      | ends session|
